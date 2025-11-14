@@ -1,0 +1,189 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block title %}{{ titulo }}{% endblock %}
+
+{% block content %}
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0">{{ titulo }}</h4>
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="{% url 'dashboard_analytics' %}">Dashboard</a></li>
+                            <li class="breadcrumb-item"><a href="{% url 'activos:lista_activos' %}">Activos</a></li>
+                            <li class="breadcrumb-item active">{{ action }}</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Información Básica</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-md-3">
+                                    <label class="form-label">{{ form.codigo.label }} <span class="text-danger">*</span></label>
+                                    {{ form.codigo }}
+                                    {% if form.codigo.errors %}<div class="invalid-feedback d-block">{{ form.codigo.errors }}</div>{% endif %}
+                                </div>
+                                <div class="col-md-9">
+                                    <label class="form-label">{{ form.nombre.label }} <span class="text-danger">*</span></label>
+                                    {{ form.nombre }}
+                                    {% if form.nombre.errors %}<div class="invalid-feedback d-block">{{ form.nombre.errors }}</div>{% endif %}
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="form-label">{{ form.descripcion.label }}</label>
+                                    {{ form.descripcion }}
+                                    {% if form.descripcion.errors %}<div class="invalid-feedback d-block">{{ form.descripcion.errors }}</div>{% endif %}
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">{{ form.categoria.label }} <span class="text-danger">*</span></label>
+                                    {{ form.categoria }}
+                                    {% if form.categoria.errors %}<div class="invalid-feedback d-block">{{ form.categoria.errors }}</div>{% endif %}
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">{{ form.estado.label }} <span class="text-danger">*</span></label>
+                                    {{ form.estado }}
+                                    {% if form.estado.errors %}<div class="invalid-feedback d-block">{{ form.estado.errors }}</div>{% endif %}
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Unidad de Medida</label>
+                                    <input type="text" class="form-control" value="Unidad (un)" readonly disabled>
+                                    <small class="text-muted">La unidad de medida es siempre "Unidad"</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Detalles del Producto</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">{{ form.marca.label }}</label>
+                                    {{ form.marca }}
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">{{ form.modelo.label }}</label>
+                                    {{ form.modelo }}
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">{{ form.numero_serie.label }}</label>
+                                    {{ form.numero_serie }}
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">{{ form.codigo_barras.label }}</label>
+                                    {{ form.codigo_barras }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Información Financiera</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">{{ form.precio_unitario.label }}</label>
+                                    {{ form.precio_unitario }}
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">{{ form.costo_promedio.label }}</label>
+                                    {{ form.costo_promedio }}
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="alert alert-info mb-0">
+                                        <i class="ri-information-line me-2"></i>
+                                        <strong>Nota:</strong> Los activos no manejan stock. Para control de inventario, utilice el módulo de Artículos en Bodega.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Opciones</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-md-3">
+                                    <div class="form-check">
+                                        {{ form.requiere_serie }}
+                                        <label class="form-check-label" for="{{ form.requiere_serie.id_for_label }}">
+                                            {{ form.requiere_serie.label }}
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-check">
+                                        {{ form.requiere_lote }}
+                                        <label class="form-check-label" for="{{ form.requiere_lote.id_for_label }}">
+                                            {{ form.requiere_lote.label }}
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-check">
+                                        {{ form.requiere_vencimiento }}
+                                        <label class="form-check-label" for="{{ form.requiere_vencimiento.id_for_label }}">
+                                            {{ form.requiere_vencimiento.label }}
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-check">
+                                        {{ form.activo }}
+                                        <label class="form-check-label" for="{{ form.activo.id_for_label }}">
+                                            {{ form.activo.label }}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="text-end">
+                        <a href="{% url 'activos:lista_activos' %}" class="btn btn-light">
+                            <i class="ri-close-line"></i> Cancelar
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="ri-save-line"></i> {{ action }} Activo
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box">
+                    <h4 class="mb-sm-0">{{ titulo }}</h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card border-danger">
+                    <div class="card-body">
+                        <div class="alert alert-danger" role="alert">
+                            <h5 class="alert-heading">¿Está seguro de eliminar esta categoría?</h5>
+                            <p>Esta acción no se puede deshacer.</p>
+                        </div>
+                        <dl class="row">
+                            <dt class="col-sm-4">Código:</dt>
+                            <dd class="col-sm-8">{{ categoria.codigo }}</dd>
+                            <dt class="col-sm-4">Nombre:</dt>
+                            <dd class="col-sm-8">{{ categoria.nombre }}</dd>
+                        </dl>
+                        <form method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">
+                                <i class="ri-delete-bin-line"></i> Sí, eliminar
+                            </button>
+                            <a href="{% url 'bodega:categoria_lista' %}" class="btn btn-secondary">
+                                <i class="ri-arrow-left-line"></i> Cancelar
+                            </a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

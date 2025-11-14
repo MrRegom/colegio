@@ -1,0 +1,211 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block title %}{{ titulo }}{% endblock %}
+
+{% block content %}
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0">{{ titulo }}</h4>
+                    <div>
+                        <a href="{% url 'compras:recepcion_activo_lista' %}" class="btn btn-secondary">
+                            <i class="ri-arrow-left-line"></i> Volver
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <form method="post" id="formRecepcion">
+            {% csrf_token %}
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Información de la Recepción</h5>
+                        </div>
+                        <div class="card-body">
+                            {% if form.errors %}
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>Error:</strong> Por favor corrija los siguientes errores:
+                                <ul class="mb-0">
+                                    {% for field in form %}
+                                        {% for error in field.errors %}
+                                            <li>{{ field.label }}: {{ error }}</li>
+                                        {% endfor %}
+                                    {% endfor %}
+                                    {% for error in form.non_field_errors %}
+                                        <li>{{ error }}</li>
+                                    {% endfor %}
+                                </ul>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            {% endif %}
+
+                            <div class="alert alert-info">
+                                <i class="ri-information-line"></i> El número de recepción se generará automáticamente con el formato: <strong>REC-ACT-2025-XXXXXX</strong>
+                            </div>
+
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Tipo de Recepción <span class="text-danger">*</span></label>
+                                    {{ form.tipo }}
+                                    {% if form.tipo.errors %}
+                                        <div class="text-danger small">{{ form.tipo.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-6 d-none" id="orden_compra_wrapper">
+                                    <label class="form-label">Orden de Compra <span class="text-danger orden-required d-none">*</span></label>
+                                    {{ form.orden_compra }}
+                                    {% if form.orden_compra.errors %}
+                                        <div class="text-danger small">{{ form.orden_compra.errors.0 }}</div>
+                                    {% endif %}
+                                    <div class="form-text">Solo si la recepción proviene de una orden de compra</div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Documento de Referencia</label>
+                                    {{ form.documento_referencia }}
+                                    {% if form.documento_referencia.errors %}
+                                        <div class="text-danger small">{{ form.documento_referencia.errors.0 }}</div>
+                                    {% endif %}
+                                    <div class="form-text">Ej: Guía de despacho, Factura, etc.</div>
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="form-label">Observaciones</label>
+                                    {{ form.observaciones }}
+                                    {% if form.observaciones.errors %}
+                                        <div class="text-danger small">{{ form.observaciones.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bienes/Activos a Recibir -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h5 class="card-title mb-0">Bienes/Activos a Recibir</h5>
+                                <button type="button" class="btn btn-sm btn-primary" id="btn-agregar-activo">
+                                    <i class="ri-add-line"></i> Agregar Bien/Activo
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-nowrap" id="tabla-activos">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th style="width: 35%">Bien/Activo <span class="text-danger">*</span></th>
+                                            <th style="width: 15%">Cantidad <span class="text-danger">*</span></th>
+                                            <th style="width: 20%">Número de Serie</th>
+                                            <th style="width: 22%">Observaciones</th>
+                                            <th style="width: 8%" class="text-center">Acción</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbody-activos">
+                                        <!-- Las filas se agregarán dinámicamente vía JavaScript -->
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div id="sin-activos" class="text-center text-muted py-4">
+                                <i class="ri-inbox-line" style="font-size: 3rem;"></i>
+                                <p class="mb-0">No hay bienes/activos agregados. Haga clic en "Agregar Bien/Activo" para comenzar.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botones -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="text-end">
+                        <a href="{% url 'compras:recepcion_activo_lista' %}" class="btn btn-light">
+                            <i class="ri-close-line"></i> Cancelar
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="ri-save-line"></i> {{ action }} Recepción
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<!-- Modal para seleccionar activo -->
+<div class="modal fade" id="modalActivo" tabindex="-1" aria-labelledby="modalActivoLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalActivoLabel">Seleccionar Bien/Activo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label">Buscar Bien/Activo</label>
+                    <input type="text" class="form-control" id="buscar-activo" placeholder="Buscar por código o nombre...">
+                </div>
+                <div class="table-responsive" style="max-height: 400px;">
+                    <table class="table table-hover">
+                        <thead class="table-light sticky-top">
+                            <tr>
+                                <th>Código</th>
+                                <th>Nombre</th>
+                                <th>Categoría</th>
+                                <th>Requiere Serie</th>
+                                <th>Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-lista-activos">
+                            {% for activo in activos %}
+                            <tr data-activo-id="{{ activo.id }}"
+                                data-activo-codigo="{{ activo.codigo }}"
+                                data-activo-nombre="{{ activo.nombre }}"
+                                data-activo-requiere-serie="{{ activo.requiere_serie }}">
+                                <td><code>{{ activo.codigo }}</code></td>
+                                <td>{{ activo.nombre }}</td>
+                                <td>{{ activo.categoria.nombre }}</td>
+                                <td>
+                                    {% if activo.requiere_serie %}
+                                    <span class="badge bg-warning">Sí</span>
+                                    {% else %}
+                                    <span class="badge bg-secondary">No</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-sm btn-success btn-seleccionar-activo">
+                                        <i class="ri-check-line"></i> Seleccionar
+                                    </button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<!-- JavaScript para manejar tipos de recepción y datos del formulario -->
+<script>
+    const tiposRecepcion = {{ tipos_recepcion|safe }};
+    const urlObtenerActivosOC = "{% url 'compras:obtener_activos_orden_compra' %}";
+</script>
+<!-- Funcionalidad de recepción de activos -->
+<script src="{% static 'js/compras/crear-recepcion-activos.js' %}"></script>
+{% endblock %}

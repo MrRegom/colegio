@@ -1,0 +1,152 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0">{{ titulo }}</h4>
+                    <div class="page-title-right">
+                        <a href="{% url 'bodega:entrega_articulo_crear' %}" class="btn btn-primary">
+                            <i class="ri-add-line"></i> Nueva Entrega de Artículos
+                        </a>
+                        <a href="{% url 'bodega:menu_bodega' %}" class="btn btn-secondary">
+                            <i class="ri-arrow-left-line"></i> Volver
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <form method="get" class="row g-3">
+                            <div class="col-md-4">
+                                <input type="text" name="q" class="form-control"
+                                       placeholder="Buscar por número, receptor, RUT..."
+                                       value="{{ request.GET.q }}">
+                            </div>
+                            <div class="col-md-3">
+                                <select name="estado" class="form-select">
+                                    <option value="">Todos los estados</option>
+                                    {% for estado in estados %}
+                                    <option value="{{ estado.id }}"
+                                            {% if request.GET.estado|stringformat:"s" == estado.id|stringformat:"s" %}selected{% endif %}>
+                                        {{ estado.nombre }}
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <select name="bodega" class="form-select">
+                                    <option value="">Todas las bodegas</option>
+                                    {% for bodega in bodegas %}
+                                    <option value="{{ bodega.id }}"
+                                            {% if request.GET.bodega|stringformat:"s" == bodega.id|stringformat:"s" %}selected{% endif %}>
+                                        {{ bodega.nombre }}
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-primary w-100">
+                                    <i class="ri-search-line"></i> Buscar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Número</th>
+                                        <th>Fecha</th>
+                                        <th>Tipo</th>
+                                        <th>Bodega Origen</th>
+                                        <th>Recibido Por</th>
+                                        <th>Estado</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for entrega in entregas %}
+                                    <tr>
+                                        <td><strong>{{ entrega.numero }}</strong></td>
+                                        <td>{{ entrega.fecha_entrega|date:"d/m/Y H:i" }}</td>
+                                        <td>{{ entrega.tipo.nombre }}</td>
+                                        <td>{{ entrega.bodega_origen.nombre }}</td>
+                                        <td>{{ entrega.recibido_por.get_full_name|default:entrega.recibido_por.username }}</td>
+                                        <td>
+                                            <span class="badge" style="background-color: {{ entrega.estado.color }};">
+                                                {{ entrega.estado.nombre }}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <a href="{% url 'bodega:entrega_articulo_detalle' entrega.pk %}"
+                                               class="btn btn-sm btn-primary" title="Ver detalle">
+                                                <i class="ri-eye-line"></i> Ver
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="7" class="text-center">No hay entregas registradas</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+
+                        {% if is_paginated %}
+                        <div class="row mt-3">
+                            <div class="col-12">
+                                <nav aria-label="Page navigation">
+                                    <ul class="pagination justify-content-center">
+                                        {% if page_obj.has_previous %}
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page=1{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.estado %}&estado={{ request.GET.estado }}{% endif %}{% if request.GET.bodega %}&bodega={{ request.GET.bodega }}{% endif %}">
+                                                Primera
+                                            </a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.estado %}&estado={{ request.GET.estado }}{% endif %}{% if request.GET.bodega %}&bodega={{ request.GET.bodega }}{% endif %}">
+                                                Anterior
+                                            </a>
+                                        </li>
+                                        {% endif %}
+
+                                        <li class="page-item active">
+                                            <span class="page-link">
+                                                Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+                                            </span>
+                                        </li>
+
+                                        {% if page_obj.has_next %}
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.estado %}&estado={{ request.GET.estado }}{% endif %}{% if request.GET.bodega %}&bodega={{ request.GET.bodega }}{% endif %}">
+                                                Siguiente
+                                            </a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.estado %}&estado={{ request.GET.estado }}{% endif %}{% if request.GET.bodega %}&bodega={{ request.GET.bodega }}{% endif %}">
+                                                Última
+                                            </a>
+                                        </li>
+                                        {% endif %}
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

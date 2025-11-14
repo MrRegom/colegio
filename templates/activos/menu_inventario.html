@@ -1,0 +1,161 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block title %}{{ titulo }}{% endblock %}
+
+{% block content %}
+<div class="page-content">
+    <div class="container-fluid">
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between mb-3">
+                    <h4 class="mb-sm-0">{{ titulo }}</h4>
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="{% url 'dashboard_analytics' %}">Dashboard</a></li>
+                            <li class="breadcrumb-item active">Inventario</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <!-- Menú principal con Cards -->
+        <div class="row">
+            <div class="col-12">
+                <h5 class="mb-3 text-muted">Seleccione una opción:</h5>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Card 1: Activos -->
+            <div class="col-lg-3 col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h5 class="fw-semibold mb-0" style="font-size: 1rem; letter-spacing: 0.5px; color: #323130;">ACTIVOS</h5>
+                            <a href="{% url 'activos:lista_activos' %}" class="text-muted">
+                                <i class="ri-arrow-right-up-line fs-sm"></i>
+                            </a>
+                        </div>
+                        <div class="d-grid gap-2">
+                            {% if permisos.puede_crear %}
+                            <a href="{% url 'activos:crear_activo' %}" class="btn btn-sm btn-warning">
+                                <i class="ri-add-line align-bottom me-1"></i> Nuevo Activo
+                            </a>
+                            {% endif %}
+                            <a href="{% url 'activos:lista_activos' %}" class="btn btn-sm btn-outline-warning">
+                                <i class="ri-list-check align-bottom me-1"></i> Ver Activos
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2: Ubicación -->
+            <div class="col-lg-3 col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h5 class="fw-semibold mb-0" style="font-size: 1rem; letter-spacing: 0.5px; color: #323130;">UBICACIONES</h5>
+                            <a href="{% url 'activos:lista_ubicaciones' %}" class="text-muted">
+                                <i class="ri-arrow-right-up-line fs-sm"></i>
+                            </a>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <a href="{% url 'activos:lista_ubicaciones' %}" class="btn btn-sm btn-info">
+                                <i class="ri-map-pin-line align-bottom me-1"></i> Ver Ubicaciones
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3: Movimientos -->
+            {% if permisos.puede_movimientos %}
+            <div class="col-lg-3 col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h5 class="fw-semibold mb-0" style="font-size: 1rem; letter-spacing: 0.5px; color: #323130;">MOVIMIENTOS</h5>
+                            <a href="{% url 'activos:lista_movimientos' %}" class="text-muted">
+                                <i class="ri-arrow-right-up-line fs-sm"></i>
+                            </a>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <a href="{% url 'activos:registrar_movimiento' %}" class="btn btn-sm btn-secondary">
+                                <i class="ri-add-circle-line align-bottom me-1"></i> Registrar
+                            </a>
+                            <a href="{% url 'activos:lista_movimientos' %}" class="btn btn-sm btn-outline-secondary">
+                                <i class="ri-list-check align-bottom me-1"></i> Ver Historial
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Card 4: Categorías -->
+            {% if permisos.puede_categorias %}
+            <div class="col-lg-3 col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h5 class="fw-semibold mb-0" style="font-size: 1rem; letter-spacing: 0.5px; color: #323130;">CATEGORÍAS</h5>
+                            <a href="{% url 'activos:lista_categorias' %}" class="text-muted">
+                                <i class="ri-arrow-right-up-line fs-sm"></i>
+                            </a>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <a href="{% url 'activos:crear_categoria' %}" class="btn btn-sm btn-success">
+                                <i class="ri-add-line align-bottom me-1"></i> Nueva Categoría
+                            </a>
+                            <a href="{% url 'activos:lista_categorias' %}" class="btn btn-sm btn-outline-success">
+                                <i class="ri-list-check align-bottom me-1"></i> Ver Categorías
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Información adicional -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card border-0 shadow-none">
+                    <div class="card-body">
+                        <div class="alert alert-primary border-0 mb-0" role="alert">
+                            <div class="d-flex">
+                                <div class="flex-shrink-0">
+                                    <i class="ri-information-line fs-16 align-middle"></i>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h6 class="alert-heading">Información del Módulo</h6>
+                                    <p class="mb-0">
+                                        Gestione el inventario completo de activos fijos y bienes de la organización.
+                                        Actualmente hay <strong>{{ stats.total_activos }} activos registrados</strong>,
+                                        de los cuales <strong>{{ stats.activos_en_uso }} están en uso</strong>,
+                                        distribuidos en <strong>{{ stats.total_ubicaciones }} ubicaciones</strong>.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

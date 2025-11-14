@@ -1,0 +1,153 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block title %}{{ titulo }}{% endblock %}
+
+{% block content %}
+<div class="page-content">
+    <div class="container-fluid">
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0">{{ titulo }}</h4>
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="{% url 'dashboard_analytics' %}">Dashboard</a></li>
+                            <li class="breadcrumb-item"><a href="{% url 'accounts:menu_usuarios' %}">Usuarios</a></li>
+                            <li class="breadcrumb-item"><a href="{% url 'accounts:lista_grupos' %}">Roles</a></li>
+                            <li class="breadcrumb-item"><a href="{% url 'accounts:detalle_grupo' grupo.pk %}">{{ grupo.name }}</a></li>
+                            <li class="breadcrumb-item active">Asignar Permisos</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">
+                                <i class="ri-key-line align-middle me-1"></i>
+                                Asignar Permisos al Rol: <span class="text-primary">{{ grupo.name }}</span>
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="alert alert-info border-0" role="alert">
+                                <div class="d-flex">
+                                    <div class="flex-shrink-0">
+                                        <i class="ri-information-line fs-16 align-middle"></i>
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                        <h6 class="alert-heading">Información</h6>
+                                        <p class="mb-0">
+                                            Seleccione los permisos que desea asignar al rol
+                                            <strong>{{ grupo.name }}</strong>.
+                                            Los permisos están organizados por aplicación y modelo.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Mostrar permisos organizados por app -->
+                            <div class="row mt-4">
+                                <div class="col-12">
+                                    <div class="accordion" id="accordionPermisos">
+                                        {% for app_label, permissions in permisos_organizados.items %}
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="heading{{ forloop.counter }}">
+                                                <button class="accordion-button {% if not forloop.first %}collapsed{% endif %}"
+                                                        type="button"
+                                                        data-bs-toggle="collapse"
+                                                        data-bs-target="#collapse{{ forloop.counter }}"
+                                                        aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}"
+                                                        aria-controls="collapse{{ forloop.counter }}">
+                                                    <i class="ri-folder-line me-2"></i>
+                                                    <strong>{{ app_label|title }}</strong>
+                                                    <span class="badge bg-primary ms-2">{{ permissions|length }}</span>
+                                                </button>
+                                            </h2>
+                                            <div id="collapse{{ forloop.counter }}"
+                                                 class="accordion-collapse collapse {% if forloop.first %}show{% endif %}"
+                                                 aria-labelledby="heading{{ forloop.counter }}"
+                                                 data-bs-parent="#accordionPermisos">
+                                                <div class="accordion-body">
+                                                    <div class="row">
+                                                        {% for permission in permissions %}
+                                                        <div class="col-md-6 col-lg-4 mb-3">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input"
+                                                                       type="checkbox"
+                                                                       name="permissions"
+                                                                       value="{{ permission.id }}"
+                                                                       id="perm_{{ permission.id }}"
+                                                                       {% if permission in grupo.permissions.all %}checked{% endif %}>
+                                                                <label class="form-check-label" for="perm_{{ permission.id }}">
+                                                                    <strong>{{ permission.codename }}</strong>
+                                                                    <br>
+                                                                    <small class="text-muted">{{ permission.name }}</small>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        {% endfor %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+
+                            {% if not permisos_organizados %}
+                            <div class="text-center py-4">
+                                <p class="text-muted mb-0">No hay permisos disponibles para asignar.</p>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- Botones de acción -->
+                    <div class="text-end">
+                        <a href="{% url 'accounts:detalle_grupo' grupo.pk %}" class="btn btn-light">
+                            <i class="ri-close-line align-middle me-1"></i> Cancelar
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="ri-save-line align-middle me-1"></i> Guardar Permisos
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+{{ block.super }}
+<script>
+    // Script para expandir/contraer todos los acordeones
+    document.addEventListener('DOMContentLoaded', function() {
+        // Puedes agregar un botón para expandir/contraer todos si es necesario
+        const allAccordions = document.querySelectorAll('.accordion-collapse');
+
+        // Ejemplo: agregar listener para alguna funcionalidad adicional
+        console.log('Permisos accordion cargado con ' + allAccordions.length + ' secciones');
+    });
+</script>
+{% endblock %}

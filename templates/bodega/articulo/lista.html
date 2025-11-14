@@ -1,0 +1,100 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between mb-3">
+                    <h4 class="mb-sm-0">{{ titulo }}</h4>
+                    <div>
+                        <a href="{% url 'bodega:articulo_crear' %}" class="btn btn-primary">
+                            <i class="ri-add-line"></i> Nuevo Artículo
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <form method="get" class="row g-3">
+                            <div class="col-md-4">
+                                <input type="text" name="q" class="form-control" placeholder="Buscar por código, nombre..." value="{{ request.GET.q }}">
+                            </div>
+                            <div class="col-md-3">
+                                <select name="categoria" class="form-select">
+                                    <option value="">Todas las categorías</option>
+                                    {% for cat in categorias %}
+                                    <option value="{{ cat.id }}" {% if request.GET.categoria|stringformat:"s" == cat.id|stringformat:"s" %}selected{% endif %}>{{ cat.nombre }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <select name="bodega" class="form-select">
+                                    <option value="">Todas las bodegas</option>
+                                    {% for bod in bodegas %}
+                                    <option value="{{ bod.id }}" {% if request.GET.bodega|stringformat:"s" == bod.id|stringformat:"s" %}selected{% endif %}>{{ bod.nombre }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-primary w-100">
+                                    <i class="ri-search-line"></i> Buscar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Código</th>
+                                        <th>Nombre</th>
+                                        <th>Categoría</th>
+                                        <th>Stock Actual</th>
+                                        <th>Ubicación</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for articulo in articulos %}
+                                    <tr>
+                                        <td><strong>{{ articulo.codigo }}</strong></td>
+                                        <td>{{ articulo.nombre }}</td>
+                                        <td>{{ articulo.categoria.nombre }}</td>
+                                        <td>
+                                            {{ articulo.stock_actual }} ({% for u in articulo.unidades_medida.all %}{{ u.simbolo }}{% if not forloop.last %}, {% endif %}{% empty %}unidad{% endfor %})
+                                        </td>
+                                        <td>{{ articulo.ubicacion_fisica.nombre }}</td>
+                                        <td>
+                                            <a href="{% url 'bodega:articulo_detalle' articulo.pk %}" class="btn btn-sm btn-primary">
+                                                <i class="ri-eye-line"></i> Ver
+                                            </a>
+                                            <a href="{% url 'bodega:articulo_editar' articulo.pk %}" class="btn btn-sm btn-info">
+                                                <i class="ri-edit-line"></i> Editar
+                                            </a>
+                                            <a href="{% url 'bodega:articulo_eliminar' articulo.pk %}" class="btn btn-sm btn-danger">
+                                                <i class="ri-delete-bin-line"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="6" class="text-center">No hay artículos registrados</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

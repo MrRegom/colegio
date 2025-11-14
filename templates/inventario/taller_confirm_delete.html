@@ -1,0 +1,52 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box">
+                    <h4 class="mb-sm-0">Eliminar Taller</h4>
+                    <div class="page-title-right">
+                        <a href="{% url 'inventario:taller_list' %}" class="btn btn-secondary">
+                            <i class="ri-arrow-left-line"></i> Volver
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="alert alert-warning">
+                            <i class="ri-alert-line"></i> ¿Está seguro que desea eliminar este taller?
+                        </div>
+                        
+                        <div class="mb-3">
+                            <strong>Código:</strong> {{ object.codigo }}<br>
+                            <strong>Nombre:</strong> {{ object.nombre }}<br>
+                            {% if object.ubicacion %}
+                                <strong>Ubicación:</strong> {{ object.ubicacion }}<br>
+                            {% endif %}
+                        </div>
+
+                        <form method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">
+                                <i class="ri-delete-bin-line"></i> Sí, eliminar
+                            </button>
+                            <a href="{% url 'inventario:taller_list' %}" class="btn btn-secondary">
+                                <i class="ri-close-line"></i> Cancelar
+                            </a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

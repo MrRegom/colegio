@@ -1,0 +1,470 @@
+/*# sourceMappingURL=custom.min.css.map */
+
+:root,
+[data-bs-theme=light] {
+  /* Colores principales del Framework Kit Gobierno */
+  --tb-primary: #006FB3;
+  --tb-primary-rgb: 0, 111, 179;
+  --tb-secondary: #FE6565;
+  --tb-secondary-rgb: 254, 101, 101;
+  --tb-tertiary: #0A132D;
+  --tb-tertiary-rgb: 10, 19, 45;
+  --tb-accent: #A8B7C7;
+  --tb-accent-rgb: 168, 183, 199;
+  --tb-neutral: #EEEEEE;
+  --tb-neutral-rgb: 238, 238, 238;
+  --tb-gray-a: #4A4A4A;
+  --tb-gray-a-rgb: 74, 74, 74;
+  --tb-gray-b: #8A8A8A;
+  --tb-gray-b-rgb: 138, 138, 138;
+  --tb-black: #111111;
+  --tb-black-rgb: 17, 17, 17;
+  --tb-white: #FFFFFF;
+  --tb-white-rgb: 255, 255, 255;
+  
+  /* Otros colores del Framework */
+  --tb-purple: #6633CC;
+  --tb-purple-rgb: 102, 51, 204;
+  --tb-orange: #E0701E;
+  --tb-orange-rgb: 224, 112, 30;
+  --tb-orange-light: #FFA11B;
+  --tb-orange-light-rgb: 255, 161, 27;
+  --tb-green: #2D717C;
+  --tb-green-rgb: 45, 113, 124;
+  
+  /* Configuraciones de énfasis y enlaces */
+  --tb-primary-text-emphasis: #006FB3;
+  --tb-secondary-text-emphasis: #FE6565;
+  --tb-tertiary-text-emphasis: #0A132D;
+  --tb-font-sans-serif: "Roboto", sans-serif;
+  --tb-font-monospace: "Roboto Mono", monospace;  
+  --tb-link-color: #006FB3;
+  --tb-link-color-rgb: 0, 111, 179;
+  --tb-link-hover-color: #005a8f;
+  --tb-link-hover-color-rgb: 0, 90, 143;
+  --tb-code-color: #FE6565;
+  --tb-focus-ring-color: rgba(var(--tb-primary-rgb), 0.25);
+  --tb-vertical-menu-title: #006FB3;
+}
+
+[data-bs-theme=dark] {
+  color-scheme: dark;
+  /* Colores principales del Framework Kit Gobierno */
+  --tb-primary: #006FB3;
+  --tb-primary-rgb: 0, 111, 179;
+  --tb-secondary: #FE6565;
+  --tb-secondary-rgb: 254, 101, 101;
+  --tb-tertiary: #0A132D;
+  --tb-tertiary-rgb: 10, 19, 45;
+  --tb-accent: #A8B7C7;
+  --tb-accent-rgb: 168, 183, 199;
+  --tb-neutral: #EEEEEE;
+  --tb-neutral-rgb: 238, 238, 238;
+  --tb-gray-a: #4A4A4A;
+  --tb-gray-a-rgb: 74, 74, 74;
+  --tb-gray-b: #8A8A8A;
+  --tb-gray-b-rgb: 138, 138, 138;
+  --tb-black: #111111;
+  --tb-black-rgb: 17, 17, 17;
+  --tb-white: #FFFFFF;
+  --tb-white-rgb: 255, 255, 255;
+  
+  /* Otros colores del Framework */
+  --tb-purple: #6633CC;
+  --tb-purple-rgb: 102, 51, 204;
+  --tb-orange: #E0701E;
+  --tb-orange-rgb: 224, 112, 30;
+  --tb-orange-light: #FFA11B;
+  --tb-orange-light-rgb: 255, 161, 27;
+  --tb-green: #2D717C;
+  --tb-green-rgb: 45, 113, 124;
+  
+  /* Configuraciones de énfasis y enlaces */
+  --tb-primary-text-emphasis: #006FB3;
+  --tb-secondary-text-emphasis: #FE6565;
+  --tb-tertiary-text-emphasis: #0A132D;
+  --tb-font-sans-serif: "Roboto", sans-serif;
+  --tb-font-monospace: "Roboto Mono", monospace;  
+  --tb-link-color: #006FB3;
+  --tb-link-color-rgb: 0, 111, 179;
+  --tb-link-hover-color: #005a8f;
+  --tb-link-hover-color-rgb: 0, 90, 143;
+  --tb-code-color: #FE6565;
+  --tb-focus-ring-color: rgba(var(--tb-primary-rgb), 0.25);
+  --tb-vertical-menu-title: #006FB3;
+}
+
+/* Clases de utilidad para color de texto según framework del gobierno */
+.text-primary { color: var(--tb-primary) !important; }
+.text-secondary { color: var(--tb-secondary) !important; }
+.text-tertiary { color: var(--tb-tertiary) !important; }
+.text-accent { color: var(--tb-accent) !important; }
+.text-gray-a { color: var(--tb-gray-a) !important; }
+.text-gray-b { color: var(--tb-gray-b) !important; }
+.text-purple { color: var(--tb-purple) !important; }
+.text-orange { color: var(--tb-orange) !important; }
+.text-orange-light { color: var(--tb-orange-light) !important; }
+.text-green { color: var(--tb-green) !important; }
+
+/* Clases de utilidad para fondo según framework del gobierno */
+.bg-primary { background-color: var(--tb-primary) !important; }
+.bg-secondary { background-color: var(--tb-secondary) !important; }
+.bg-tertiary { background-color: var(--tb-tertiary) !important; }
+.bg-accent { background-color: var(--tb-accent) !important; }
+.bg-neutral { background-color: var(--tb-neutral) !important; }
+.bg-gray-a { background-color: var(--tb-gray-a) !important; }
+.bg-gray-b { background-color: var(--tb-gray-b) !important; }
+.bg-black { background-color: var(--tb-black) !important; }
+.bg-purple { background-color: var(--tb-purple) !important; }
+.bg-orange { background-color: var(--tb-orange) !important; }
+.bg-orange-light { background-color: var(--tb-orange-light) !important; }
+.bg-green { background-color: var(--tb-green) !important; }
+
+/* Bordes */
+.border-primary { border-color: var(--tb-primary) !important; }
+.border-secondary { border-color: var(--tb-secondary) !important; }
+.border-tertiary { border-color: var(--tb-tertiary) !important; }
+.border-accent { border-color: var(--tb-accent) !important; }
+
+/* Estilos para tarjetas con barra lateral de colores de la bandera chilena */
+.card-gob {
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  background-color: #fff;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  height: 100%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.card-gob:hover {
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
+}
+
+.card-gob::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 5px;
+  background: linear-gradient(to bottom, #1e3a8a 50%, #D4AF37 50%);
+}
+
+.card-gob-top {
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  background-color: #fff;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  height: 100%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.card-gob-top:hover {
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
+}
+
+.card-gob-top::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 5px;
+  background: linear-gradient(to right, #1e3a8a 50%, #D4AF37 50%);
+}
+
+.card-gob .card-body {
+  padding: 1.25rem 1.5rem 1.25rem 1.5rem;
+}
+
+.card-gob-top .card-body {
+  padding: 1.25rem 1.5rem 1.25rem 1.5rem;
+}
+
+.module-title {
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: #0A132D;
+}
+
+.module-subtitle {
+  font-size: 0.8rem;
+  color: #8A8A8A;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+@page {
+  size: 150mm 100mm;
+  margin: 0;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+.page-container {
+  width: 150mm;
+  height: 100mm;
+  page-break-after: always;
+  position: relative;
+}
+.etiqueta {
+  width: 150mm;
+  height: 100mm;
+  box-sizing: border-box;
+  padding: 5mm;
+  position: relative;
+}
+/* Estilo para etiqueta frontal */
+.titulo {
+  font-size: 20pt;
+  font-weight: normal;
+  margin-bottom: 5mm;
+}
+.titulo-ficha {
+  font-size: 20pt;
+  font-weight: normal;
+  color: black;
+}
+.titulo-numero {
+  font-weight: bold;
+}
+.membrete {
+  font-size: 7pt;
+  line-height: 1.2;
+  margin-bottom: 5mm;
+}
+.nombre-label {
+  font-size: 16pt;
+  margin-top: 5mm;
+}
+.nombre-valor {
+  font-size: 16pt;
+  font-weight: bold;
+}
+.social-label {
+  font-size: 16pt;
+  margin-top: 5mm;
+}
+.social-valor {
+  font-size: 14pt;
+}
+.rut-label {
+  font-size: 16pt;
+  margin-top: 5mm;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.rut-valor {
+  font-size: 16pt;
+  font-weight: bold;
+}
+.ficha-gruesa-container {
+  font-size: 20pt;
+  font-weight: bold;
+}
+.info-adicional {
+  font-size: 11pt;
+  margin-top: 5mm;
+  line-height: 1.3;
+}
+
+/* Estilo para etiqueta posterior */
+.etiqueta-posterior {
+  text-align: center;
+}
+.titulo-posterior {
+  font-size: 20pt;
+  text-align: right;
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+.nro-ficha-posterior {
+  font-size: 23pt; 
+  font-weight: bold;
+}
+.datos-paciente {
+  text-align: left;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.nombre-posterior {
+  font-size: 16pt;
+  margin-bottom: 10px;
+}
+.nombre-posterior-valor {
+  font-weight: bold;
+}
+.social-posterior {
+  font-size: 16pt;
+  margin-bottom: 10px;
+}
+.ficha-posterior-bottom {
+  text-align: right;
+  font-size: 20pt;
+}
+
+/* Estilo para códigos de barras */
+.barcode-container {
+  position: absolute;
+  right: 5mm;
+  top: 5mm;
+  text-align: center;
+}
+.barcode-container-posterior {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 15px;
+}
+svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Estilos para el menú de navegación */
+/* Efecto hover para enlaces del menú (no los títulos) */
+.navbar-nav .nav-item:not(.menu-title) .nav-link:hover, 
+.navbar-nav .nav-item:not(.menu-title) .nav-link:focus,
+.navbar-nav .nav-item:not(.menu-title) .menu-link:hover, 
+.navbar-nav .nav-item:not(.menu-title) .menu-link:focus {
+  background-color: rgba(var(--tb-primary-rgb), 0.04);
+  color: var(--tb-primary) !important;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+/* Estilos específicos para elementos activos - borde bicolor gobierno */
+.navbar-nav .nav-link.active, 
+.navbar-nav .menu-link.active,
+.nav-sm .nav-link.active {
+  border-style: solid;
+  border-width: 1px;
+  border-top-color: var(--tb-primary) !important;    /* Azul arriba */
+  border-left-color: var(--tb-primary) !important;   /* Azul izquierda */
+  border-right-color: var(--tb-secondary) !important; /* Rojo derecha */
+  border-bottom-color: var(--tb-secondary) !important; /* Rojo abajo */
+  border-radius: 6px;
+  background-color: rgba(var(--tb-primary-rgb), 0.04) !important;
+  color: var(--tb-primary) !important;
+  font-weight: 700 !important;  /* Negrita más fuerte */
+  padding: calc(0.5rem - 1px) calc(1rem - 1px); /* Ajustado para compensar el borde */
+}
+
+/* Asegurar que los elementos padre no se marquen como activos cuando sus hijos lo están */
+.navbar-nav .nav-link[aria-expanded="true"],
+.navbar-nav .menu-link[aria-expanded="true"] {
+  background-color: transparent !important;
+  border-color: transparent !important;
+  font-weight: normal !important;
+  color: inherit !important;
+  box-shadow: none !important;
+  border: 1px solid transparent !important;
+}
+
+/* Solo indicador sutil para elementos expandidos */
+.navbar-nav .nav-link[aria-expanded="true"]:not(.active),
+.navbar-nav .menu-link[aria-expanded="true"]:not(.active) {
+  background-color: rgba(var(--tb-primary-rgb), 0.02) !important;
+  color: var(--tb-gray-a) !important;
+  border-radius: 6px;
+  font-weight: normal;
+  box-shadow: none;
+}
+
+/* Destacar elementos del menú en hover dentro de submenús */
+.nav-sm .nav-link:hover {
+  background-color: rgba(var(--tb-primary-rgb), 0.04);
+  color: var(--tb-primary) !important;
+  border-radius: 6px;
+}
+
+/* Efecto de transición suave para todos los enlaces */
+.navbar-nav .nav-link,
+.navbar-nav .menu-link,
+.nav-sm .nav-link {
+  transition: all 0.2s ease-in-out;
+  padding: 0.5rem 1rem;
+  border: 1px solid transparent; /* Para evitar saltos al activarse */
+}
+
+/* Estilo específico para los elementos de título */
+.navbar-nav .menu-title,
+.navbar-nav li.menu-title,
+.navbar-nav li.menu-title span,
+.navbar-nav li.menu-title i {
+  color: var(--tb-vertical-menu-title) !important;
+  font-weight: 600;
+  background-color: transparent !important;
+  cursor: default;
+}
+
+/* Deshabilitar efectos de hover en los títulos */
+.navbar-nav li.menu-title:hover,
+.navbar-nav li.menu-title:focus,
+.navbar-nav li.menu-title:active {
+  background-color: transparent !important;
+}
+
+/* Mejorar espaciado vertical */
+.navbar-nav .nav-item {
+  margin-bottom: 2px;
+}
+
+/* Mejorar estilo del submenú activo - muy sutil */
+.menu-dropdown.show {
+  background-color: rgba(var(--tb-primary-rgb), 0.01);
+  border-radius: 6px;
+  margin-top: 2px;
+  padding-left: 0.5rem;
+}
+
+/* Prevenir que enlaces desplegables se vean "activos" cuando solo están expandidos */
+.nav-link[aria-expanded="true"]:not(.active),
+.menu-link[aria-expanded="true"]:not(.active) {
+  background-color: rgba(var(--tb-primary-rgb), 0.02) !important;
+  color: var(--tb-primary) !important;
+  font-weight: normal !important;
+}
+
+/* Elementos anidados en submenús NO deben heredar estilos activos por default */
+.menu-dropdown .nav-link:not(.active) {
+  background-color: transparent !important;
+}
+
+/* Específicamente evitar que Reportería SFERE se muestre como activo */
+.navbar-nav .nav-item a[href="#sidebarReportes"] {
+  background-color: transparent !important;
+  border-color: transparent !important;
+  font-weight: normal !important;
+  box-shadow: none !important;
+}
+
+.navbar-nav .nav-item a[href="#sidebarReportes"][aria-expanded="true"] {
+  color: var(--tb-primary) !important;
+  background-color: rgba(var(--tb-primary-rgb), 0.02) !important;
+}
+
+/* Destacar elementos del menú en hover dentro de submenús */
+.nav-sm .nav-link:hover {
+  background-color: rgba(var(--tb-primary-rgb), 0.04);
+  color: var(--tb-primary) !important;
+  border-radius: 6px;
+}
+
+.auth-card {
+    background-color: #006FB3 !important; /* Azul hospitalario */
+}
+
+.auth-page-wrapper {
+    background-color: #fff !important;
+}
+
+.custom-shadow {
+    box-shadow: 0 0.5rem 2rem rgba(0,0,0,0.20) !important;
+}

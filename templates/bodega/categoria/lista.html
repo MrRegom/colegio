@@ -1,0 +1,83 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0">{{ titulo }}</h4>
+                    <div class="page-title-right">
+                        <a href="{% url 'bodega:categoria_crear' %}" class="btn btn-primary">
+                            <i class="ri-add-line"></i> Nueva Categoría
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <form method="get" class="row g-3">
+                            <div class="col-md-10">
+                                <input type="text" name="q" class="form-control" placeholder="Buscar por código o nombre..." value="{{ query }}">
+                            </div>
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-primary w-100">
+                                    <i class="ri-search-line"></i> Buscar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Código</th>
+                                        <th>Nombre</th>
+                                        <th>Descripción</th>
+                                        <th>Estado</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for categoria in categorias %}
+                                    <tr>
+                                        <td><strong>{{ categoria.codigo }}</strong></td>
+                                        <td>{{ categoria.nombre }}</td>
+                                        <td>{{ categoria.descripcion|truncatewords:10|default:"-" }}</td>
+                                        <td>
+                                            {% if categoria.activo %}
+                                                <span class="badge bg-success">Activo</span>
+                                            {% else %}
+                                                <span class="badge bg-secondary">Inactivo</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <a href="{% url 'bodega:categoria_editar' categoria.pk %}" class="btn btn-sm btn-info">
+                                                <i class="ri-edit-line"></i> Editar
+                                            </a>
+                                            <a href="{% url 'bodega:categoria_eliminar' categoria.pk %}" class="btn btn-sm btn-danger">
+                                                <i class="ri-delete-bin-line"></i> Eliminar
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="5" class="text-center">No hay categorías registradas</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

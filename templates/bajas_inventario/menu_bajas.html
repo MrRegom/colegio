@@ -1,0 +1,152 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block title %}{{ titulo }}{% endblock %}
+
+{% block content %}
+<div class="page-content">
+    <div class="container-fluid">
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between mb-3">
+                    <h4 class="mb-sm-0">{{ titulo }}</h4>
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="{% url 'dashboard_analytics' %}">Dashboard</a></li>
+                            <li class="breadcrumb-item active">Bajas de Inventario</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <!-- Menú principal con Cards -->
+        <div class="row">
+            <div class="col-12">
+                <h5 class="mb-3 text-muted">Seleccione una opción:</h5>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Card 1: Gestión de Bajas -->
+            {% if permisos.puede_gestionar %}
+            <div class="col-lg-3 col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h5 class="fw-semibold mb-0" style="font-size: 1rem; letter-spacing: 0.5px; color: #323130;">GESTIÓN</h5>
+                            <a href="{% url 'bajas_inventario:lista_bajas' %}" class="text-muted">
+                                <i class="ri-arrow-right-up-line fs-sm"></i>
+                            </a>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <a href="{% url 'bajas_inventario:lista_bajas' %}" class="btn btn-sm btn-danger">
+                                <i class="ri-list-check align-bottom me-1"></i> Ver Bajas
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Card 2: Nueva Baja -->
+            {% if permisos.puede_crear %}
+            <div class="col-lg-3 col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h5 class="fw-semibold mb-0" style="font-size: 1rem; letter-spacing: 0.5px; color: #323130;">NUEVA BAJA</h5>
+                            <a href="{% url 'bajas_inventario:crear_baja' %}" class="text-muted">
+                                <i class="ri-arrow-right-up-line fs-sm"></i>
+                            </a>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <a href="{% url 'bajas_inventario:crear_baja' %}" class="btn btn-sm btn-warning">
+                                <i class="ri-add-line align-bottom me-1"></i> Crear Baja
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Card 3: Mis Bajas -->
+            <div class="col-lg-3 col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h5 class="fw-semibold mb-0" style="font-size: 1rem; letter-spacing: 0.5px; color: #323130;">MIS BAJAS</h5>
+                            <a href="{% url 'bajas_inventario:mis_bajas' %}" class="text-muted">
+                                <i class="ri-arrow-right-up-line fs-sm"></i>
+                            </a>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <a href="{% url 'bajas_inventario:mis_bajas' %}" class="btn btn-sm btn-info">
+                                <i class="ri-file-user-line align-bottom me-1"></i> Ver Mis Bajas
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 4: Por Autorizar -->
+            {% if permisos.puede_autorizar %}
+            <div class="col-lg-3 col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h5 class="fw-semibold mb-0" style="font-size: 1rem; letter-spacing: 0.5px; color: #323130;">POR AUTORIZAR</h5>
+                            <a href="{% url 'bajas_inventario:bajas_por_autorizar' %}" class="text-muted">
+                                <i class="ri-arrow-right-up-line fs-sm"></i>
+                            </a>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <a href="{% url 'bajas_inventario:bajas_por_autorizar' %}" class="btn btn-sm btn-primary">
+                                <i class="ri-checkbox-circle-line align-bottom me-1"></i> Autorizar Bajas
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Información adicional -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card border-0 shadow-none">
+                    <div class="card-body">
+                        <div class="alert alert-danger border-0 mb-0" role="alert">
+                            <div class="d-flex">
+                                <div class="flex-shrink-0">
+                                    <i class="ri-information-line fs-16 align-middle"></i>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h6 class="alert-heading">Información del Módulo</h6>
+                                    <p class="mb-0">
+                                        Gestione las bajas de inventario por pérdida, obsolescencia, daño u otros motivos.
+                                        Actualmente hay <strong>{{ stats.total_bajas }} bajas registradas</strong>, de las cuales
+                                        <strong>{{ stats.pendientes_autorizacion }} están pendientes de autorización</strong>.
+                                        Las bajas autorizadas suman <strong>{{ stats.autorizadas }}</strong>.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,259 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block title %}{{ titulo }}{% endblock %}
+
+{% block content %}
+<div class="page-content">
+    <div class="container-fluid">
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0">{{ titulo }}</h4>
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="{% url 'dashboard_analytics' %}">Dashboard</a></li>
+                            <li class="breadcrumb-item"><a href="{% url 'bajas_inventario:menu_bajas' %}">Bajas de Inventario</a></li>
+                            <li class="breadcrumb-item active">{{ action }}</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <form method="post" enctype="multipart/form-data" id="formBaja">
+            {% csrf_token %}
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Información General</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    <label for="{{ form.fecha_baja.id_for_label }}" class="form-label">
+                                        {{ form.fecha_baja.label }} <span class="text-danger">*</span>
+                                    </label>
+                                    {{ form.fecha_baja }}
+                                    {% if form.fecha_baja.errors %}
+                                        <div class="invalid-feedback d-block">
+                                            {{ form.fecha_baja.errors }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="{{ form.motivo.id_for_label }}" class="form-label">
+                                        {{ form.motivo.label }} <span class="text-danger">*</span>
+                                    </label>
+                                    {{ form.motivo }}
+                                    {% if form.motivo.errors %}
+                                        <div class="invalid-feedback d-block">
+                                            {{ form.motivo.errors }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="{{ form.bodega.id_for_label }}" class="form-label">
+                                        {{ form.bodega.label }} <span class="text-danger">*</span>
+                                    </label>
+                                    {{ form.bodega }}
+                                    {% if form.bodega.errors %}
+                                        <div class="invalid-feedback d-block">
+                                            {{ form.bodega.errors }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-12">
+                                    <label for="{{ form.descripcion.id_for_label }}" class="form-label">
+                                        {{ form.descripcion.label }} <span class="text-danger">*</span>
+                                    </label>
+                                    {{ form.descripcion }}
+                                    {% if form.descripcion.errors %}
+                                        <div class="invalid-feedback d-block">
+                                            {{ form.descripcion.errors }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-8">
+                                    <label for="{{ form.observaciones.id_for_label }}" class="form-label">
+                                        {{ form.observaciones.label }}
+                                    </label>
+                                    {{ form.observaciones }}
+                                    {% if form.observaciones.errors %}
+                                        <div class="invalid-feedback d-block">
+                                            {{ form.observaciones.errors }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="{{ form.documento.id_for_label }}" class="form-label">
+                                        {{ form.documento.label }}
+                                    </label>
+                                    {{ form.documento }}
+                                    {% if form.documento.errors %}
+                                        <div class="invalid-feedback d-block">
+                                            {{ form.documento.errors }}
+                                        </div>
+                                    {% endif %}
+                                    <small class="text-muted">Documento de respaldo (opcional)</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detalles -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Activos a dar de Baja</h5>
+                        </div>
+                        <div class="card-body">
+                            {{ formset.management_form }}
+
+                            <div class="table-responsive">
+                                <table class="table table-nowrap" id="detalles-table">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th style="width: 25%">Activo <span class="text-danger">*</span></th>
+                                            <th style="width: 10%">Cantidad <span class="text-danger">*</span></th>
+                                            <th style="width: 12%">Valor Unit. <span class="text-danger">*</span></th>
+                                            <th style="width: 12%">Lote</th>
+                                            <th style="width: 12%">N° Serie</th>
+                                            <th style="width: 20%">Observaciones</th>
+                                            <th style="width: 9%">Eliminar</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="detalles-tbody">
+                                        {% for form_detalle in formset %}
+                                        <tr class="detalle-row">
+                                            <td>
+                                                {{ form_detalle.id }}
+                                                {{ form_detalle.activo }}
+                                                {% if form_detalle.activo.errors %}
+                                                    <div class="invalid-feedback d-block">
+                                                        {{ form_detalle.activo.errors }}
+                                                    </div>
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {{ form_detalle.cantidad }}
+                                                {% if form_detalle.cantidad.errors %}
+                                                    <div class="invalid-feedback d-block">
+                                                        {{ form_detalle.cantidad.errors }}
+                                                    </div>
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {{ form_detalle.valor_unitario }}
+                                                {% if form_detalle.valor_unitario.errors %}
+                                                    <div class="invalid-feedback d-block">
+                                                        {{ form_detalle.valor_unitario.errors }}
+                                                    </div>
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {{ form_detalle.lote }}
+                                                {% if form_detalle.lote.errors %}
+                                                    <div class="invalid-feedback d-block">
+                                                        {{ form_detalle.lote.errors }}
+                                                    </div>
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {{ form_detalle.numero_serie }}
+                                                {% if form_detalle.numero_serie.errors %}
+                                                    <div class="invalid-feedback d-block">
+                                                        {{ form_detalle.numero_serie.errors }}
+                                                    </div>
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {{ form_detalle.observaciones }}
+                                                {% if form_detalle.observaciones.errors %}
+                                                    <div class="invalid-feedback d-block">
+                                                        {{ form_detalle.observaciones.errors }}
+                                                    </div>
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {% if formset.can_delete %}
+                                                    {{ form_detalle.DELETE }}
+                                                    <label class="form-check-label ms-2" for="{{ form_detalle.DELETE.id_for_label }}">
+                                                        Eliminar
+                                                    </label>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            {% if formset.non_form_errors %}
+                                <div class="alert alert-danger">
+                                    {{ formset.non_form_errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botones -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="text-end">
+                        <a href="{% url 'bajas_inventario:lista_bajas' %}" class="btn btn-light">
+                            <i class="ri-close-line"></i> Cancelar
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="ri-save-line"></i> {{ action }} Baja
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Script para calcular valor total automáticamente
+    document.addEventListener('DOMContentLoaded', function() {
+        const table = document.getElementById('detalles-tbody');
+
+        table.addEventListener('input', function(e) {
+            if (e.target.matches('input[name*="cantidad"], input[name*="valor_unitario"]')) {
+                const row = e.target.closest('tr');
+                const cantidadInput = row.querySelector('input[name*="cantidad"]');
+                const valorInput = row.querySelector('input[name*="valor_unitario"]');
+
+                const cantidad = parseFloat(cantidadInput.value) || 0;
+                const valorUnitario = parseFloat(valorInput.value) || 0;
+                const total = cantidad * valorUnitario;
+
+                // Mostrar total calculado (opcional)
+                console.log('Total calculado:', total);
+            }
+        });
+    });
+</script>
+{% endblock %}

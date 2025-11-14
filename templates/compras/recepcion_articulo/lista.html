@@ -1,0 +1,94 @@
+{% extends 'partials/base.html' %}
+
+{% block content %}
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0">{{ titulo }}</h4>
+                    <div>
+                        <a href="{% url 'compras:recepcion_articulo_crear' %}" class="btn btn-primary">
+                            <i class="ri-add-line"></i> Nueva Recepción
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <form method="get" class="row g-3">
+                            <div class="col-md-5">
+                                <select name="estado" class="form-select">
+                                    <option value="">Todos los estados</option>
+                                    {% for estado in estados %}
+                                    <option value="{{ estado.id }}" {% if estado.id|stringformat:"s" == estado_id %}selected{% endif %}>{{ estado.nombre }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-md-5">
+                                <select name="bodega" class="form-select">
+                                    <option value="">Todas las bodegas</option>
+                                    {% for bodega in bodegas %}
+                                    <option value="{{ bodega.id }}" {% if bodega.id|stringformat:"s" == bodega_id %}selected{% endif %}>{{ bodega.nombre }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-primary w-100"><i class="ri-search-line"></i> Buscar</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Número</th>
+                                        <th>Fecha</th>
+                                        <th>Orden de Compra</th>
+                                        <th>Bodega</th>
+                                        <th>Estado</th>
+                                        <th>Recibido Por</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for recepcion in recepciones %}
+                                    <tr>
+                                        <td><strong>{{ recepcion.numero }}</strong></td>
+                                        <td>{{ recepcion.fecha_recepcion|date:"d/m/Y H:i" }}</td>
+                                        <td>
+                                            {% if recepcion.orden_compra %}
+                                            <a href="{% url 'compras:orden_compra_detalle' recepcion.orden_compra.pk %}">{{ recepcion.orden_compra.numero }}</a>
+                                            {% else %}
+                                            -
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ recepcion.bodega.nombre }}</td>
+                                        <td><span class="badge bg-info">{{ recepcion.estado.nombre }}</span></td>
+                                        <td>{{ recepcion.recibido_por.get_full_name }}</td>
+                                        <td>
+                                            <a href="{% url 'compras:recepcion_articulo_detalle' recepcion.pk %}" class="btn btn-sm btn-info">
+                                                <i class="ri-eye-line"></i> Ver
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="7" class="text-center">No hay recepciones registradas</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

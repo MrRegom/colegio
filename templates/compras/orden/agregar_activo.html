@@ -1,0 +1,109 @@
+{% extends 'partials/base.html' %}
+
+{% block content %}
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0">{{ titulo }} - Orden {{ orden.numero }}</h4>
+                    <div>
+                        <a href="{% url 'compras:orden_compra_detalle' orden.pk %}" class="btn btn-secondary">
+                            <i class="ri-arrow-left-line"></i> Volver
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Agregar Activo/Bien a la Orden</h5>
+                    </div>
+                    <div class="card-body">
+                        {% if form.errors %}
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>Error:</strong> Por favor corrija los siguientes errores:
+                            <ul class="mb-0">
+                                {% for field in form %}
+                                    {% for error in field.errors %}
+                                        <li>{{ field.label }}: {{ error }}</li>
+                                    {% endfor %}
+                                {% endfor %}
+                                {% for error in form.non_field_errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        {% endif %}
+
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="row g-3">
+                                <div class="col-md-12">
+                                    <label class="form-label">Activo/Bien <span class="text-danger">*</span></label>
+                                    {{ form.activo }}
+                                    {% if form.activo.errors %}
+                                        <div class="text-danger small">{{ form.activo.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Cantidad <span class="text-danger">*</span></label>
+                                    {{ form.cantidad }}
+                                    {% if form.cantidad.errors %}
+                                        <div class="text-danger small">{{ form.cantidad.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Precio Unitario <span class="text-danger">*</span></label>
+                                    {{ form.precio_unitario }}
+                                    {% if form.precio_unitario.errors %}
+                                        <div class="text-danger small">{{ form.precio_unitario.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Descuento</label>
+                                    {{ form.descuento }}
+                                    {% if form.descuento.errors %}
+                                        <div class="text-danger small">{{ form.descuento.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="form-label">Observaciones</label>
+                                    {{ form.observaciones }}
+                                    {% if form.observaciones.errors %}
+                                        <div class="text-danger small">{{ form.observaciones.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="ri-add-line"></i> Agregar Activo
+                                </button>
+                                <a href="{% url 'compras:orden_compra_detalle' orden.pk %}" class="btn btn-secondary">
+                                    Cancelar
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <div class="alert alert-info mb-0">
+                            <h6><i class="ri-information-line"></i> Información:</h6>
+                            <ul class="mb-0">
+                                <li>El subtotal se calculará automáticamente: <strong>(Cantidad × Precio Unitario) - Descuento</strong></li>
+                                <li>Los totales de la orden se actualizarán al agregar el activo</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

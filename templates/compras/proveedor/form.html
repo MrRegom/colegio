@@ -1,0 +1,250 @@
+{% extends "partials/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid" style="padding-top: 2rem;">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h3 class="card-title mb-0">{{ titulo|default:"Formulario de Proveedor" }}</h3>
+                    <a href="{% url 'compras:proveedor_lista' %}" class="btn btn-secondary">
+                        <i class="ri-arrow-left-line"></i> Volver
+                    </a>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        {% if form.errors %}
+                        <div class="alert alert-danger">
+                            <strong>Por favor, corrige los siguientes errores:</strong>
+                            <ul class="mb-0">
+                                {% for field, errors in form.errors.items %}
+                                    {% for error in errors %}
+                                        <li>{{ error }}</li>
+                                    {% endfor %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% endif %}
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="{{ form.rut.id_for_label }}" class="form-label">
+                                    {{ form.rut.label }} <span class="text-danger">*</span>
+                                </label>
+                                {{ form.rut }}
+                                {% if form.rut.help_text %}
+                                    <small class="form-text text-muted">{{ form.rut.help_text }}</small>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="{{ form.razon_social.id_for_label }}" class="form-label">
+                                    {{ form.razon_social.label }} <span class="text-danger">*</span>
+                                </label>
+                                {{ form.razon_social }}
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <label for="{{ form.direccion.id_for_label }}" class="form-label">
+                                    {{ form.direccion.label }} <span class="text-danger">*</span>
+                                </label>
+                                {{ form.direccion }}
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label for="id_region" class="form-label">Región</label>
+                                <select id="id_region" class="form-select">
+                                    <option value="">Seleccione una región</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="{{ form.comuna.id_for_label }}" class="form-label">{{ form.comuna.label }}</label>
+                                {{ form.comuna }}
+                                {% if form.comuna.errors %}
+                                    <div class="text-danger small">{{ form.comuna.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="{{ form.telefono.id_for_label }}" class="form-label">{{ form.telefono.label }}</label>
+                                {{ form.telefono }}
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="{{ form.ciudad.id_for_label }}" class="form-label">{{ form.ciudad.label }}</label>
+                                {{ form.ciudad }}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <!-- Espacio para mantener el layout -->
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="{{ form.email.id_for_label }}" class="form-label">{{ form.email.label }}</label>
+                                {{ form.email }}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="{{ form.sitio_web.id_for_label }}" class="form-label">{{ form.sitio_web.label }}</label>
+                                {{ form.sitio_web }}
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <div class="form-check form-switch">
+                                    {{ form.activo }}
+                                    <label class="form-check-label" for="{{ form.activo.id_for_label }}">
+                                        {{ form.activo.label }}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="ri-save-line"></i> Guardar
+                            </button>
+                            <a href="{% url 'compras:proveedor_lista' %}" class="btn btn-secondary">
+                                <i class="ri-close-line"></i> Cancelar
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Ruta al JSON de comunas y regiones - usar ruta absoluta
+    const jsonUrl = '/static/json/comunas-regiones.json';
+    
+    // Cargar el JSON de comunas y regiones
+    fetch(jsonUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error al cargar el archivo JSON');
+            }
+            return response.json();
+        })
+        .then(data => {
+            const regionSelect = document.getElementById('id_region');
+            // Buscar el select de comuna por ID o por name
+            const comunaSelectId = '{{ form.comuna.id_for_label }}';
+            let comunaSelect = document.getElementById(comunaSelectId);
+            
+            // Si no se encuentra por ID, buscar por name
+            if (!comunaSelect) {
+                comunaSelect = document.querySelector('select[name="comuna"]');
+            }
+            
+            const ciudadInput = document.getElementById('{{ form.ciudad.id_for_label }}');
+            
+            console.log('Region select:', regionSelect);
+            console.log('Comuna select ID buscado:', comunaSelectId);
+            console.log('Comuna select encontrado:', comunaSelect);
+            
+            if (!regionSelect || !comunaSelect) {
+                console.error('No se encontraron los elementos select necesarios');
+                console.error('Region select encontrado:', !!regionSelect);
+                console.error('Comuna select encontrado:', !!comunaSelect);
+                if (!comunaSelect) {
+                    console.error('Intentando buscar todos los selects:', document.querySelectorAll('select'));
+                }
+                return;
+            }
+            
+            // Limpiar el select de comunas inicialmente y asegurar que sea un select
+            if (comunaSelect.tagName === 'SELECT') {
+                comunaSelect.innerHTML = '<option value="">Seleccione una región</option>';
+            } else {
+                console.error('El elemento comuna no es un SELECT:', comunaSelect.tagName);
+                return;
+            }
+            
+            // Llenar el dropdown de regiones
+            data.regiones.forEach(regionData => {
+                const option = document.createElement('option');
+                option.value = regionData.region;
+                option.textContent = regionData.region;
+                regionSelect.appendChild(option);
+            });
+            
+            // Función para actualizar las comunas según la región seleccionada
+            function actualizarComunas() {
+                const regionSeleccionada = regionSelect.value;
+                console.log('Región seleccionada:', regionSeleccionada);
+                
+                // Limpiar el select de comunas
+                comunaSelect.innerHTML = '<option value="">Seleccione una comuna</option>';
+                
+                if (regionSeleccionada) {
+                    const regionData = data.regiones.find(r => r.region === regionSeleccionada);
+                    console.log('Datos de región encontrados:', regionData);
+                    
+                    if (regionData && regionData.comunas) {
+                        console.log('Comunas a agregar:', regionData.comunas.length);
+                        regionData.comunas.forEach(comuna => {
+                            const option = document.createElement('option');
+                            option.value = comuna;
+                            option.textContent = comuna;
+                            comunaSelect.appendChild(option);
+                        });
+                        console.log('Comunas agregadas correctamente');
+                    } else {
+                        console.error('No se encontraron comunas para la región:', regionSeleccionada);
+                    }
+                }
+            }
+            
+            // Event listener para cuando cambie la región
+            regionSelect.addEventListener('change', function() {
+                console.log('Evento change disparado en región');
+                actualizarComunas();
+            });
+            
+            // Si hay un valor preexistente en comuna, intentar establecer la región
+            const comunaActual = '{{ form.comuna.value|default:"" }}';
+            if (comunaActual) {
+                // Buscar la región que contiene esta comuna
+                for (const regionData of data.regiones) {
+                    if (regionData.comunas.includes(comunaActual)) {
+                        regionSelect.value = regionData.region;
+                        actualizarComunas();
+                        // Esperar un momento para que se actualicen las opciones
+                        setTimeout(() => {
+                            comunaSelect.value = comunaActual;
+                        }, 100);
+                        break;
+                    }
+                }
+            }
+            
+            // Si hay un valor preexistente en ciudad, establecerlo
+            const ciudadActual = '{{ form.ciudad.value|default:"" }}';
+            if (ciudadActual && ciudadInput) {
+                ciudadInput.value = ciudadActual;
+            }
+        })
+        .catch(error => {
+            console.error('Error al cargar el JSON de comunas y regiones:', error);
+            // Mostrar un mensaje al usuario si hay error
+            const comunaSelect = document.getElementById('{{ form.comuna.id_for_label }}');
+            if (comunaSelect) {
+                comunaSelect.innerHTML = '<option value="">Error al cargar comunas</option>';
+            }
+        });
+});
+</script>
+{% endblock extra_js %}
+{% endblock %}

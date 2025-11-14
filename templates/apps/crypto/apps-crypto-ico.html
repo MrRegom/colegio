@@ -1,0 +1,57 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block title %} ICO Listing {% endblock title %} 
+
+
+{% block main_title %}
+
+    <div class="page-title-box">
+        <div class="row align-items-center gy-3">
+            <div class="col-md">
+
+                {% block pagetitle %}
+                    {% include "partials/page-title.html" with pagetitle="Crypto" title="ICO Listing" %}
+                {% endblock pagetitle %}
+
+            </div><!--end col-->
+            <div class="col-md-auto ms-auto">
+                {% block customizer %}
+                    {% include "partials/customizer.html" %}
+                {% endblock customizer %}
+            </div><!--end col-->
+        </div><!--end row-->
+    </div>
+{% endblock main_title %}
+
+{% block content %}
+            <div class="row" id="ico-list"></div>
+
+            <div class="row mb-4 align-items-center" id="pagination-element">
+                <div class="col-sm">
+                    <div class="text-muted text-center text-sm-start">
+                        Showing <span class="fw-semibold">16</span> of <span class="fw-semibold">27</span> Results
+                    </div>
+                </div>
+            
+                <div class="col-sm-auto mt-3 mt-sm-0">
+                    <div class="pagination-block pagination pagination-separated justify-content-center justify-content-sm-end mb-sm-0">
+                        <div class="page-item">
+                            <a href="javascript:void(0);" class="page-link" id="page-prev">Previous</a>
+                        </div>
+                        <span id="page-num" class="pagination"></span>
+                        <div class="page-item">
+                            <a href="javascript:void(0);" class="page-link" id="page-next">Next</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end pagination -->
+{% endblock content %}
+                    
+{% block extra_content %}
+
+    <!-- crypto-ico init -->
+    <script src="{% static 'js/pages/crypto-ico.init.js' %}"></script>
+
+{% endblock extra_content %}
+    

@@ -1,0 +1,200 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block title %}{{ titulo }}{% endblock %}
+
+{% block content %}
+<div class="page-content">
+    <div class="container-fluid">
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0">{{ titulo }}</h4>
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="{% url 'dashboard_analytics' %}">Dashboard</a></li>
+                            <li class="breadcrumb-item"><a href="{% url 'solicitudes:lista_solicitudes' %}">Solicitudes</a></li>
+                            <li class="breadcrumb-item active">Aprobar</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+        {% if form.errors or form.non_field_errors %}
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Error en el formulario:</strong>
+                    <ul class="mb-0">
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <li>{{ field.label }}: {{ error }}</li>
+                            {% endfor %}
+                        {% endfor %}
+                        {% for error in form.non_field_errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Información de la Solicitud</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p><strong>Número:</strong> {{ solicitud.numero }}</p>
+                                    <p><strong>Solicitante:</strong> {{ solicitud.solicitante.get_full_name|default:solicitud.solicitante.username }}</p>
+                                    <p><strong>Área:</strong> {{ solicitud.area_solicitante }}</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p><strong>Tipo:</strong> {{ solicitud.tipo_solicitud.nombre }}</p>
+                                    <p><strong>Fecha:</strong> {{ solicitud.fecha_solicitud|date:"d/m/Y H:i" }}</p>
+                                    {% if solicitud.bodega_origen %}
+                                    <p><strong>Bodega:</strong> {{ solicitud.bodega_origen.nombre }}</p>
+                                    {% endif %}
+                                </div>
+                                <div class="col-12">
+                                    <p><strong>Motivo:</strong></p>
+                                    <p class="text-muted">{{ solicitud.motivo }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Cantidades a Aprobar</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-nowrap table-bordered">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th width="40%">Producto</th>
+                                            <th width="25%">Cantidad Solicitada</th>
+                                            <th width="35%">Cantidad a Aprobar</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for detalle in solicitud.detalles.all %}
+                                        <tr>
+                                            <td>
+                                                <strong>{{ detalle.producto_nombre }}</strong>
+                                                <br>
+                                                <small class="text-muted">Código: {{ detalle.producto_codigo }}</small>
+                                            </td>
+                                            <td class="text-center">
+                                                <strong>{{ detalle.cantidad_solicitada }}</strong>
+                                                {% if detalle.articulo %}
+                                                    {% for unidad in detalle.articulo.unidades_medida.all %}
+                                                        {{ unidad.simbolo }}{% if not forloop.last %}, {% endif %}
+                                                    {% empty %}
+                                                        unidad
+                                                    {% endfor %}
+                                                {% else %}
+                                                    {{ detalle.activo.unidad_medida.simbolo|default:"unidad" }}
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {% with field_name='cantidad_aprobada_'|add:detalle.id|stringformat:"s" %}
+                                                <div class="input-group">
+                                                    <input
+                                                        type="number"
+                                                        name="cantidad_aprobada_{{ detalle.id }}"
+                                                        id="id_cantidad_aprobada_{{ detalle.id }}"
+                                                        value="{{ detalle.cantidad_solicitada }}"
+                                                        min="0"
+                                                        max="{{ detalle.cantidad_solicitada }}"
+                                                        step="0.01"
+                                                        class="form-control cantidad-input"
+                                                        data-max="{{ detalle.cantidad_solicitada }}"
+                                                    >
+                                                    <span class="input-group-text">
+                                                        {% if detalle.articulo %}
+                                                            {% for unidad in detalle.articulo.unidades_medida.all %}
+                                                                {{ unidad.simbolo }}{% if not forloop.last %}, {% endif %}
+                                                            {% empty %}
+                                                                unidad
+                                                            {% endfor %}
+                                                        {% else %}
+                                                            {{ detalle.activo.unidad_medida.simbolo|default:"unidad" }}
+                                                        {% endif %}
+                                                    </span>
+                                                </div>
+                                                <small class="text-muted">Máximo: {{ detalle.cantidad_solicitada }}</small>
+                                                {% for field in form %}
+                                                    {% if field.name == field_name and field.errors %}
+                                                        <div class="text-danger small mt-1">
+                                                            {{ field.errors }}
+                                                        </div>
+                                                    {% endif %}
+                                                {% endfor %}
+                                                {% endwith %}
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="alert alert-info mt-3">
+                                <i class="ri-information-line"></i>
+                                <strong>Nota:</strong> Puede aprobar una cantidad igual o menor a la solicitada. Ajuste las cantidades según corresponda.
+                            </div>
+
+                            <div class="mt-3">
+                                <label for="{{ form.notas_aprobacion.id_for_label }}" class="form-label">
+                                    {{ form.notas_aprobacion.label }}
+                                </label>
+                                {{ form.notas_aprobacion }}
+                                {% if form.notas_aprobacion.errors %}
+                                    <div class="invalid-feedback d-block">
+                                        {{ form.notas_aprobacion.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="text-end">
+                        <a href="{% url 'solicitudes:detalle_solicitud' solicitud.pk %}" class="btn btn-light">
+                            <i class="ri-close-line"></i> Cancelar
+                        </a>
+                        <button type="submit" class="btn btn-success">
+                            <i class="ri-check-line"></i> Aprobar Solicitud
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<!-- Validaciones de aprobación de solicitud -->
+<script src="{% static 'js/solicitudes/aprobar-solicitud.js' %}"></script>
+{% endblock %}

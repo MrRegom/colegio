@@ -1,0 +1,97 @@
+{% extends 'partials/base.html' %}
+
+{% block content %}
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0">{{ titulo }}</h4>
+                    <div>
+                        <a href="{% url 'bodega:movimiento_crear' %}" class="btn btn-primary">
+                            <i class="ri-add-line"></i> Registrar Movimiento
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <form method="get" class="row g-3">
+                            <div class="col-md-4">
+                                <select name="operacion" class="form-select">
+                                    <option value="">Todas las operaciones</option>
+                                    <option value="ENTRADA" {% if operacion == 'ENTRADA' %}selected{% endif %}>Entrada</option>
+                                    <option value="SALIDA" {% if operacion == 'SALIDA' %}selected{% endif %}>Salida</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <select name="tipo" class="form-select">
+                                    <option value="">Todos los tipos</option>
+                                    {% for tipo in tipos %}
+                                    <option value="{{ tipo.id }}" {% if tipo.id|stringformat:"s" == tipo_id %}selected{% endif %}>{{ tipo.nombre }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <button type="submit" class="btn btn-primary w-100">
+                                    <i class="ri-filter-line"></i> Filtrar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Fecha</th>
+                                        <th>Artículo</th>
+                                        <th>Operación</th>
+                                        <th>Tipo</th>
+                                        <th>Cantidad</th>
+                                        <th>Stock Antes</th>
+                                        <th>Stock Después</th>
+                                        <th>Usuario</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for mov in movimientos %}
+                                    <tr>
+                                        <td>{{ mov.fecha_creacion|date:"d/m/Y H:i" }}</td>
+                                        <td><strong>{{ mov.articulo.codigo }}</strong><br>{{ mov.articulo.nombre|truncatewords:5 }}</td>
+                                        <td>
+                                            <span class="badge {% if mov.operacion == 'ENTRADA' %}bg-success{% else %}bg-danger{% endif %}">
+                                                {{ mov.get_operacion_display }}
+                                            </span>
+                                        </td>
+                                        <td>{{ mov.tipo.nombre }}</td>
+                                        <td>{{ mov.cantidad }}</td>
+                                        <td>{{ mov.stock_antes }}</td>
+                                        <td>{{ mov.stock_despues }}</td>
+                                        <td>{{ mov.usuario.username }}</td>
+                                        <td>
+                                            <a href="{% url 'bodega:movimiento_detalle' mov.pk %}" class="btn btn-sm btn-info">
+                                                <i class="ri-eye-line"></i> Ver
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="9" class="text-center">No hay movimientos registrados</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

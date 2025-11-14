@@ -1,0 +1,828 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block title %} Chat {% endblock title %} 
+
+{% block main_title %}
+
+    <div class="page-title-box">
+        <div class="row align-items-center gy-3">
+            <div class="col-sm">
+                {% block pagetitle %}
+                    {% include "partials/page-title.html" with pagetitle="Chat" title="Chat" %}
+                {% endblock pagetitle %}
+            </div>
+            <div class="col-sm-auto ms-auto">
+                <div class="hstack gap-2 flex-wrap">
+                    <div class="search-box">
+                        <input type="text" class="form-control bg-light border-light" placeholder="Search here...">
+                        <i class="ri-search-2-line search-icon"></i>
+                    </div>
+                    {% block customizer %}
+                        {% include "partials/customizer.html" %}
+                    {% endblock customizer %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock main_title %}
+
+
+{% block content %}
+
+<div class="card">
+    <div class="card-body p-0">
+        <div class="chat-wrapper d-lg-flex">
+            <div class="chat-leftsidebar">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-4">
+                        <div class="flex-grow-1">
+                            <h5 class="mb-0">Connections</h5>
+                        </div>
+                        <div class="flex-shrink-0">
+                            <div data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="bottom" title="Add Contact">
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-subtle-primary btn-sm">
+                                    <i class="ri-add-line align-bottom"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="nav nav-pills bg-light nav-justified rounded-pill p-1 mb-0" id="connection-tab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active rounded-pill" id="connectionList-tab" data-bs-toggle="pill" data-bs-target="#connectionList" type="button" role="tab" aria-controls="connectionList" aria-selected="true">Connections</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link rounded-pill" id="favoritesConnection-tab" data-bs-toggle="pill" data-bs-target="#favoritesConnection" type="button" role="tab" aria-controls="favoritesConnection" aria-selected="false">Favorites</button>
+                        </li>
+                    </ul>
+                </div> <!-- .p-4 -->
+
+                <div class="tab-content">
+                    <div class="tab-pane show active" id="connectionList">
+                        <div class="chat-room-list" data-simplebar>
+                            <div class="chat-message-list">
+                                <ul class="list-unstyled chat-list chat-user-list" id="userList">
+                                </ul>
+                            </div>
+
+                            <div class="card-body py-0 d-flex align-items-center my-2">
+                                <div class="flex-grow-1">
+                                    <h4 class="mb-0 fs-xs text-muted text-uppercase">Connection
+                                        Groups</h4>
+                                </div>
+                                <div class="flex-shrink-0">
+                                    <div data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="bottom" title="Create group">
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-subtle-success btn-sm">
+                                            <i class="ri-add-line align-bottom"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="chat-message-list">
+                                <ul class="list-unstyled chat-list chat-user-list mb-0" id="channelList">
+                                </ul>
+                            </div>
+                            <!-- End chat-message-list -->
+                        </div>
+                        <!-- end tab contact -->
+                    </div>
+                    <!-- end tab pane -->
+                    <div class="tab-pane" id="favoritesConnection">
+                        <div class="chat-room-list" data-simplebar>
+                            <ul class="list-unstyled chat-list chat-user-list" id="favUserList">
+                                <!-- favourite user list -->
+                            </ul>
+                        </div>
+                        <!-- end tab contact -->
+                    </div>
+                    <!-- end tab pane -->
+                </div>
+                <!-- end tab content -->
+            </div>
+            <!-- end chat leftsidebar -->
+
+            <!-- Start User chat -->
+            <div class="user-chat border-start w-100 overflow-hidden">
+
+                <div class="chat-content d-lg-flex">
+                    <!-- start chat conversation section -->
+                    <div class="w-100 overflow-hidden position-relative">
+                        <!-- conversation user -->
+                        <div class="position-relative">
+
+                            <div class="position-relative" id="users-chat">
+                                <div class="p-3 user-chat-topbar border-bottom">
+                                    <div class="row align-items-center flex-nowrap">
+                                        <div class="col-sm-4 col">
+                                            <div class="d-flex align-items-center">
+                                                <div class="flex-shrink-0 d-block d-lg-none me-3">
+                                                    <a href="javascript: void(0);" class="user-chat-remove fs-lg p-1"><i class="ri-arrow-left-s-line align-bottom"></i></a>
+                                                </div>
+                                                <div class="flex-grow-1 overflow-hidden">
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="flex-shrink-0 chat-user-img online user-own-img align-self-center me-3 ms-0">
+                                                            <img src="https://img.themesbrand.com/judia/users/avatar-2.jpg" class="rounded-circle avatar-xs" alt="">
+                                                            <span class="user-status"></span>
+                                                        </div>
+                                                        <div class="flex-grow-1 overflow-hidden">
+                                                            <h5 class="text-truncate mb-1 fs-lg"><a class="text-reset username" data-bs-toggle="offcanvas" href="#userProfileCanvasExample" aria-controls="userProfileCanvasExample">Joel
+                                                                    Bird</a></h5>
+                                                            <p class="text-truncate text-muted fs-md mb-0 userStatus">
+                                                                <small>Online</small>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8 col-auto">
+                                            <ul class="list-inline user-chat-nav text-end mb-0">
+                                                <li class="list-inline-item m-0">
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-ghost-secondary btn-icon" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <i class="bi bi-search"></i>
+                                                        </button>
+                                                        <div class="dropdown-menu p-0 dropdown-menu-end dropdown-menu-lg">
+                                                            <div class="p-2">
+                                                                <div class="search-box">
+                                                                    <input type="text" class="form-control bg-light border-light" autocomplete="off" placeholder="Search here..." onkeyup="searchMessages()" id="searchMessage">
+                                                                    <i class="ri-search-2-line search-icon"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+
+                                                <li class="list-inline-item d-none d-lg-inline-block m-0">
+                                                    <a href="{% url 'apps:chat.video_conference_chat' %}" class="btn btn-ghost-secondary btn-icon video-icon">
+                                                        <i class="bi bi-camera-video"></i>
+                                                    </a>
+                                                </li>
+
+                                                <li class="list-inline-item d-none d-lg-inline-block m-0">
+                                                    <button type="button" class="btn btn-ghost-secondary btn-icon" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                        <i class="bi bi-telephone"></i>
+                                                    </button>
+                                                </li>
+
+                                                <li class="list-inline-item m-0">
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-ghost-secondary btn-icon" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <i class="bi bi-three-dots-vertical"></i>
+                                                        </button>
+                                                        <div class="dropdown-menu dropdown-menu-end">
+                                                            <a class="dropdown-item d-block d-lg-none user-profile-show" href="#"><i class="ri-user-2-fill align-bottom text-muted me-2"></i>
+                                                                View Profile</a>
+                                                            <a class="dropdown-item" href="#"><i class="ri-inbox-archive-line align-bottom text-muted me-2"></i>
+                                                                Archive</a>
+                                                            <a class="dropdown-item" href="#"><i class="ri-mic-off-line align-bottom text-muted me-2"></i>
+                                                                Muted</a>
+                                                            <a class="dropdown-item" href="#"><i class="ri-delete-bin-5-line align-bottom text-muted me-2"></i>
+                                                                Delete</a>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- end chat user head -->
+                                <div class="chat-conversation p-3 p-lg-4" id="chat-conversation" data-simplebar>
+                                    <div id="elmLoader">
+                                        <div class="spinner-border text-primary avatar-sm" role="status">
+                                            <span class="visually-hidden">Loading...</span>
+                                        </div>
+                                    </div>
+                                    <ul class="list-unstyled chat-conversation-list" id="users-conversation"><!-- id="users-conversation"-->
+
+                                    </ul>
+                                    <!-- end chat-conversation-list -->
+                                </div>
+                                <div class="alert alert-warning alert-dismissible copyclipboard-alert px-8 fade show " id="copyClipBoard" role="alert">
+                                    Message copied
+                                </div>
+                            </div>
+
+                            <div class="position-relative" id="channel-chat">
+                                <div class="p-3 user-chat-topbar border-bottom">
+                                    <div class="row align-items-center flex-nowrap">
+                                        <div class="col-sm-4 col">
+                                            <div class="d-flex align-items-center">
+                                                <div class="flex-shrink-0 d-block d-lg-none me-3">
+                                                    <a href="javascript: void(0);" class="user-chat-remove fs-lg p-1"><i class="ri-arrow-left-s-line align-bottom"></i></a>
+                                                </div>
+                                                <div class="flex-grow-1 overflow-hidden">
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="flex-shrink-0 chat-user-img online user-own-img align-self-center me-3 ms-0">
+                                                            <img src="https://img.themesbrand.com/judia/users/avatar-2.jpg" class="rounded-circle avatar-xs" alt="">
+                                                        </div>
+                                                        <div class="flex-grow-1 overflow-hidden">
+                                                            <h5 class="text-truncate mb-0 fs-lg"><a class="text-reset username" data-bs-toggle="offcanvas" href="#userProfileCanvasExample" aria-controls="userProfileCanvasExample">Lisa
+                                                                    Parker</a></h5>
+                                                            <p class="text-truncate text-muted fs-md mb-0 userStatus">
+                                                                <small>24 Members</small>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8 col-auto">
+                                            <ul class="list-inline user-chat-nav text-end mb-0">
+                                                <li class="list-inline-item m-0">
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-ghost-secondary btn-icon" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <i class="bi bi-search"></i>
+                                                        </button>
+                                                        <div class="dropdown-menu p-0 dropdown-menu-end dropdown-menu-lg">
+                                                            <div class="p-2">
+                                                                <div class="search-box">
+                                                                    <input type="text" class="form-control bg-light border-light" autocomplete="off" placeholder="Search here..." onkeyup="searchMessages()" id="searchMessage">
+                                                                    <i class="ri-search-2-line search-icon"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+
+                                                <li class="list-inline-item d-none d-lg-inline-block m-0">
+                                                    <button type="button" class="btn btn-ghost-secondary fs-lg btn-icon" data-bs-toggle="offcanvas" data-bs-target="#userProfileCanvasExample" aria-controls="userProfileCanvasExample">
+                                                        <i class="bi bi-info-circle"></i>
+                                                    </button>
+                                                </li>
+
+                                                <li class="list-inline-item m-0">
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-ghost-secondary fs-lg btn-icon" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <i class="bi bi-three-dots-vertical"></i>
+                                                        </button>
+                                                        <div class="dropdown-menu dropdown-menu-end">
+                                                            <a class="dropdown-item d-block d-lg-none user-profile-show" href="#"><i class="ri-user-2-fill align-bottom text-muted me-2"></i>
+                                                                View Profile</a>
+                                                            <a class="dropdown-item" href="#"><i class="ri-inbox-archive-line align-bottom text-muted me-2"></i>
+                                                                Archive</a>
+                                                            <a class="dropdown-item" href="#"><i class="ri-mic-off-line align-bottom text-muted me-2"></i>
+                                                                Muted</a>
+                                                            <a class="dropdown-item" href="#"><i class="ri-delete-bin-5-line align-bottom text-muted me-2"></i>
+                                                                Delete</a>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- end chat user head -->
+                                <div class="chat-conversation p-3 p-lg-4" id="chat-conversation" data-simplebar>
+                                    <ul class="list-unstyled chat-conversation-list" id="channel-conversation">
+                                    </ul>
+                                    <!-- end chat-conversation-list -->
+
+                                </div>
+                                <div class="alert alert-warning alert-dismissible copyclipboard-alert px-4 fade show " id="copyClipBoardChannel" role="alert">
+                                    Message copied
+                                </div>
+                            </div>
+
+                            <!-- end chat-conversation -->
+
+                            <div class="chat-input-section p-3 border-top">
+
+                                <form id="chatinput-form" class="shadow-lg p-2 rounded" enctype="multipart/form-data">
+                                    <div class="row g-0 align-items-center">
+                                        <div class="col-auto">
+                                            <div class="chat-input-links me-2">
+
+                                                <div class="links-list-item">
+                                                    <button type="button" class="btn btn-ghost-danger emoji-btn" id="emoji-btn">
+                                                        <i class="bx bx-smile align-middle"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col">
+                                            <div class="chat-input-feedback">
+                                                Please Enter a Message
+                                            </div>
+                                            <input type="text" class="form-control chat-input border-0" id="chat-input" placeholder="Type your message..." autocomplete="off">
+                                        </div>
+                                        <div class="col-auto d-flex align-items-center justify-content-end gap-2">
+                                            <div class="chat-input-links">
+                                                <button type="button" id="startButton" class="btn btn-ghost-success btn-icon"><i class="bi bi-mic"></i></button>
+                                                <button type="button" id="recordInProgressButton" class="btn btn-link btn-icon link-danger d-none"><i class="bi bi-mic-mute"></i></button>
+                                            </div>
+                                            <div class="chat-input-links">
+                                                <label for="imageInput" class="btn btn-ghost-primary btn-icon"><i class="bi bi-image"></i></label>
+                                                <input type="file" id="imageInput" class="d-none" accept="image/png, image/gif, image/jpeg">
+                                            </div>
+                                            <button type="submit" class="btn btn-dark chat-send waves-effect waves-light">
+                                                <i class="ph-paper-plane-right align-middle"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div class="replyCard">
+                                <div class="card mb-0">
+                                    <div class="card-body">
+                                        <div class="replymessage-block mb-0 d-flex align-items-start">
+                                            <div class="flex-grow-1">
+                                                <h5 class="conversation-name"></h5>
+                                                <p class="mb-0"></p>
+                                            </div>
+                                            <div class="flex-shrink-0">
+                                                <button type="button" id="close_toggle" class="btn btn-sm btn-link mt-n2 me-n3 fs-lg">
+                                                    <i class="bx bx-x align-middle"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end chat-wrapper -->
+    </div>
+</div>
+
+{% endblock content %}
+
+
+{% block extra_content %}
+
+<div class="modal fade" id="inviteMembersModal" tabindex="-1" aria-labelledby="inviteMembersModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0">
+            <div class="modal-header p-3 ps-4 bg-primary-subtle">
+                <h5 class="modal-title" id="inviteMembersModalLabel"> Add Participant</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4">
+                <div class="search-box mb-3">
+                    <input type="text" class="form-control bg-light border-light" placeholder="Search here...">
+                    <i class="ri-search-line search-icon"></i>
+                </div>
+
+                <div class="mb-4 d-flex align-items-center">
+                    <div class="me-2">
+                        <h5 class="mb-0 fs-md">Members :</h5>
+                    </div>
+                    <div class="avatar-group justify-content-center">
+                        <a href="javascript: void(0);" class="avatar-group-item" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="Tonya Noble">
+                            <div class="avatar-xs">
+                                <img src="https://img.themesbrand.com/judia/users/avatar-10.jpg" alt="" class="rounded-circle img-fluid">
+                            </div>
+                        </a>
+                        <a href="javascript: void(0);" class="avatar-group-item" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="Thomas Taylor">
+                            <div class="avatar-xs">
+                                <img src="https://img.themesbrand.com/judia/users/avatar-8.jpg" alt="" class="rounded-circle img-fluid">
+                            </div>
+                        </a>
+                        <a href="javascript: void(0);" class="avatar-group-item" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="Nancy Martino">
+                            <div class="avatar-xs">
+                                <img src="https://img.themesbrand.com/judia/users/avatar-2.jpg" alt="" class="rounded-circle img-fluid">
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="mx-n4 px-4" data-simplebar style="max-height: 225px;">
+                    <div class="vstack gap-3">
+                        <div class="d-flex align-items-center">
+                            <div class="avatar-xs flex-shrink-0 me-2">
+                                <img src="https://img.themesbrand.com/judia/users/avatar-2.jpg" alt="" class="img-fluid rounded-circle">
+                            </div>
+                            <div class="flex-grow-1">
+                                <h5 class="fs-md mb-0"><a href="javascript:void(0);" class="text-body d-block">Nancy
+                                        Martino</a></h5>
+                            </div>
+                            <div class="flex-shrink-0">
+                                <button type="button" class="btn btn-light btn-sm">Add</button>
+                            </div>
+                        </div>
+                        <!-- end member item -->
+                        <div class="d-flex align-items-center">
+                            <div class="avatar-xs flex-shrink-0 me-2">
+                                <div class="avatar-title bg-danger-subtle text-danger rounded-circle">
+                                    HB
+                                </div>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h5 class="fs-md mb-0"><a href="javascript:void(0);" class="text-body d-block">Henry
+                                        Baird</a></h5>
+                            </div>
+                            <div class="flex-shrink-0">
+                                <button type="button" class="btn btn-light btn-sm">Add</button>
+                            </div>
+                        </div>
+                        <!-- end member item -->
+                        <div class="d-flex align-items-center">
+                            <div class="avatar-xs flex-shrink-0 me-2">
+                                <img src="https://img.themesbrand.com/judia/users/avatar-3.jpg" alt="" class="img-fluid rounded-circle">
+                            </div>
+                            <div class="flex-grow-1">
+                                <h5 class="fs-md mb-0"><a href="javascript:void(0);" class="text-body d-block">Frank
+                                        Hook</a></h5>
+                            </div>
+                            <div class="flex-shrink-0">
+                                <button type="button" class="btn btn-light btn-sm">Add</button>
+                            </div>
+                        </div>
+                        <!-- end member item -->
+                        <div class="d-flex align-items-center">
+                            <div class="avatar-xs flex-shrink-0 me-2">
+                                <img src="https://img.themesbrand.com/judia/users/avatar-4.jpg" alt="" class="img-fluid rounded-circle">
+                            </div>
+                            <div class="flex-grow-1">
+                                <h5 class="fs-md mb-0"><a href="javascript:void(0);" class="text-body d-block">Jennifer Carter</a></h5>
+                            </div>
+                            <div class="flex-shrink-0">
+                                <button type="button" class="btn btn-light btn-sm">Add</button>
+                            </div>
+                        </div>
+                        <!-- end member item -->
+                        <div class="d-flex align-items-center">
+                            <div class="avatar-xs flex-shrink-0 me-2">
+                                <div class="avatar-title bg-success-subtle text-success rounded-circle">
+                                    AC
+                                </div>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h5 class="fs-md mb-0"><a href="javascript:void(0);" class="text-body d-block">Alexis Clarke</a></h5>
+                            </div>
+                            <div class="flex-shrink-0">
+                                <button type="button" class="btn btn-light btn-sm">Add</button>
+                            </div>
+                        </div>
+                        <!-- end member item -->
+                        <div class="d-flex align-items-center">
+                            <div class="avatar-xs flex-shrink-0 me-2">
+                                <img src="https://img.themesbrand.com/judia/users/avatar-7.jpg" alt="" class="img-fluid rounded-circle">
+                            </div>
+                            <div class="flex-grow-1">
+                                <h5 class="fs-md mb-0"><a href="javascript:void(0);" class="text-body d-block">Joseph Parker</a></h5>
+                            </div>
+                            <div class="flex-shrink-0">
+                                <button type="button" class="btn btn-light btn-sm">Add</button>
+                            </div>
+                        </div>
+                        <!-- end member item -->
+                    </div>
+                    <!-- end list -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light w-xs" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary w-xs">Add Participant</button>
+            </div>
+        </div>
+        <!-- end modal-content -->
+    </div>
+    <!-- modal-dialog -->
+</div>
+<!-- end modal -->
+
+<div class="offcanvas offcanvas-end border-0" tabindex="-1" id="userProfileCanvasExample">
+    <!--end offcanvas-header-->
+    <div class="offcanvas-header bg-light">
+        <h5 class="offcanvas-title mb-0" id="offcanvasExampleLabel">Contact Info</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body profile-offcanvas p-0">
+        <div class="text-center p-4">
+            <img src="https://img.themesbrand.com/judia/users/avatar-2.jpg" alt="" class="avatar-xl img-thumbnail rounded-circle mx-auto profile-img">
+            <div class="mt-3">
+                <h5 class="mb-1"><a href="javascript:void(0);" class="link-primary username">Joel Bird</a></h5>
+                <p class="text-muted"><i class="ri-checkbox-blank-circle-fill me-1 align-bottom fs-2xs text-success"></i>Online</p>
+            </div>
+
+            <div class="d-flex gap-2 justify-content-center">
+                <button type="button" class="btn avatar-xs p-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Message">
+                    <span class="avatar-title rounded bg-danger-subtle text-danger">
+                        <i class="ri-question-answer-line"></i>
+                    </span>
+                </button>
+
+                <button type="button" class="btn avatar-xs p-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Favorite">
+                    <span class="avatar-title rounded bg-warning-subtle text-warning">
+                        <i class="ri-star-line"></i>
+                    </span>
+                </button>
+
+                <button type="button" class="btn avatar-xs p-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Phone">
+                    <span class="avatar-title rounded bg-secondary-subtle text-secondary">
+                        <i class="ri-phone-line"></i>
+                    </span>
+                </button>
+
+                <div class="dropdown">
+                    <button class="btn avatar-xs p-0" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="avatar-title bg-light text-body rounded">
+                            <i class="ri-more-fill"></i>
+                        </span>
+                    </button>
+
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-inbox-archive-line align-bottom text-muted me-2"></i>Archive</a></li>
+                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-mic-off-line align-bottom text-muted me-2"></i>Muted</a></li>
+                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-delete-bin-5-line align-bottom text-muted me-2"></i>Delete</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="border-top border-2 border-top-dashed p-3">
+            <h5 class="fs-lg mb-3">Personal Information</h5>
+            <div class="d-flex align-items-center gap-2 mb-2">
+                <div class="avatar-xs flex-shrink-0">
+                    <div class="avatar-title bg-light text-body rounded">
+                        <i class="bi bi-telephone"></i>
+                    </div>
+                </div>
+                <div class="flex-grow-1">
+                    <p class="text-muted fw-medium fs-xs mb-1">Number</p>
+                    <h6 class="fs-sm">+(256) 2451 8974</h6>
+                </div>
+            </div>
+            <div class="d-flex align-items-center gap-2 mb-2">
+                <div class="avatar-xs flex-shrink-0">
+                    <div class="avatar-title bg-light text-body rounded">
+                        <i class="bi bi-envelope"></i>
+                    </div>
+                </div>
+                <div class="flex-grow-1">
+                    <p class="text-muted fw-medium fs-xs mb-1">Email</p>
+                    <h6 class="fs-sm">joelbird@gmail.com</h6>
+                </div>
+            </div>
+            <div class="d-flex align-items-center gap-2 mb-2">
+                <div class="avatar-xs flex-shrink-0">
+                    <div class="avatar-title bg-light text-body rounded">
+                        <i class="bi bi-skype"></i>
+                    </div>
+                </div>
+                <div class="flex-grow-1">
+                    <p class="text-muted fw-medium fs-xs mb-1">Skype</p>
+                    <h6 class="fs-sm">@joel_bird</h6>
+                </div>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+                <div class="avatar-xs flex-shrink-0">
+                    <div class="avatar-title bg-light text-body rounded">
+                        <i class="bi bi-geo-alt"></i>
+                    </div>
+                </div>
+                <div class="flex-grow-1">
+                    <p class="text-muted fw-medium fs-xs mb-1">Location</p>
+                    <h6 class="fs-sm">California, USA</h6>
+                </div>
+            </div>
+        </div>
+
+        <div class="border-top border-2 border-top-dashed p-3">
+            <a href="#!" class="text-muted float-end">See All</a>
+            <h5 class="fs-md mb-3">Media</h5>
+
+            <div class="row g-2">
+                <div class="col-3">
+                    <a href="#!"><img src="https://img.themesbrand.com/judia/small/img-1.jpg" alt="" class="img-thumbnail border-1"></a>
+                </div>
+                <div class="col-3">
+                    <a href="#!"><img src="https://img.themesbrand.com/judia/small/img-2.jpg" alt="" class="img-thumbnail border-1"></a>
+                </div>
+                <div class="col-3">
+                    <a href="#!"><img src="https://img.themesbrand.com/judia/small/img-3.jpg" alt="" class="img-thumbnail border-1"></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="border-top border-2 border-top-dashed p-3">
+            <a href="#!" class="text-muted float-end">See All</a>
+            <h5 class="fs-md mb-3">Recent Files <span class="badge bg-success-subtle text-success align-middle ms-1">8</span></h5>
+
+            <div class="vstack gap-2">
+                <div class="d-flex align-items-center">
+                    <div class="flex-shrink-0 avatar-xs me-2">
+                        <div class="avatar-title bg-danger rounded">
+                            <i class="bi bi-file-earmark-richtext"></i>
+                        </div>
+                    </div>
+                    <div class="flex-grow-1 overflow-hidden">
+                        <h5 class="fs-sm fw-medium text-truncate mb-1">App pages.zip</h5>
+                        <p class="text-muted fs-xs mb-0">2.5 MB</p>
+                    </div>
+
+                    <div class="flex-shrink-0 ms-3">
+                        <div class="d-flex gap-2">
+                            <div>
+                                <a href="#" class="text-muted px-1">
+                                    <i class="bi bi-download"></i>
+                                </a>
+                            </div>
+                            <div class="dropdown">
+                                <a class="text-muted px-1" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="bi bi-three-dots"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end">
+                                    <a class="dropdown-item d-flex align-items-center justify-content-between" href="#">Share <i class="bi bi-share ms-2 text-muted"></i></a>
+                                    <a class="dropdown-item d-flex align-items-center justify-content-between" href="#">Bookmark <i class="bi bi-bookmarks text-muted ms-2"></i></a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-flex align-items-center justify-content-between" href="#">Delete <i class="bi bi-trash3 ms-2 text-muted"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="d-flex align-items-center">
+                    <div class="flex-shrink-0 avatar-xs me-2">
+                        <div class="avatar-title bg-secondary rounded">
+                            <i class="bi bi-file-earmark-richtext"></i>
+                        </div>
+                    </div>
+                    <div class="flex-grow-1 overflow-hidden">
+                        <h5 class="fs-sm fw-medium text-truncate mb-1">Judia admin.ppt</h5>
+                        <p class="text-muted fs-xs mb-0">2.4 MB</p>
+                    </div>
+
+                    <div class="flex-shrink-0 ms-3">
+                        <div class="d-flex gap-2">
+                            <div>
+                                <a href="#" class="text-muted px-1">
+                                    <i class="bi bi-download"></i>
+                                </a>
+                            </div>
+                            <div class="dropdown">
+                                <a class="text-muted px-1" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="bi bi-three-dots"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end">
+                                    <a class="dropdown-item d-flex align-items-center justify-content-between" href="#">Share <i class="bi bi-share ms-2 text-muted"></i></a>
+                                    <a class="dropdown-item d-flex align-items-center justify-content-between" href="#">Bookmark <i class="bi bi-bookmarks text-muted ms-2"></i></a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-flex align-items-center justify-content-between" href="#">Delete <i class="bi bi-trash3 ms-2 text-muted"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center">
+                    <div class="flex-shrink-0 avatar-xs me-2">
+                        <div class="avatar-title bg-warning rounded">
+                            <i class="bi bi-file-earmark-richtext"></i>
+                        </div>
+                    </div>
+                    <div class="flex-grow-1 overflow-hidden">
+                        <h5 class="fs-sm fw-medium text-truncate mb-1">Images.zip</h5>
+                        <p class="text-muted fs-xs mb-0">1.2MB</p>
+                    </div>
+
+                    <div class="flex-shrink-0 ms-3">
+                        <div class="d-flex gap-2">
+                            <div>
+                                <a href="#" class="text-muted px-1">
+                                    <i class="bi bi-download"></i>
+                                </a>
+                            </div>
+                            <div class="dropdown">
+                                <a class="text-muted px-1" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="bi bi-three-dots"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end">
+                                    <a class="dropdown-item d-flex align-items-center justify-content-between" href="#">Share <i class="bi bi-share ms-2 text-muted"></i></a>
+                                    <a class="dropdown-item d-flex align-items-center justify-content-between" href="#">Bookmark <i class="bi bi-bookmarks text-muted ms-2"></i></a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-flex align-items-center justify-content-between" href="#">Delete <i class="bi bi-trash3 ms-2 text-muted"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center">
+                    <div class="flex-shrink-0 avatar-xs me-2">
+                        <div class="avatar-title bg-success rounded">
+                            <i class="bi bi-file-earmark-richtext"></i>
+                        </div>
+                    </div>
+                    <div class="flex-grow-1 overflow-hidden">
+                        <h5 class="fs-sm fw-medium text-truncate mb-1">bg-pattern.png</h5>
+                        <p class="text-muted fs-xs mb-0">2.97MB</p>
+                    </div>
+
+                    <div class="flex-shrink-0 ms-3">
+                        <div class="d-flex gap-2">
+                            <div>
+                                <a href="#" class="text-muted px-1">
+                                    <i class="bi bi-download"></i>
+                                </a>
+                            </div>
+                            <div class="dropdown">
+                                <a class="text-muted px-1" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="bi bi-three-dots"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end">
+                                    <a class="dropdown-item d-flex align-items-center justify-content-between" href="#">Share <i class="bi bi-share ms-2 text-muted"></i></a>
+                                    <a class="dropdown-item d-flex align-items-center justify-content-between" href="#">Bookmark <i class="bi bi-bookmarks text-muted ms-2"></i></a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-flex align-items-center justify-content-between" href="#">Delete <i class="bi bi-trash3 ms-2 text-muted"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center">
+                    <div class="flex-shrink-0 avatar-xs me-2">
+                        <div class="avatar-title bg-primary rounded">
+                            <i class="bi bi-image"></i>
+                        </div>
+                    </div>
+                    <div class="flex-grow-1 overflow-hidden">
+                        <h5 class="fs-sm fw-medium text-truncate mb-1">steex-demo.png</h5>
+                        <p class="text-muted fs-xs mb-0">0.87MB</p>
+                    </div>
+
+                    <div class="flex-shrink-0 ms-3">
+                        <div class="d-flex gap-2">
+                            <div>
+                                <a href="#" class="text-muted px-1">
+                                    <i class="bi bi-download"></i>
+                                </a>
+                            </div>
+                            <div class="dropdown">
+                                <a class="text-muted px-1" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="bi bi-three-dots"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end">
+                                    <a class="dropdown-item d-flex align-items-center justify-content-between" href="#">Share <i class="bi bi-share ms-2 text-muted"></i></a>
+                                    <a class="dropdown-item d-flex align-items-center justify-content-between" href="#">Bookmark <i class="bi bi-bookmarks text-muted ms-2"></i></a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-flex align-items-center justify-content-between" href="#">Delete <i class="bi bi-trash3 ms-2 text-muted"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end offcanvas-body-->
+</div>
+<!--end offcanvas-->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content border-0 overflow-hidden">
+            <div class="modal-body py-5" style="background-image: url({% static 'images/small/img-2.jpg' %});height: 400px;background-size:cover;">
+                <div class="bg-overlay bg-primary bg-opacity-75"></div>
+                <div class="d-flex align-items-center justify-content-center h-100">
+                    <div class="position-relative text-center">
+                        <img src="{% static 'images/users/avatar-1.jpg' %}" alt="" class="avatar-lg mx-auto d-block rounded-circle">
+                        <div class="mt-4">
+                            <h4 class="text-white">Sophia Bethany</h4>
+                            <p class="text-white text-opacity-75">Calling ...</p>
+                            <div class="hstack gap-2 justify-content-center" id="incomingCall">
+                                <button class="btn btn-danger btn-icon rounded-circle" data-bs-dismiss="modal"><i class="ph ph-phone-disconnect"></i></button>
+                                <button class="btn btn-success btn-icon rounded-circle" id="joinSimpleCall"><i class="bi bi-telephone"></i></button>
+                            </div>
+                            <div class="hstack gap-2 justify-content-center d-none" id="recieveCall">
+                                <button class="btn btn-light btn-icon rounded-circle"><i class="bi bi-mic-mute"></i></button>
+                                <button class="btn btn-light btn-icon rounded-circle"><i class="bi bi-volume-up"></i></button>
+                                <button class="btn btn-danger btn-icon rounded-circle" data-bs-dismiss="modal" id="disconnectSimpleCall"><i class="ph ph-phone-disconnect"></i></button>
+                                <button class="btn btn-light btn-icon rounded-circle"><i class="bi bi-person-plus"></i></button>
+                                <button class="btn btn-light btn-icon rounded-circle"><i class="bi bi-record2"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock extra_content %}
+
+{% block extra_js %}
+
+    <!-- glightbox js -->
+    <script src="{% static 'libs/glightbox/js/glightbox.min.js' %}"></script>
+
+    <!-- fgEmojiPicker js -->
+    <script src="{% static 'libs/fg-emoji-picker/fgEmojiPicker.js' %}"></script>
+
+    <!-- chat init js -->
+    <script src="{% static 'js/pages/chat.init.js' %}"></script>
+
+{% endblock extra_js %}

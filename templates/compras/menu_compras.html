@@ -1,0 +1,139 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block title %}{{ titulo }}{% endblock %}
+
+{% block content %}
+<div class="page-content">
+    <div class="container-fluid">
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between mb-3">
+                    <h4 class="mb-sm-0">{{ titulo }}</h4>
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="{% url 'dashboard_analytics' %}">Dashboard</a></li>
+                            <li class="breadcrumb-item active">Compras</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <!-- Menú principal con Cards -->
+        <div class="row">
+            <div class="col-12">
+                <h5 class="mb-3 text-muted">Seleccione una opción:</h5>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Card 1: Órdenes de Compra -->
+            <div class="col-lg-3 col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h5 class="fw-semibold mb-0" style="font-size: 1rem; letter-spacing: 0.5px; color: #323130;">ÓRDENES DE COMPRA</h5>
+                            <a href="{% url 'compras:orden_compra_lista' %}" class="text-muted">
+                                <i class="ri-arrow-right-up-line fs-sm"></i>
+                            </a>
+                        </div>
+                        <div class="d-grid gap-2">
+                            {% if permisos.puede_crear %}
+                            <a href="{% url 'compras:orden_compra_crear' %}" class="btn btn-sm btn-success">
+                                <i class="ri-add-line align-bottom me-1"></i> Nueva Orden
+                            </a>
+                            {% endif %}
+                            <a href="{% url 'compras:orden_compra_lista' %}" class="btn btn-sm btn-outline-success">
+                                <i class="ri-list-check align-bottom me-1"></i> Ver Órdenes
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2: Recepción de Artículos -->
+            {% if permisos.puede_recepcionar %}
+            <div class="col-lg-3 col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h5 class="fw-semibold mb-0" style="font-size: 1rem; letter-spacing: 0.5px; color: #323130;">RECEPCIÓN ART.</h5>
+                            <a href="{% url 'compras:recepcion_articulo_lista' %}" class="text-muted">
+                                <i class="ri-arrow-right-up-line fs-sm"></i>
+                            </a>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <a href="{% url 'compras:recepcion_articulo_crear' %}" class="btn btn-sm btn-info">
+                                <i class="ri-add-line align-bottom me-1"></i> Nueva Recepción
+                            </a>
+                            <a href="{% url 'compras:recepcion_articulo_lista' %}" class="btn btn-sm btn-outline-info">
+                                <i class="ri-list-check align-bottom me-1"></i> Ver Recepciones
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3: Recepción de Bienes -->
+            <div class="col-lg-3 col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h5 class="fw-semibold mb-0" style="font-size: 1rem; letter-spacing: 0.5px; color: #323130;">RECEPCIÓN BIENES</h5>
+                            <a href="{% url 'compras:recepcion_activo_lista' %}" class="text-muted">
+                                <i class="ri-arrow-right-up-line fs-sm"></i>
+                            </a>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <a href="{% url 'compras:recepcion_activo_crear' %}" class="btn btn-sm btn-primary">
+                                <i class="ri-add-line align-bottom me-1"></i> Nueva Recepción
+                            </a>
+                            <a href="{% url 'compras:recepcion_activo_lista' %}" class="btn btn-sm btn-outline-primary">
+                                <i class="ri-list-check align-bottom me-1"></i> Ver Recepciones
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Información adicional -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card border-0 shadow-none">
+                    <div class="card-body">
+                        <div class="alert alert-info border-0 mb-0" role="alert">
+                            <div class="d-flex">
+                                <div class="flex-shrink-0">
+                                    <i class="ri-information-line fs-16 align-middle"></i>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h6 class="alert-heading">Información del Módulo</h6>
+                                    <p class="mb-0">
+                                        Gestione el proceso completo de compras desde la creación de órdenes hasta la recepción de productos.
+                                        El sistema maneja <strong>{{ stats.proveedores_activos }} proveedores activos</strong> y permite
+                                        recepcionar tanto artículos de bodega como bienes/activos fijos.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,234 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block title %}{{ titulo }}{% endblock %}
+
+{% block content %}
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0">{{ titulo }}</h4>
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="{% url 'dashboard_analytics' %}">Dashboard</a></li>
+                            <li class="breadcrumb-item"><a href="{% url 'activos:lista_movimientos' %}">Movimientos</a></li>
+                            <li class="breadcrumb-item active">{{ action }}</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <form method="post" id="form-movimiento">
+            {% csrf_token %}
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Información del Movimiento</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">{{ form.activo.label }} <span class="text-danger">*</span></label>
+                                    {{ form.activo }}
+                                    {% if form.activo.errors %}<div class="invalid-feedback d-block">{{ form.activo.errors }}</div>{% endif %}
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">{{ form.tipo_movimiento.label }} <span class="text-danger">*</span></label>
+                                    {{ form.tipo_movimiento }}
+                                    {% if form.tipo_movimiento.errors %}<div class="invalid-feedback d-block">{{ form.tipo_movimiento.errors }}</div>{% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Ubicación y Responsable</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-md-12">
+                                    <label class="form-label">{{ form.ubicacion_destino.label }}</label>
+                                    {{ form.ubicacion_destino }}
+                                    {% if form.ubicacion_destino.errors %}<div class="invalid-feedback d-block">{{ form.ubicacion_destino.errors }}</div>{% endif %}
+                                    <small class="text-muted">Ubicación física donde se encuentra el activo</small>
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="form-label">{{ form.responsable.label }}</label>
+                                    {{ form.responsable }}
+                                    {% if form.responsable.errors %}<div class="invalid-feedback d-block">{{ form.responsable.errors }}</div>{% endif %}
+                                    <small class="text-muted">Usuario responsable del activo</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Detalles del Activo</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-md-12" id="field-numero-serie" style="display: none;">
+                                    <label class="form-label">{{ form.numero_serie.label }}</label>
+                                    {{ form.numero_serie }}
+                                    {% if form.numero_serie.errors %}<div class="invalid-feedback d-block">{{ form.numero_serie.errors }}</div>{% endif %}
+                                    <small class="text-muted">Este campo aparece si el activo requiere número de serie</small>
+                                </div>
+                                <div class="col-md-12" id="field-lote" style="display: none;">
+                                    <label class="form-label">{{ form.lote.label }}</label>
+                                    {{ form.lote }}
+                                    {% if form.lote.errors %}<div class="invalid-feedback d-block">{{ form.lote.errors }}</div>{% endif %}
+                                    <small class="text-muted">Este campo aparece si el activo requiere lote</small>
+                                </div>
+                                <div class="col-md-12" id="field-fecha-vencimiento" style="display: none;">
+                                    <label class="form-label">{{ form.fecha_vencimiento.label }}</label>
+                                    {{ form.fecha_vencimiento }}
+                                    {% if form.fecha_vencimiento.errors %}<div class="invalid-feedback d-block">{{ form.fecha_vencimiento.errors }}</div>{% endif %}
+                                    <small class="text-muted">Este campo aparece si el activo requiere fecha de vencimiento</small>
+                                </div>
+                                <div class="col-md-12" id="no-fields-message">
+                                    <div class="alert alert-info mb-0">
+                                        <i class="ri-information-line me-2"></i>
+                                        Seleccione un activo para ver los campos adicionales requeridos
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Observaciones</h5>
+                        </div>
+                        <div class="card-body">
+                            {{ form.observaciones }}
+                            {% if form.observaciones.errors %}<div class="invalid-feedback d-block">{{ form.observaciones.errors }}</div>{% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="text-end">
+                        <a href="{% url 'activos:lista_movimientos' %}" class="btn btn-light">
+                            <i class="ri-close-line"></i> Cancelar
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="ri-save-line"></i> {{ action }} Movimiento
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const activoSelect = document.getElementById('id_activo');
+    const fieldNumeroSerie = document.getElementById('field-numero-serie');
+    const fieldLote = document.getElementById('field-lote');
+    const fieldFechaVencimiento = document.getElementById('field-fecha-vencimiento');
+    const noFieldsMessage = document.getElementById('no-fields-message');
+    const inputNumeroSerie = document.getElementById('id_numero_serie');
+    const inputLote = document.getElementById('id_lote');
+    const inputFechaVencimiento = document.getElementById('id_fecha_vencimiento');
+
+    // Objeto para almacenar información de activos
+    let activosInfo = {};
+
+    // Cargar información de activos al cargar la página
+    function loadActivosInfo() {
+        {% for activo in form.fields.activo.queryset %}
+        activosInfo[{{ activo.pk }}] = {
+            requiere_serie: {{ activo.requiere_serie|yesno:"true,false" }},
+            requiere_lote: {{ activo.requiere_lote|yesno:"true,false" }},
+            requiere_vencimiento: {{ activo.requiere_vencimiento|yesno:"true,false" }}
+        };
+        {% endfor %}
+    }
+
+    // Actualizar campos según activo seleccionado
+    function updateFields() {
+        const activoId = activoSelect.value;
+
+        if (!activoId || !activosInfo[activoId]) {
+            // Ocultar todos los campos
+            fieldNumeroSerie.style.display = 'none';
+            fieldLote.style.display = 'none';
+            fieldFechaVencimiento.style.display = 'none';
+            noFieldsMessage.style.display = 'block';
+
+            // Remover required
+            inputNumeroSerie.removeAttribute('required');
+            inputLote.removeAttribute('required');
+            inputFechaVencimiento.removeAttribute('required');
+            return;
+        }
+
+        const activo = activosInfo[activoId];
+        let hasAnyField = false;
+
+        // Número de serie
+        if (activo.requiere_serie) {
+            fieldNumeroSerie.style.display = 'block';
+            inputNumeroSerie.setAttribute('required', 'required');
+            hasAnyField = true;
+        } else {
+            fieldNumeroSerie.style.display = 'none';
+            inputNumeroSerie.removeAttribute('required');
+        }
+
+        // Lote
+        if (activo.requiere_lote) {
+            fieldLote.style.display = 'block';
+            inputLote.setAttribute('required', 'required');
+            hasAnyField = true;
+        } else {
+            fieldLote.style.display = 'none';
+            inputLote.removeAttribute('required');
+        }
+
+        // Fecha de vencimiento
+        if (activo.requiere_vencimiento) {
+            fieldFechaVencimiento.style.display = 'block';
+            inputFechaVencimiento.setAttribute('required', 'required');
+            hasAnyField = true;
+        } else {
+            fieldFechaVencimiento.style.display = 'none';
+            inputFechaVencimiento.removeAttribute('required');
+        }
+
+        // Mensaje
+        noFieldsMessage.style.display = hasAnyField ? 'none' : 'block';
+    }
+
+    // Cargar información y configurar evento
+    loadActivosInfo();
+    activoSelect.addEventListener('change', updateFields);
+
+    // Ejecutar al cargar si ya hay un activo seleccionado
+    if (activoSelect.value) {
+        updateFields();
+    }
+});
+</script>
+{% endblock %}

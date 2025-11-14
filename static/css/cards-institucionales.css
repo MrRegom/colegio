@@ -1,0 +1,619 @@
+/* ====================================================
+   ESTILOS INSTITUCIONALES MODERNOS PARA CARDS DE MÓDULOS
+   Colores: Azul (#1e3a8a) y Dorado (#D4AF37)
+   Diseño moderno con gradientes y efectos suaves
+   ================================================== */
+
+/* Colores institucionales */
+:root {
+    --color-institucional-azul: #1e3a8a;
+    --color-institucional-azul-claro: #3b5fa8;
+    --color-institucional-azul-subtle: #e8edf5;
+    --color-institucional-dorado: #D4AF37;
+    --color-institucional-dorado-claro: #e5c866;
+    --color-institucional-dorado-subtle: #faf6e8;
+    --color-institucional-gris: #6c757d;
+    --color-institucional-gris-claro: #adb5bd;
+    --color-institucional-gris-subtle: #f8f9fa;
+    --color-institucional-vino: #8B2635;
+    --color-institucional-vino-claro: #a83d4d;
+    --color-institucional-vino-subtle: #f5e8ea;
+}
+
+/* Cards elegantes y profesionales estilo Microsoft para colegio */
+.card-institucional,
+.card.card-height-100.ribbon-box,
+.card.card-height-100.ribbon-box.border.shadow-lg {
+    border-left: 4px solid #e1e5e9 !important;
+    border-top: 1px solid rgba(0, 0, 0, 0.06) !important;
+    border-right: 1px solid rgba(0, 0, 0, 0.06) !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
+    border-radius: 12px !important;
+    background: #ffffff !important;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    height: 100%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02) !important;
+    cursor: pointer;
+}
+
+/* Borde lateral con color según el tipo de card usando data-attribute */
+.card.card-height-100.ribbon-box[data-category="Configuración"],
+.card.card-height-100.ribbon-box[data-category="Operaciones"] {
+    border-left-color: var(--color-institucional-azul) !important;
+}
+
+.card.card-height-100.ribbon-box[data-category="Gestión"],
+.card.card-height-100.ribbon-box[data-category="Entregas"] {
+    border-left-color: var(--color-institucional-dorado) !important;
+}
+
+.card.card-height-100.ribbon-box[data-category="Activos"] {
+    border-left-color: var(--color-institucional-vino) !important;
+}
+
+.card-institucional:hover,
+.card.card-height-100.ribbon-box:hover,
+.card.card-height-100.ribbon-box.border.shadow-lg:hover {
+    border-top-color: rgba(0, 0, 0, 0.08) !important;
+    border-right-color: rgba(0, 0, 0, 0.08) !important;
+    border-bottom-color: rgba(0, 0, 0, 0.08) !important;
+    /* El borde izquierdo mantiene su color */
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08), 0 4px 8px rgba(0, 0, 0, 0.04) !important;
+    transform: translateY(-6px);
+}
+
+/* Hover específico para mantener el borde izquierdo con color - más elegante */
+.card.card-height-100.ribbon-box[data-category="Configuración"]:hover,
+.card.card-height-100.ribbon-box[data-category="Operaciones"]:hover {
+    border-left-width: 5px !important;
+    border-left-color: var(--color-institucional-azul) !important;
+    box-shadow: 0 12px 32px rgba(30, 58, 138, 0.12), 0 4px 8px rgba(30, 58, 138, 0.06) !important;
+}
+
+.card.card-height-100.ribbon-box[data-category="Gestión"]:hover,
+.card.card-height-100.ribbon-box[data-category="Entregas"]:hover {
+    border-left-width: 5px !important;
+    border-left-color: var(--color-institucional-dorado) !important;
+    box-shadow: 0 12px 32px rgba(212, 175, 55, 0.12), 0 4px 8px rgba(212, 175, 55, 0.06) !important;
+}
+
+.card.card-height-100.ribbon-box[data-category="Activos"]:hover {
+    border-left-width: 5px !important;
+    border-left-color: var(--color-institucional-vino) !important;
+    box-shadow: 0 12px 32px rgba(139, 38, 53, 0.12), 0 4px 8px rgba(139, 38, 53, 0.06) !important;
+}
+
+/* Efecto de overlay elegante al hover */
+.card.card-height-100.ribbon-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(248, 249, 250, 0.9) 100%);
+    opacity: 0;
+    transition: opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.card.card-height-100.ribbon-box:hover::before {
+    opacity: 1;
+}
+
+/* Ribbon oculto - solo usamos el borde lateral */
+.ribbon-institucional-azul,
+.ribbon.ribbon-institucional-azul,
+.ribbon-institucional-dorado,
+.ribbon.ribbon-institucional-dorado,
+.ribbon-institucional-gris,
+.ribbon.ribbon-institucional-gris,
+.ribbon-institucional-vino,
+.ribbon.ribbon-institucional-vino {
+    display: none !important;
+}
+
+/* Etiqueta elegante y profesional en la parte superior derecha */
+.card.card-height-100.ribbon-box::after {
+    content: attr(data-category);
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    padding: 6px 12px;
+    background: rgba(0, 0, 0, 0.03);
+    color: #8a8886;
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    border-radius: 6px;
+    opacity: 0.5;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    z-index: 1;
+    pointer-events: none;
+    backdrop-filter: blur(4px);
+}
+
+.card.card-height-100.ribbon-box:hover::after {
+    opacity: 0.9;
+    background: rgba(0, 0, 0, 0.05);
+    transform: translateY(-2px);
+}
+
+/* Iconos elegantes y profesionales con efecto hover suave */
+.avatar-institucional-azul,
+.avatar-title.avatar-institucional-azul {
+    background: var(--color-institucional-azul-subtle) !important;
+    color: var(--color-institucional-azul) !important;
+    box-shadow: 0 2px 4px rgba(30, 58, 138, 0.08) !important;
+    border: 1px solid rgba(30, 58, 138, 0.12);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+}
+
+.card.card-height-100.ribbon-box:hover .avatar-institucional-azul,
+.card.card-height-100.ribbon-box:hover .avatar-title.avatar-institucional-azul {
+    background: var(--color-institucional-azul) !important;
+    color: white !important;
+    border-color: var(--color-institucional-azul);
+    transform: scale(1.08) translateY(-2px);
+    box-shadow: 0 8px 16px rgba(30, 58, 138, 0.2) !important;
+}
+
+.avatar-institucional-dorado,
+.avatar-title.avatar-institucional-dorado {
+    background: var(--color-institucional-dorado-subtle) !important;
+    color: var(--color-institucional-dorado) !important;
+    box-shadow: 0 2px 4px rgba(212, 175, 55, 0.08) !important;
+    border: 1px solid rgba(212, 175, 55, 0.12);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+}
+
+.card.card-height-100.ribbon-box:hover .avatar-institucional-dorado,
+.card.card-height-100.ribbon-box:hover .avatar-title.avatar-institucional-dorado {
+    background: var(--color-institucional-dorado) !important;
+    color: white !important;
+    border-color: var(--color-institucional-dorado);
+    transform: scale(1.08) translateY(-2px);
+    box-shadow: 0 8px 16px rgba(212, 175, 55, 0.2) !important;
+}
+
+.avatar-institucional-gris,
+.avatar-title.avatar-institucional-gris {
+    background: var(--color-institucional-gris-subtle) !important;
+    color: var(--color-institucional-gris) !important;
+    box-shadow: none;
+    border: 1px solid rgba(108, 117, 125, 0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.card.card-height-100.ribbon-box:hover .avatar-institucional-gris,
+.card.card-height-100.ribbon-box:hover .avatar-title.avatar-institucional-gris {
+    background: var(--color-institucional-gris) !important;
+    color: white !important;
+    border-color: var(--color-institucional-gris);
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(108, 117, 125, 0.25);
+}
+
+.avatar-institucional-vino,
+.avatar-title.avatar-institucional-vino {
+    background: var(--color-institucional-vino-subtle) !important;
+    color: var(--color-institucional-vino) !important;
+    box-shadow: 0 2px 4px rgba(139, 38, 53, 0.08) !important;
+    border: 1px solid rgba(139, 38, 53, 0.12);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+}
+
+.card.card-height-100.ribbon-box:hover .avatar-institucional-vino,
+.card.card-height-100.ribbon-box:hover .avatar-title.avatar-institucional-vino {
+    background: var(--color-institucional-vino) !important;
+    color: white !important;
+    border-color: var(--color-institucional-vino);
+    transform: scale(1.08) translateY(-2px);
+    box-shadow: 0 8px 16px rgba(139, 38, 53, 0.2) !important;
+}
+
+/* Botones elegantes y profesionales */
+.btn-institucional-azul {
+    background: var(--color-institucional-azul);
+    border: none;
+    color: white;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    box-shadow: 0 2px 4px rgba(30, 58, 138, 0.15);
+    border-radius: 6px;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    padding: 0.625rem 1.25rem;
+}
+
+.btn-institucional-azul:hover {
+    background: var(--color-institucional-azul-claro);
+    color: white;
+    box-shadow: 0 4px 12px rgba(30, 58, 138, 0.25);
+    transform: translateY(-1px);
+}
+
+.btn-outline-institucional-azul {
+    border: 1.5px solid var(--color-institucional-azul);
+    color: var(--color-institucional-azul);
+    font-weight: 500;
+    background: transparent;
+    border-radius: 6px;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    padding: 0.5rem 1rem;
+}
+
+.btn-outline-institucional-azul:hover {
+    background: var(--color-institucional-azul);
+    border-color: var(--color-institucional-azul);
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(30, 58, 138, 0.2);
+}
+
+.btn-institucional-dorado {
+    background: var(--color-institucional-dorado);
+    border: none;
+    color: white;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    box-shadow: 0 2px 4px rgba(212, 175, 55, 0.15);
+    border-radius: 6px;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    padding: 0.625rem 1.25rem;
+}
+
+.btn-institucional-dorado:hover {
+    background: var(--color-institucional-dorado-claro);
+    color: white;
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.25);
+    transform: translateY(-1px);
+}
+
+.btn-outline-institucional-dorado {
+    border: 1.5px solid var(--color-institucional-dorado);
+    color: var(--color-institucional-dorado);
+    font-weight: 500;
+    background: transparent;
+    border-radius: 6px;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    padding: 0.5rem 1rem;
+}
+
+.btn-outline-institucional-dorado:hover {
+    background: var(--color-institucional-dorado);
+    border-color: var(--color-institucional-dorado);
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.2);
+}
+
+.btn-institucional-gris {
+    background-color: var(--color-institucional-gris);
+    border-color: var(--color-institucional-gris);
+    color: white;
+}
+
+.btn-institucional-gris:hover {
+    background-color: var(--color-institucional-gris-claro);
+    border-color: var(--color-institucional-gris-claro);
+    color: white;
+}
+
+.btn-outline-institucional-gris {
+    border-color: var(--color-institucional-gris);
+    color: var(--color-institucional-gris);
+}
+
+.btn-outline-institucional-gris:hover {
+    background-color: var(--color-institucional-gris);
+    border-color: var(--color-institucional-gris);
+    color: white;
+}
+
+.btn-institucional-vino {
+    background: var(--color-institucional-vino);
+    border: none;
+    color: white;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    box-shadow: 0 2px 4px rgba(139, 38, 53, 0.15);
+    border-radius: 6px;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    padding: 0.625rem 1.25rem;
+}
+
+.btn-institucional-vino:hover {
+    background: var(--color-institucional-vino-claro);
+    color: white;
+    box-shadow: 0 4px 12px rgba(139, 38, 53, 0.25);
+    transform: translateY(-1px);
+}
+
+.btn-outline-institucional-vino {
+    border: 1.5px solid var(--color-institucional-vino);
+    color: var(--color-institucional-vino);
+    font-weight: 500;
+    background: transparent;
+    border-radius: 6px;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    padding: 0.5rem 1rem;
+}
+
+.btn-outline-institucional-vino:hover {
+    background: var(--color-institucional-vino);
+    border-color: var(--color-institucional-vino);
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(139, 38, 53, 0.2);
+}
+
+/* Badges elegantes y profesionales */
+.badge-institucional-azul,
+.badge.badge-institucional-azul {
+    background: var(--color-institucional-azul);
+    color: white;
+    font-weight: 600;
+    padding: 0.4em 0.75em;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(30, 58, 138, 0.2);
+    font-size: 0.8125rem;
+    letter-spacing: 0.2px;
+}
+
+.badge-institucional-dorado,
+.badge.badge-institucional-dorado {
+    background: var(--color-institucional-dorado);
+    color: white;
+    font-weight: 600;
+    padding: 0.4em 0.75em;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(212, 175, 55, 0.2);
+    font-size: 0.8125rem;
+    letter-spacing: 0.2px;
+}
+
+.badge-institucional-gris,
+.badge.badge-institucional-gris {
+    background: var(--color-institucional-gris);
+    color: white;
+    font-weight: 600;
+    padding: 0.4em 0.75em;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(108, 117, 125, 0.2);
+    font-size: 0.8125rem;
+    letter-spacing: 0.2px;
+}
+
+.badge-institucional-vino,
+.badge.badge-institucional-vino {
+    background: var(--color-institucional-vino);
+    color: white;
+    font-weight: 600;
+    padding: 0.4em 0.75em;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(139, 38, 53, 0.2);
+    font-size: 0.8125rem;
+    letter-spacing: 0.2px;
+}
+
+/* Borde superior con color institucional */
+.card-border-top-azul {
+    border-top: 3px solid var(--color-institucional-azul) !important;
+}
+
+.card-border-top-dorado {
+    border-top: 3px solid var(--color-institucional-dorado) !important;
+}
+
+.card-border-top-gris {
+    border-top: 3px solid var(--color-institucional-gris) !important;
+}
+
+/* Efectos interactivos elegantes para texto */
+.card.card-height-100.ribbon-box .card-title {
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+}
+
+.card.card-height-100.ribbon-box:hover .card-title {
+    transform: translateX(2px);
+}
+
+.card.card-height-100.ribbon-box[data-category="Configuración"]:hover .card-title,
+.card.card-height-100.ribbon-box[data-category="Operaciones"]:hover .card-title {
+    color: var(--color-institucional-azul) !important;
+}
+
+.card.card-height-100.ribbon-box[data-category="Gestión"]:hover .card-title,
+.card.card-height-100.ribbon-box[data-category="Entregas"]:hover .card-title {
+    color: var(--color-institucional-dorado) !important;
+}
+
+.card.card-height-100.ribbon-box[data-category="Activos"]:hover .card-title {
+    color: var(--color-institucional-vino) !important;
+}
+
+.card.card-height-100.ribbon-box .text-muted {
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    opacity: 0.75;
+}
+
+.card.card-height-100.ribbon-box:hover .text-muted {
+    opacity: 1;
+    color: #605e5c !important;
+}
+
+/* Botones con efecto hover mejorado */
+.card.card-height-100.ribbon-box .btn {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.card.card-height-100.ribbon-box .btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.card.card-height-100.ribbon-box .btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.card.card-height-100.ribbon-box .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Mostrar información adicional al hover */
+.card.card-height-100.ribbon-box .mt-3 {
+    transition: all 0.3s ease;
+    opacity: 0.9;
+}
+
+.card.card-height-100.ribbon-box:hover .mt-3 {
+    opacity: 1;
+    transform: translateY(-2px);
+}
+
+/* Asegurar que el contenido esté por encima de los pseudo-elementos */
+.card.card-height-100.ribbon-box {
+    position: relative;
+}
+
+.card.card-height-100.ribbon-box .card-body {
+    position: relative;
+    z-index: 1;
+}
+
+/* Cards de reportes elegantes */
+.card.card-animate {
+    border-left: 4px solid #e1e5e9 !important;
+    border-top: 1px solid rgba(0, 0, 0, 0.06) !important;
+    border-right: 1px solid rgba(0, 0, 0, 0.06) !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
+    border-radius: 12px !important;
+    background: #ffffff !important;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    height: 100%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02) !important;
+    cursor: pointer;
+}
+
+.card.card-animate:hover {
+    border-top-color: rgba(0, 0, 0, 0.08) !important;
+    border-right-color: rgba(0, 0, 0, 0.08) !important;
+    border-bottom-color: rgba(0, 0, 0, 0.08) !important;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08), 0 4px 8px rgba(0, 0, 0, 0.04) !important;
+    transform: translateY(-6px);
+}
+
+/* Colores de borde lateral para cards de reportes */
+.card.card-animate.border-primary,
+.card.card-animate[style*="border-primary"] {
+    border-left-color: var(--color-institucional-azul) !important;
+}
+
+.card.card-animate.border-success,
+.card.card-animate[style*="border-success"] {
+    border-left-color: var(--color-institucional-dorado) !important;
+}
+
+.card.card-animate.border-info,
+.card.card-animate[style*="border-info"] {
+    border-left-color: var(--color-institucional-azul) !important;
+}
+
+.card.card-animate.border-warning,
+.card.card-animate[style*="border-warning"] {
+    border-left-color: var(--color-institucional-dorado) !important;
+}
+
+.card.card-animate.border-danger,
+.card.card-animate[style*="border-danger"] {
+    border-left-color: var(--color-institucional-vino) !important;
+}
+
+/* Eliminar border-top de las cards de reportes */
+.card.card-animate.border-top {
+    border-top-width: 1px !important;
+    border-top-color: rgba(0, 0, 0, 0.06) !important;
+}
+
+.card.card-animate.border-3 {
+    border-top-width: 1px !important;
+}
+
+/* Iconos pequeños para cards de reportes */
+.card.card-animate .avatar-sm {
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.card.card-animate .avatar-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    font-size: 1rem;
+}
+
+/* Texto que cambia al hover */
+.card-title-text,
+.card-desc-text {
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.card-title-hover,
+.card-desc-hover {
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.card.card-height-100.ribbon-box:hover .card-title-text,
+.card.card-height-100.ribbon-box:hover .card-desc-text {
+    opacity: 0;
+    transform: translateY(-10px);
+    display: none;
+}
+
+.card.card-height-100.ribbon-box:hover .card-title-hover,
+.card.card-height-100.ribbon-box:hover .card-desc-hover {
+    display: inline-block !important;
+    opacity: 1;
+    transform: translateY(0);
+    animation: fadeInUp 0.3s ease;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+

@@ -1,0 +1,78 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block title %}{{ titulo }}{% endblock %}
+
+{% block content %}
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0">{{ titulo }}</h4>
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="{% url 'dashboard_analytics' %}">Dashboard</a></li>
+                            <li class="breadcrumb-item"><a href="{% url 'activos:inventario_general' %}">Inventario</a></li>
+                            <li class="breadcrumb-item active">{{ action }}</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Información de la Entrada</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">{{ form.activo.label }} <span class="text-danger">*</span></label>
+                                    {{ form.activo }}
+                                    {% if form.activo.errors %}<div class="invalid-feedback d-block">{{ form.activo.errors }}</div>{% endif %}
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">{{ form.bodega.label }} <span class="text-danger">*</span></label>
+                                    {{ form.bodega }}
+                                    {% if form.bodega.errors %}<div class="invalid-feedback d-block">{{ form.bodega.errors }}</div>{% endif %}
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">{{ form.cantidad.label }} <span class="text-danger">*</span></label>
+                                    {{ form.cantidad }}
+                                    {% if form.cantidad.errors %}<div class="invalid-feedback d-block">{{ form.cantidad.errors }}</div>{% endif %}
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">{{ form.lote.label }}</label>
+                                    {{ form.lote }}
+                                    {% if form.lote.errors %}<div class="invalid-feedback d-block">{{ form.lote.errors }}</div>{% endif %}
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">{{ form.fecha_vencimiento.label }}</label>
+                                    {{ form.fecha_vencimiento }}
+                                    {% if form.fecha_vencimiento.errors %}<div class="invalid-feedback d-block">{{ form.fecha_vencimiento.errors }}</div>{% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-end">
+                        <a href="{% url 'activos:inventario_general' %}" class="btn btn-light">
+                            <i class="ri-close-line"></i> Cancelar
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="ri-save-line"></i> {{ action }} Entrada
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+{% endblock %}

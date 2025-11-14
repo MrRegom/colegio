@@ -1,0 +1,288 @@
+[
+    {
+        "id": "1",
+        "crypto": {
+            "logoImg": "/static/images/svg/crypto-icons/ae.svg",
+            "name": "Aeternity (AE)"
+        },
+        "category": "Cryptocurrency",
+        "status": "Active",
+        "token": {
+            "price": "$20,000",
+            "current": "$6,472"
+        },
+        "day_left": {
+            "percentage": "39%",
+            "days": "15d left"
+        }
+    },{
+        "id": "2",
+        "crypto": {
+            "logoImg": "/static/images/svg/crypto-icons/cdt.svg",
+            "name": "CheckDot (CDT)"
+        },
+        "category": "Cryptocurrency",
+        "status": "Active",
+        "token": {
+            "price": "$22,000",
+            "current": "$10,147"
+        },
+        "day_left": {
+            "percentage": "40%",
+            "days": "20d left"
+        }
+    },{
+        "id": "3",
+        "crypto": {
+            "logoImg": "/static/images/svg/crypto-icons/eur.svg",
+            "name": "EUROC (EUR)"
+        },
+        "category": "Cryptocurrency",
+        "status": "Upcoming",
+        "token": {
+            "price": "$35,000"
+        }
+    },{
+        "id": "4",
+        "crypto": {
+            "logoImg": "/static/images/svg/crypto-icons/icx.svg",
+            "name": "ICON (ICX)"
+        },
+        "category": "Finance",
+        "status": "Ended",
+        "token": {
+            "price": "$30,000",
+            "current": "$29,540"
+        },
+        "day_left": {
+            "percentage": "97%",
+            "days": "0d left"
+        }
+    },{
+        "id": "5",
+        "crypto": {
+            "logoImg": "/static/images/svg/crypto-icons/wtc.svg",
+            "name": "Waltonchain (WTC)"
+        },
+        "category": "Real Estate",
+        "status": "Upcoming",
+        "token": {
+            "price": "$40,000"
+        }
+    },{
+        "id": "6",
+        "crypto": {
+            "logoImg": "/static/images/svg/crypto-icons/fjc.svg",
+            "name": "FujiCoin (FJC)"
+        },
+        "category": "Cryptocurrency",
+        "status": "Active",
+        "token": {
+            "price": "$25,000",
+            "current": "$14,895"
+        },
+        "day_left": {
+            "percentage": "74%",
+            "days": "13d left"
+        }
+    },{
+        "id": "7",
+        "crypto": {
+            "logoImg": "/static/images/svg/crypto-icons/nlg.svg",
+            "name": "Gulden (NLG)"
+        },
+        "category": "Coin",
+        "status": "Ended",
+        "token": {
+            "price": "$10,000",
+            "current": "$8,248"
+        },
+        "day_left": {
+            "percentage": "87%",
+            "days": "0d left"
+        }
+    },{
+        "id": "8",
+        "crypto": {
+            "logoImg": "/static/images/svg/crypto-icons/pax.svg",
+            "name": "Pax Dollar"
+        },
+        "category": "Cryptocurrency",
+        "status": "Active",
+        "token": {
+            "price": "$65,000",
+            "current": "$11,743"
+        },
+        "day_left": {
+            "percentage": "95%",
+            "days": "76d left"
+        }
+    },{
+        "id": "9",
+        "crypto": {
+            "logoImg": "/static/images/svg/crypto-icons/sbd.svg",
+            "name": "Steem Dollars"
+        },
+        "category": "Crypto Coin",
+        "status": "Active",
+        "token": {
+            "price": "$40,000",
+            "current": "$33,679"
+        },
+        "day_left": {
+            "percentage": "91%",
+            "days": "6d left"
+        }
+    },{
+        "id": "10",
+        "crypto": {
+            "logoImg": "/static/images/svg/crypto-icons/lpt.svg",
+            "name": "Livepeer (LPT)"
+        },
+        "category": "Cryptocurrency",
+        "status": "Ended",
+        "token": {
+            "price": "$15,000",
+            "current": "$14,523"
+        },
+        "day_left": {
+            "percentage": "95%",
+            "days": "0d left"
+        }
+    },{
+        "id": "11",
+        "crypto": {
+            "logoImg": "/static/images/svg/crypto-icons/ric.svg",
+            "name": "Riecoin (RIC)"
+        },
+        "category": "Finance",
+        "status": "Active",
+        "token": {
+            "price": "$25,500",
+            "current": "$10,741"
+        },
+        "day_left": {
+            "percentage": "34%",
+            "days": "27d left"
+        }
+    },{
+        "id": "12",
+        "crypto": {
+            "logoImg": "/static/images/svg/crypto-icons/wgr.svg",
+            "name": "Wagerr"
+        },
+        "category": "Crypto Coin",
+        "status": "Upcoming",
+        "token": {
+            "price": "$20,500"
+        }
+    },{
+        "id": "13",
+        "crypto": {
+            "logoImg": "/static/images/svg/crypto-icons/vib.svg",
+            "name": "Viberate"
+        },
+        "category": "Cryptocurrency",
+        "status": "Active",
+        "token": {
+            "price": "$20,000",
+            "current": "$6,472"
+        },
+        "day_left": {
+            "percentage": "95%",
+            "days": "15d left"
+        }
+    },{
+        "id": "14",
+        "crypto": {
+            "logoImg": "/static/images/svg/crypto-icons/cdt.svg",
+            "name": "CheckDot (CDT)"
+        },
+        "category": "Cryptocurrency",
+        "status": "Active",
+        "token": {
+            "price": "$20,000",
+            "current": "$6,472"
+        },
+        "day_left": {
+            "percentage": "40%",
+            "days": "15d left"
+        }
+    },{
+        "id": "15",
+        "crypto": {
+            "logoImg": "/static/images/svg/crypto-icons/eur.svg",
+            "name": "EUROC (EUR)"
+        },
+        "category": "Cryptocurrency",
+        "status": "Upcoming",
+        "token": {
+            "price": "$35,000",
+            "current": "$10,147"
+        }
+    },{
+        "id": "16",
+        "crypto": {
+            "logoImg": "/static/images/svg/crypto-icons/icx.svg",
+            "name": "ICON (ICX)"
+        },
+        "category": "Finance",
+        "status": "Ended",
+        "token": {
+            "price": "$30,000",
+            "current": "$29,540"
+        },
+        "day_left": {
+            "percentage": "97%",
+            "days": "0d left"
+        }
+    },{
+        "id": "17",
+        "crypto": {
+            "logoImg": "/static/images/svg/crypto-icons/icx.svg",
+            "name": "ICON (ICX)"
+        },
+        "category": "Finance",
+        "status": "Ended",
+        "token": {
+            "price": "$30,000",
+            "current": "$29,540"
+        },
+        "day_left": {
+            "percentage": "97%",
+            "days": "0d left"
+        }
+    },{
+        "id": "18",
+        "crypto": {
+            "logoImg": "/static/images/svg/crypto-icons/nlg.svg",
+            "name": "Gulden (NLG)"
+        },
+        "category": "Coin",
+        "status": "Ended",
+        "token": {
+            "price": "$10,000",
+            "current": "$8,248"
+        },
+        "day_left": {
+            "percentage": "87%",
+            "days": "0d left"
+        }
+    },{
+        "id": "19",
+        "crypto": {
+            "logoImg": "/static/images/svg/crypto-icons/ric.svg",
+            "name": "Riecoin (RIC)"
+        },
+        "category": "Finance",
+        "status": "Active",
+        "token": {
+            "price": "$25,500",
+            "current": "$10,741"
+        },
+        "day_left": {
+            "percentage": "34%",
+            "days": "27d left"
+        }
+    }
+]

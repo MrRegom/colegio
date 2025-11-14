@@ -1,0 +1,121 @@
+{% extends "partials/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid" style="padding-top: 2rem;">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h3 class="card-title mb-0">Lista de Proveedores</h3>
+                    <a href="{% url 'compras:proveedor_crear' %}" class="btn btn-primary">
+                        <i class="ri-add-line"></i> Nuevo Proveedor
+                    </a>
+                </div>
+                <div class="card-body">
+                    <form method="get" class="mb-3">
+                        <div class="row g-3">
+                            <div class="col-md-10">
+                                <input type="text" name="q" class="form-control" placeholder="Buscar por RUT, Razón Social o Email..." value="{{ request.GET.q }}">
+                            </div>
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-primary w-100">
+                                    <i class="ri-search-line"></i> Buscar
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>RUT</th>
+                                    <th>Razón Social</th>
+                                    <th>Email</th>
+                                    <th>Teléfono</th>
+                                    <th>Ciudad</th>
+                                    <th>Activo</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for proveedor in proveedores %}
+                                <tr>
+                                    <td><strong>{{ proveedor.rut }}</strong></td>
+                                    <td>{{ proveedor.razon_social }}</td>
+                                    <td>{{ proveedor.email|default:"-" }}</td>
+                                    <td>{{ proveedor.telefono|default:"-" }}</td>
+                                    <td>{{ proveedor.ciudad|default:"-" }}</td>
+                                    <td>
+                                        {% if proveedor.activo %}
+                                            <span class="badge bg-success">Sí</span>
+                                        {% else %}
+                                            <span class="badge bg-secondary">No</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <a href="{% url 'compras:proveedor_editar' proveedor.pk %}" class="btn btn-sm btn-warning" title="Editar">
+                                            <i class="ri-edit-line"></i>
+                                        </a>
+                                        <a href="{% url 'compras:proveedor_eliminar' proveedor.pk %}" class="btn btn-sm btn-danger" title="Eliminar">
+                                            <i class="ri-delete-bin-line"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="7" class="text-center py-4">
+                                        <p class="text-muted mb-2">No hay proveedores registrados</p>
+                                        <a href="{% url 'compras:proveedor_crear' %}" class="btn btn-primary">
+                                            <i class="ri-add-line"></i> Crear Primer Proveedor
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    {% if is_paginated %}
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <div>
+                            <p class="text-muted mb-0">
+                                Mostrando {{ page_obj.start_index }} a {{ page_obj.end_index }} de {{ page_obj.paginator.count }} proveedores
+                            </p>
+                        </div>
+                        <nav>
+                            <ul class="pagination mb-0">
+                                {% if page_obj.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">Anterior</a>
+                                </li>
+                                {% endif %}
+                                
+                                {% for num in page_obj.paginator.page_range %}
+                                    {% if page_obj.number == num %}
+                                    <li class="page-item active">
+                                        <span class="page-link">{{ num }}</span>
+                                    </li>
+                                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page={{ num }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ num }}</a>
+                                    </li>
+                                    {% endif %}
+                                {% endfor %}
+                                
+                                {% if page_obj.has_next %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">Siguiente</a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

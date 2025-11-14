@@ -1,0 +1,114 @@
+{% extends 'partials/base.html' %}
+
+{% block content %}
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0">{{ titulo }}</h4>
+                    <div>
+                        <a href="{% url 'bodega:articulo_editar' articulo.pk %}" class="btn btn-info">
+                            <i class="ri-edit-line"></i> Editar
+                        </a>
+                        <a href="{% url 'bodega:articulo_lista' %}" class="btn btn-secondary">
+                            <i class="ri-arrow-left-line"></i> Volver
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h5>Información General</h5>
+                        <dl class="row">
+                            <dt class="col-sm-3">Código:</dt>
+                            <dd class="col-sm-9">{{ articulo.codigo }}</dd>
+                            <dt class="col-sm-3">Nombre:</dt>
+                            <dd class="col-sm-9">{{ articulo.nombre }}</dd>
+                            <dt class="col-sm-3">Marca:</dt>
+                            <dd class="col-sm-9">
+                                {% if articulo.marca %}
+                                    <span class="badge bg-info">{{ articulo.marca.nombre }}</span>
+                                {% else %}
+                                    <span class="text-muted">-</span>
+                                {% endif %}
+                            </dd>
+                            <dt class="col-sm-3">Categoría:</dt>
+                            <dd class="col-sm-9">{{ articulo.categoria.nombre }}</dd>
+                            <dt class="col-sm-3">Ubicación:</dt>
+                            <dd class="col-sm-9">{{ articulo.ubicacion_fisica.nombre }}</dd>
+                            <dt class="col-sm-3">Unidades de Medida:</dt>
+                            <dd class="col-sm-9">
+                                {% for unidad in articulo.unidades_medida.all %}
+                                <span class="badge bg-success">{{ unidad.codigo }} ({{ unidad.simbolo }})</span>
+                                {% empty %}
+                                <span class="text-muted">Ninguna configurada</span>
+                                {% endfor %}
+                            </dd>
+                        </dl>
+                        <h5 class="mt-4">Stock</h5>
+                        <dl class="row">
+                            <dt class="col-sm-3">Stock Actual:</dt>
+                            <dd class="col-sm-9">
+                                <strong>{{ articulo.stock_actual }}</strong>
+                                <span class="text-muted">({% for u in articulo.unidades_medida.all %}{{ u.simbolo }}{% if not forloop.last %}, {% endif %}{% empty %}unidad{% endfor %})</span>
+                            </dd>
+                            <dt class="col-sm-3">Stock Mínimo:</dt>
+                            <dd class="col-sm-9">
+                                {{ articulo.stock_minimo }}
+                                <span class="text-muted">({% for u in articulo.unidades_medida.all %}{{ u.simbolo }}{% if not forloop.last %}, {% endif %}{% empty %}unidad{% endfor %})</span>
+                            </dd>
+                            <dt class="col-sm-3">Stock Máximo:</dt>
+                            <dd class="col-sm-9">{{ articulo.stock_maximo|default:"-" }}</dd>
+                        </dl>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Últimos Movimientos</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Fecha</th>
+                                        <th>Operación</th>
+                                        <th>Cantidad</th>
+                                        <th>Stock</th>
+                                        <th>Usuario</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for mov in movimientos %}
+                                    <tr>
+                                        <td>{{ mov.fecha_creacion|date:"d/m/Y H:i" }}</td>
+                                        <td>
+                                            <span class="badge {% if mov.operacion == 'ENTRADA' %}bg-success{% else %}bg-danger{% endif %}">
+                                                {{ mov.get_operacion_display }}
+                                            </span>
+                                        </td>
+                                        <td>{{ mov.cantidad }}</td>
+                                        <td>{{ mov.stock_antes }} → {{ mov.stock_despues }}</td>
+                                        <td>{{ mov.usuario.username }}</td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="5" class="text-center">No hay movimientos registrados</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

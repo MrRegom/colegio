@@ -1,0 +1,343 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block title %}{{ titulo }}{% endblock %}
+
+{% block content %}
+<div class="page-content">
+    <div class="container-fluid">
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0">{{ titulo }}</h4>
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="{% url 'dashboard_analytics' %}">Dashboard</a></li>
+                            <li class="breadcrumb-item"><a href="{% url 'solicitudes:lista_solicitudes' %}">Solicitudes</a></li>
+                            <li class="breadcrumb-item active">{{ solicitud.numero }}</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <!-- Información General -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header d-flex align-items-center">
+                        <h5 class="card-title mb-0 flex-grow-1">Información de la Solicitud</h5>
+                        <div class="d-flex gap-2">
+                            {% if perms.solicitudes.change_solicitud and solicitud.solicitante == user and not solicitud.estado.es_final %}
+                            <a href="{% url 'solicitudes:editar_solicitud' solicitud.pk %}" class="btn btn-sm btn-secondary">
+                                <i class="ri-edit-line"></i> Editar
+                            </a>
+                            {% endif %}
+                            {% if perms.solicitudes.aprobar_solicitud and not solicitud.aprobador %}
+                            <a href="{% url 'solicitudes:aprobar_solicitud' solicitud.pk %}" class="btn btn-sm btn-success">
+                                <i class="ri-check-line"></i> Aprobar
+                            </a>
+                            {% endif %}
+                            {% if perms.solicitudes.rechazar_solicitud and not solicitud.estado.es_final %}
+                            <a href="{% url 'solicitudes:rechazar_solicitud' solicitud.pk %}" class="btn btn-sm btn-warning">
+                                <i class="ri-close-line"></i> Rechazar
+                            </a>
+                            {% endif %}
+                            {% if perms.solicitudes.despachar_solicitud and solicitud.aprobador and not solicitud.despachador %}
+                            <a href="{% url 'solicitudes:despachar_solicitud' solicitud.pk %}" class="btn btn-sm btn-info">
+                                <i class="ri-truck-line"></i> Despachar
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <table class="table table-borderless mb-0">
+                                    <tbody>
+                                        <tr>
+                                            <th class="ps-0" scope="row">Número:</th>
+                                            <td class="text-muted"><strong>{{ solicitud.numero }}</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <th class="ps-0" scope="row">Tipo:</th>
+                                            <td class="text-muted">{{ solicitud.tipo_solicitud.nombre }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="ps-0" scope="row">Estado:</th>
+                                            <td>
+                                                <span class="badge" style="background-color: {{ solicitud.estado.color }}">
+                                                    {{ solicitud.estado.nombre }}
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th class="ps-0" scope="row">Fecha Solicitud:</th>
+                                            <td class="text-muted">{{ solicitud.fecha_solicitud|date:"d/m/Y H:i" }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="ps-0" scope="row">Fecha Requerida:</th>
+                                            <td class="text-muted">{{ solicitud.fecha_requerida|date:"d/m/Y" }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-md-6">
+                                <table class="table table-borderless mb-0">
+                                    <tbody>
+                                        <tr>
+                                            <th class="ps-0" scope="row">Solicitante:</th>
+                                            <td class="text-muted">{{ solicitud.solicitante.username }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="ps-0" scope="row">Área:</th>
+                                            <td class="text-muted">{{ solicitud.area_solicitante }}</td>
+                                        </tr>
+                                        {% if solicitud.bodega_origen %}
+                                        <tr>
+                                            <th class="ps-0" scope="row">Bodega Origen:</th>
+                                            <td class="text-muted">{{ solicitud.bodega_origen.nombre }}</td>
+                                        </tr>
+                                        {% endif %}
+                                        {% if solicitud.aprobador %}
+                                        <tr>
+                                            <th class="ps-0" scope="row">Aprobador:</th>
+                                            <td class="text-muted">{{ solicitud.aprobador.username }} ({{ solicitud.fecha_aprobacion|date:"d/m/Y H:i" }})</td>
+                                        </tr>
+                                        {% endif %}
+                                        {% if solicitud.despachador %}
+                                        <tr>
+                                            <th class="ps-0" scope="row">Despachador:</th>
+                                            <td class="text-muted">{{ solicitud.despachador.username }} ({{ solicitud.fecha_despacho|date:"d/m/Y H:i" }})</td>
+                                        </tr>
+                                        {% endif %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Información de la Actividad -->
+                        {% if solicitud.titulo_actividad or solicitud.objetivo_actividad %}
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <div class="alert alert-info border-0 mb-0">
+                                    <h6 class="alert-heading"><i class="ri-calendar-event-line me-2"></i>Información de la Actividad</h6>
+                                    {% if solicitud.titulo_actividad %}
+                                    <p class="mb-2"><strong>Título:</strong> {{ solicitud.titulo_actividad }}</p>
+                                    {% endif %}
+                                    {% if solicitud.objetivo_actividad %}
+                                    <p class="mb-0"><strong>Objetivo:</strong> {{ solicitud.objetivo_actividad }}</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        <!-- Estructura Organizacional -->
+                        {% if solicitud.departamento or solicitud.area or solicitud.equipo %}
+                        <div class="row mt-3">
+                            <div class="col-12">
+                                <div class="alert alert-secondary border-0 mb-0">
+                                    <h6 class="alert-heading"><i class="ri-building-line me-2"></i>Estructura Organizacional</h6>
+                                    <div class="row">
+                                        {% if solicitud.departamento %}
+                                        <div class="col-md-4">
+                                            <p class="mb-0"><strong>Departamento:</strong> {{ solicitud.departamento.nombre }}</p>
+                                        </div>
+                                        {% endif %}
+                                        {% if solicitud.area %}
+                                        <div class="col-md-4">
+                                            <p class="mb-0"><strong>Área:</strong> {{ solicitud.area.nombre }}</p>
+                                        </div>
+                                        {% endif %}
+                                        {% if solicitud.equipo %}
+                                        <div class="col-md-4">
+                                            <p class="mb-0"><strong>Equipo:</strong> {{ solicitud.equipo.nombre }}</p>
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        <div class="row mt-3">
+                            <div class="col-12">
+                                <h6>Motivo:</h6>
+                                <p class="text-muted">{{ solicitud.motivo }}</p>
+                            </div>
+                            {% if solicitud.observaciones %}
+                            <div class="col-12">
+                                <h6>Observaciones:</h6>
+                                <p class="text-muted">{{ solicitud.observaciones }}</p>
+                            </div>
+                            {% endif %}
+                            {% if solicitud.notas_aprobacion %}
+                            <div class="col-12">
+                                <h6>Notas de Aprobación:</h6>
+                                <p class="text-muted">{{ solicitud.notas_aprobacion }}</p>
+                            </div>
+                            {% endif %}
+                            {% if solicitud.notas_despacho %}
+                            <div class="col-12">
+                                <h6>Notas de Despacho:</h6>
+                                <p class="text-muted">{{ solicitud.notas_despacho }}</p>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detalles de Artículos/Bienes -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">
+                            {% if solicitud.tipo == 'ARTICULO' %}
+                                Artículos Solicitados
+                            {% else %}
+                                Bienes Solicitados
+                            {% endif %}
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-nowrap mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Código</th>
+                                        <th>
+                                            {% if solicitud.tipo == 'ARTICULO' %}
+                                                Artículo
+                                            {% else %}
+                                                Bien/Activo
+                                            {% endif %}
+                                        </th>
+                                        <th>Unidad</th>
+                                        <th>Cant. Solicitada</th>
+                                        <th>Cant. Aprobada</th>
+                                        <th>Cant. Despachada</th>
+                                        <th>Observaciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for detalle in detalles %}
+                                    <tr>
+                                        <td>{{ detalle.producto_codigo }}</td>
+                                        <td>{{ detalle.producto_nombre }}</td>
+                                        <td>
+                                            {% if detalle.articulo %}
+                                                {% for unidad in detalle.articulo.unidades_medida.all %}
+                                                    {{ unidad.simbolo }}{% if not forloop.last %}, {% endif %}
+                                                {% empty %}
+                                                    unidad
+                                                {% endfor %}
+                                            {% else %}
+                                                {{ detalle.activo.unidad_medida.simbolo|default:"unidad" }}
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ detalle.cantidad_solicitada }}</td>
+                                        <td>
+                                            {% if detalle.cantidad_aprobada > 0 %}
+                                                <span class="badge bg-success">{{ detalle.cantidad_aprobada }}</span>
+                                            {% else %}
+                                                -
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if detalle.cantidad_despachada > 0 %}
+                                                <span class="badge bg-info">{{ detalle.cantidad_despachada }}</span>
+                                            {% else %}
+                                                -
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ detalle.observaciones|default:"-" }}</td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="7" class="text-center text-muted">
+                                            {% if solicitud.tipo == 'ARTICULO' %}
+                                                No hay artículos en esta solicitud.
+                                            {% else %}
+                                                No hay bienes en esta solicitud.
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Historial de Cambios -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Historial de Cambios</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-sm table-nowrap mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Fecha</th>
+                                        <th>Usuario</th>
+                                        <th>Estado Anterior</th>
+                                        <th>Estado Nuevo</th>
+                                        <th>Observaciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in historial %}
+                                    <tr>
+                                        <td>{{ item.fecha_cambio|date:"d/m/Y H:i" }}</td>
+                                        <td>{{ item.usuario.username }}</td>
+                                        <td>
+                                            {% if item.estado_anterior %}
+                                                <span class="badge" style="background-color: {{ item.estado_anterior.color }}">
+                                                    {{ item.estado_anterior.nombre }}
+                                                </span>
+                                            {% else %}
+                                                -
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <span class="badge" style="background-color: {{ item.estado_nuevo.color }}">
+                                                {{ item.estado_nuevo.nombre }}
+                                            </span>
+                                        </td>
+                                        <td>{{ item.observaciones|default:"-" }}</td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="5" class="text-center text-muted">No hay historial de cambios.</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

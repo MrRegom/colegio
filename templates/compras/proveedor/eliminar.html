@@ -1,0 +1,67 @@
+{% extends 'partials/base.html' %}
+
+{% block content %}
+<div class="container-fluid" style="padding-top: 2rem;">
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                <h4 class="mb-sm-0">{{ titulo }}</h4>
+                <a href="{% url 'compras:proveedor_lista' %}" class="btn btn-secondary">
+                    <i class="ri-arrow-left-line"></i> Volver
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6 offset-lg-3">
+            <div class="card">
+                <div class="card-body text-center">
+                    <i class="ri-alert-line display-4 text-warning"></i>
+                    <h4 class="mt-3">¿Está seguro que desea eliminar este proveedor?</h4>
+                    <p class="text-muted">Esta acción marcará el proveedor como eliminado (soft delete).</p>
+
+                    <div class="mb-3 text-start">
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <strong>RUT:</strong> {{ proveedor.rut }}<br>
+                                <strong>Razón Social:</strong> {{ proveedor.razon_social }}<br>
+                                {% if proveedor.email %}
+                                <strong>Email:</strong> {{ proveedor.email }}<br>
+                                {% endif %}
+                                {% if proveedor.telefono %}
+                                <strong>Teléfono:</strong> {{ proveedor.telefono }}<br>
+                                {% endif %}
+                                {% if proveedor.ciudad %}
+                                <strong>Ciudad:</strong> {{ proveedor.ciudad }}<br>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-warning text-start">
+                        <i class="ri-information-line"></i>
+                        <strong>Importante:</strong>
+                        <ul class="mb-0 mt-2">
+                            <li>El proveedor será marcado como eliminado (soft delete)</li>
+                            <li>No se podrá crear nuevas órdenes de compra con este proveedor</li>
+                            <li>Las órdenes de compra existentes no se verán afectadas</li>
+                        </ul>
+                    </div>
+
+                    <form method="post" class="d-inline">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">
+                            <i class="ri-delete-bin-line"></i> Sí, Eliminar
+                        </button>
+                        <a href="{% url 'compras:proveedor_lista' %}" class="btn btn-secondary">
+                            <i class="ri-close-line"></i> Cancelar
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

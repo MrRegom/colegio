@@ -1,0 +1,33 @@
+.crypto-marketplace-nav {
+
+    li {
+        .nav-link {
+            color: var(--#{$prefix}page-title-sub-color);
+
+            @media (max-width:575.98px) {
+                color: var(--#{$prefix}nav-link-color);
+            }
+        }
+    }
+}
+
+.icon-effect-widgets {
+    .icon {
+        bottom: -78px;
+        opacity: 0.1;
+        right: -38px;
+        font-size: 130px;
+    }
+}
+
+.crypto-chart-menu {
+    li {
+        a {
+            transition: all 0.5s ease;
+            &:hover, &.active, &:focus {
+                color: var(--#{$prefix}primary);
+                background-color: var(--#{$prefix}secondary-bg);
+            }
+        }
+    }
+}

@@ -1,0 +1,30 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="alert alert-warning">
+                            <i class="ri-alert-line"></i> ¿Está seguro que desea eliminar este equipo?
+                        </div>
+                        <div class="mb-3">
+                            <strong>Código:</strong> {{ object.codigo }}<br>
+                            <strong>Nombre:</strong> {{ object.nombre }}
+                        </div>
+                        <form method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+                            <a href="{% url 'inventario:equipo_list' %}" class="btn btn-secondary">Cancelar</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

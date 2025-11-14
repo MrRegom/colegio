@@ -1,0 +1,120 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0">Gestión de Equipos</h4>
+                    <div class="page-title-right">
+                        <a href="{% url 'inventario:equipo_create' %}" class="btn btn-primary">
+                            <i class="ri-add-line"></i> Nuevo Equipo
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <form method="get" class="row g-3">
+                            <div class="col-md-3">
+                                <input type="text" name="search" class="form-control" placeholder="Buscar..." value="{{ search_query }}">
+                            </div>
+                            <div class="col-md-2">
+                                <select name="tipo" class="form-select">
+                                    <option value="">Todos los tipos</option>
+                                    {% for tipo in tipos_equipo %}
+                                        <option value="{{ tipo.id }}" {% if tipo_filter == tipo.id|stringformat:"s" %}selected{% endif %}>{{ tipo.nombre }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <select name="estado" class="form-select">
+                                    <option value="">Todos los estados</option>
+                                    <option value="DISPONIBLE" {% if estado_filter == 'DISPONIBLE' %}selected{% endif %}>Disponible</option>
+                                    <option value="EN_USO" {% if estado_filter == 'EN_USO' %}selected{% endif %}>En Uso</option>
+                                    <option value="MANTENIMIENTO" {% if estado_filter == 'MANTENIMIENTO' %}selected{% endif %}>Mantenimiento</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <select name="activo" class="form-select">
+                                    <option value="">Todos</option>
+                                    <option value="true" {% if activo_filter == 'true' %}selected{% endif %}>Activos</option>
+                                    <option value="false" {% if activo_filter == 'false' %}selected{% endif %}>Inactivos</option>
+                                </select>
+                            </div>
+                            <div class="col-md-1">
+                                <button type="submit" class="btn btn-primary w-100">Buscar</button>
+                            </div>
+                            <div class="col-md-2">
+                                <a href="{% url 'inventario:equipo_list' %}" class="btn btn-secondary w-100">Limpiar</a>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Código</th>
+                                        <th>Nombre</th>
+                                        <th>Tipo</th>
+                                        <th>Marca/Modelo</th>
+                                        <th>Estado</th>
+                                        <th>Ubicación</th>
+                                        <th>Responsable</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for equipo in page_obj %}
+                                    <tr>
+                                        <td><strong>{{ equipo.codigo }}</strong></td>
+                                        <td>{{ equipo.nombre }}</td>
+                                        <td>{{ equipo.tipo.nombre }}</td>
+                                        <td>{{ equipo.marca|default:"-" }}{% if equipo.modelo %} / {{ equipo.modelo }}{% endif %}</td>
+                                        <td>
+                                            {% if equipo.estado == 'DISPONIBLE' %}<span class="badge bg-success">Disponible</span>
+                                            {% elif equipo.estado == 'EN_USO' %}<span class="badge bg-primary">En Uso</span>
+                                            {% elif equipo.estado == 'MANTENIMIENTO' %}<span class="badge bg-warning">Mantenimiento</span>
+                                            {% else %}<span class="badge bg-secondary">{{ equipo.estado }}</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ equipo.ubicacion_actual|default:"-" }}</td>
+                                        <td>{{ equipo.responsable.get_full_name|default:equipo.responsable.username|default:"-" }}</td>
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                                <a href="{% url 'inventario:equipo_detail' equipo.pk %}" class="btn btn-sm btn-info"><i class="ri-eye-line"></i></a>
+                                                <a href="{% url 'inventario:equipo_update' equipo.pk %}" class="btn btn-sm btn-warning"><i class="ri-edit-line"></i></a>
+                                                <a href="{% url 'inventario:equipo_delete' equipo.pk %}" class="btn btn-sm btn-danger"><i class="ri-delete-bin-line"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr><td colspan="8" class="text-center">No hay equipos registrados</td></tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,227 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block title %} Aplicaciones Web | Listado de Aplicaciones {% endblock title %} 
+
+{% block extra_css %}
+<!-- Sweet Alert css-->
+<link href="{% static 'libs/sweetalert2/sweetalert2.min.css' %}" rel="stylesheet" type="text/css" />
+{% endblock extra_css %}
+
+{% block main_title %} 
+
+<div class="page-title-box">
+    <div class="row align-items-center">
+        <div class="col-md-5">
+            {% block pagetitle %}
+                {% include "partials/page-title.html" with pagetitle="Aplicaciones Web" title="Listado de Aplicaciones" %}
+            {% endblock pagetitle %}
+        </div><!--end col-->
+    </div><!--end row-->
+</div>
+{% endblock main_title %}
+
+{% block content %}
+
+<!-- Banner para el título del formulario -->
+<div class="row mb-4">
+    <div class="col-lg-12">
+        <div class="card bg-primary">
+            <div class="card-body text-center text-white py-4">
+                <h2 class="mb-2">Listado de Aplicaciones Web</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title mb-0">Agregar, Editar & Eliminar</h4>
+            </div><!-- end card header -->
+
+            <div class="card-body">
+                <div id="customerList">
+                    <div class="row g-4 mb-3">
+                        <div class="col-sm-auto">
+                            <div>
+                                <button type="button" class="btn btn-success add-btn" data-bs-toggle="modal" id="create-btn" data-bs-target="#showModal"><i class="ri-add-line align-bottom me-1"></i> Agregar</button>
+                                <button class="btn btn-subtle-danger" onClick="deleteMultiple()"><i class="ri-delete-bin-2-line"></i></button>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="d-flex justify-content-sm-end">
+                                <div class="search-box ms-2">
+                                    <input type="text" class="form-control search" placeholder="Buscar...">
+                                    <i class="ri-search-line search-icon"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive table-card mt-3 mb-1">
+                        <table class="table align-middle table-nowrap" id="customerTable">
+                            <thead class="table-light">
+                                <tr>
+                                    <th scope="col" style="width: 50px;">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="checkAll" value="option">
+                                        </div>
+                                    </th>
+                                    <th class="sort" data-sort="app_name">Nombre Aplicación</th>
+                                    <th class="sort" data-sort="url">URL</th>
+                                    <th class="sort" data-sort="descripcion">Descripción</th>
+                                    <th class="sort" data-sort="categoria">Categoría</th>
+                                    <th class="sort" data-sort="status">Estado</th>
+                                    <th class="sort" data-sort="action">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody class="list form-check-all">
+                                <tr>
+                                    <th scope="row">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
+                                        </div>
+                                    </th>
+                                    <td class="id" style="display:none;"><a href="javascript:void(0);" class="fw-medium link-primary">#APP001</a></td>
+                                    <td class="app_name">Portal Institucional</td>
+                                    <td class="url">https://ejemplo.com/portal</td>
+                                    <td class="descripcion">Portal principal de la institución</td>
+                                    <td class="categoria">Institucional</td>
+                                    <td class="status"><span class="badge bg-success-subtle text-success text-uppercase">Activo</span></td>
+                                    <td>
+                                        <div class="d-flex gap-2">
+                                            <div class="edit">
+                                                <button class="btn btn-sm btn-success edit-item-btn" data-bs-toggle="modal" data-bs-target="#showModal">Editar</button>
+                                            </div>
+                                            <div class="remove">
+                                                <button class="btn btn-sm btn-danger remove-item-btn" data-bs-toggle="modal" data-bs-target="#deleteRecordModal">Eliminar</button>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="noresult" style="display: none">
+                            <div class="text-center">
+                                <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="loop" colors="primary:#121331,secondary:#08a88a" style="width:75px;height:75px"></lord-icon>
+                                <h5 class="mt-2">¡Lo sentimos! No se encontraron resultados</h5>
+                                <p class="text-muted mb-0">No hemos encontrado aplicaciones que coincidan con tu búsqueda.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-end">
+                        <div class="pagination-wrap hstack gap-2">
+                            <a class="page-item pagination-prev disabled" href="#">
+                                Anterior
+                            </a>
+                            <ul class="pagination listjs-pagination mb-0"></ul>
+                            <a class="page-item pagination-next" href="#">
+                                Siguiente
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- end card -->
+        </div>
+        <!-- end col -->
+    </div>
+    <!-- end col -->
+</div>
+<!-- end row -->
+
+<div class="modal fade" id="showModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-light p-3">
+                <h5 class="modal-title" id="exampleModalLabel">Agregar Aplicación</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
+            </div>
+            <form class="tablelist-form">
+                <div class="modal-body">
+
+                    <div class="mb-3" id="modal-id" style="display: none;">
+                        <label for="id-field" class="form-label">ID</label>
+                        <input type="text" id="id-field" class="form-control" placeholder="ID" readonly >
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="appname-field" class="form-label">Nombre de Aplicación</label>
+                        <input type="text" id="appname-field" class="form-control" placeholder="Ingrese nombre" required >
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="url-field" class="form-label">URL</label>
+                        <input type="url" id="url-field" class="form-control" placeholder="Ingrese URL" required >
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="descripcion-field" class="form-label">Descripción</label>
+                        <textarea id="descripcion-field" class="form-control" placeholder="Ingrese descripción" required></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="categoria-field" class="form-label">Categoría</label>
+                        <input type="text" id="categoria-field" class="form-control" placeholder="Ingrese categoría" required >
+                    </div>
+
+                    <div>
+                        <label for="status-field" class="form-label">Estado</label>
+                        <select class="form-control" data-trigger name="status-field" id="status-field">
+                            <option value="">Seleccionar Estado</option>
+                            <option value="Activo">Activo</option>
+                            <option value="Inactivo">Inactivo</option>
+                            <option value="Mantenimiento">Mantenimiento</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="hstack gap-2 justify-content-end">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-success" id="add-btn">Agregar Aplicación</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade zoomIn" id="deleteRecordModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btn-close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mt-2 text-center">
+                    <i class="bi bi-trash3 display-5 text-danger"></i>
+                    <div class="mt-4 pt-2 fs-base mx-4 mx-sm-5">
+                        <h4>¿Está seguro?</h4>
+                        <p class="text-muted mx-4 mb-0">¿Está seguro que desea eliminar este registro?</p>
+                    </div>
+                </div>
+                <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
+                    <button type="button" class="btn w-sm btn-light" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn w-sm btn-danger " id="delete-record">Sí, ¡Eliminar!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--end modal -->
+{% endblock content %}
+
+{% block extra_js %}
+    <!-- prismjs plugin -->
+    <script src="{% static 'libs/prismjs/prism.js' %}"></script>
+    <script src="{% static 'libs/list.js/list.min.js' %}"></script>
+    <script src="{% static 'libs/list.pagination.js/list.pagination.min.js' %}"></script>
+
+    <!-- listjs init -->
+    <script src="{% static 'js/pages/listjs.init.js' %}"></script>
+
+    <!-- Sweet Alert -->
+    <script src="{% static 'libs/sweetalert2/sweetalert2.min.js' %}"></script>
+{% endblock extra_js %}

@@ -1,0 +1,301 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block title %} Transactions {% endblock title %} 
+
+
+{% block main_title %}
+
+<div class="page-title-box">
+    <div class="row align-items-center gy-3">
+        <div class="col-md">
+            {% block pagetitle %}
+                {% include "partials/page-title.html" with pagetitle="Crypto" title="Transactions" %}
+            {% endblock pagetitle %}
+
+        </div><!--end col-->
+        <div class="col-md-auto ms-auto">
+
+            {% block customizer %}
+                {% include "partials/customizer.html" %}
+            {% endblock customizer %}
+
+        </div><!--end col-->
+    </div><!--end row-->
+</div>
+
+{% endblock main_title %}
+
+{% block content %}
+
+                        <div class="row" id="transactionList">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <div class="row align-items-center g-3">
+                                            <div class="col-xxl-3 col-lg-6 me-auto">
+                                                <h6 class="card-title">Transactions</h6>
+                                                <p class="text-muted mb-0">Monthly: <b class="text-primary-emphasis">$48,521.95</b> Yearly: <b class="text-primary-emphasis">$1,87,324.97</b></p>
+                                            </div><!--end col-->
+                                            <div class="col-xxl-3 col">
+                                                <div class="search-box">
+                                                    <input type="text" class="form-control search" placeholder="Search transactionId, date, amount coin etc...">
+                                                    <i class="ri-search-line search-icon"></i>
+                                                </div>
+                                            </div><!--end col-->
+                                        </div><!--end row-->
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table align-middle table-borderless table-nowrap mb-0">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">#</th>
+                                                        <th scope="col" class="sort cursor-pointer" data-sort="transactionId">Transactions ID</th>
+                                                        <th scope="col" class="sort cursor-pointer" data-sort="date">Date</th>
+                                                        <th scope="col" class="sort cursor-pointer" data-sort="from">From</th>
+                                                        <th scope="col" class="sort cursor-pointer" data-sort="to">To</th>
+                                                        <th scope="col" class="sort cursor-pointer" data-sort="coin">Coin</th>
+                                                        <th scope="col" class="sort cursor-pointer" data-sort="amount">Amount</th>
+                                                        <th scope="col" class="sort cursor-pointer" data-sort="status">Status</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="list">
+                                                    <tr>
+                                                        <td>
+                                                            <div class="avatar-xs">
+                                                                <div class="avatar-title bg-success rounded-circle">
+                                                                    <i class="bi bi-arrow-down-right"></i>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td><a href="#!" class="transactionId text-reset">#JAD25413265487</a></td>
+                                                        <td class="date">09 June, 2023</td>
+                                                        <td class="from">Shelly</td>
+                                                        <td class="to">Admin</td>
+                                                        <td class="coin">BTC</td>
+                                                        <td class="amount">$8,432</td>
+                                                        <td><span class="badge bg-success-subtle text-success status">Success</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="avatar-xs">
+                                                                <div class="avatar-title bg-danger rounded-circle">
+                                                                    <i class="bi bi-arrow-up-right"></i>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td><a href="#!" class="transactionId text-reset">#JAD25413298643</a></td>
+                                                        <td class="date">04 June, 2023</td>
+                                                        <td class="from">Admin</td>
+                                                        <td class="to">Cathrine</td>
+                                                        <td class="coin">ETH</td>
+                                                        <td class="amount">$10,647</td>
+                                                        <td><span class="badge bg-warning-subtle text-warning status">Processing</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="avatar-xs">
+                                                                <div class="avatar-title bg-danger rounded-circle">
+                                                                    <i class="bi bi-arrow-up-right"></i>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td><a href="#!" class="transactionId text-reset">#JAD25409713254</a></td>
+                                                        <td class="date">29 May, 2023</td>
+                                                        <td class="from">Admin</td>
+                                                        <td class="to">Anthony</td>
+                                                        <td class="coin">BTC</td>
+                                                        <td class="amount">$7,319</td>
+                                                        <td><span class="badge bg-success-subtle text-success status">Success</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="avatar-xs">
+                                                                <div class="avatar-title bg-success rounded-circle">
+                                                                    <i class="bi bi-arrow-down-right"></i>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td><a href="#!" class="transactionId text-reset">#JAD25409713254</a></td>
+                                                        <td class="date">23 May, 2023</td>
+                                                        <td class="from">Margie</td>
+                                                        <td class="to">Admin</td>
+                                                        <td class="coin">ETH</td>
+                                                        <td class="amount">$3,961</td>
+                                                        <td><span class="badge bg-danger-subtle text-danger status">Failed</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="avatar-xs">
+                                                                <div class="avatar-title bg-danger rounded-circle">
+                                                                    <i class="bi bi-arrow-up-right"></i>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td><a href="#!" class="transactionId text-reset">#JAD25409799631</a></td>
+                                                        <td class="date">16 April, 2023</td>
+                                                        <td class="from">Admin</td>
+                                                        <td class="to">Nannette</td>
+                                                        <td class="coin">LTC</td>
+                                                        <td class="amount">$9,004</td>
+                                                        <td><span class="badge bg-success-subtle text-success status">Success</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="avatar-xs">
+                                                                <div class="avatar-title bg-success rounded-circle">
+                                                                    <i class="bi bi-arrow-down-right"></i>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td><a href="#!" class="transactionId text-reset">#JAD186ad801406</a></td>
+                                                        <td class="date">02 Feb, 2023</td>
+                                                        <td class="from">Kevin Dawson</td>
+                                                        <td class="to">Admin</td>
+                                                        <td class="coin">BTC</td>
+                                                        <td class="amount">$12,037</td>
+                                                        <td><span class="badge bg-success-subtle text-success status">Success</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="avatar-xs">
+                                                                <div class="avatar-title bg-success rounded-circle">
+                                                                    <i class="bi bi-arrow-down-right"></i>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td><a href="#!" class="transactionId text-reset">#JADc94b558141c</a></td>
+                                                        <td class="date">18 Jan, 2023</td>
+                                                        <td class="from">Tonya Noble</td>
+                                                        <td class="to">Admin</td>
+                                                        <td class="coin">ETH</td>
+                                                        <td class="amount">$4,308</td>
+                                                        <td><span class="badge bg-warning-subtle text-warning status">Processing</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="avatar-xs">
+                                                                <div class="avatar-title bg-danger rounded-circle">
+                                                                    <i class="bi bi-arrow-up-right"></i>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td><a href="#!" class="transactionId text-reset">#JAD9a592451d10</a></td>
+                                                        <td class="date">09 Jan, 2023</td>
+                                                        <td class="from">Admin</td>
+                                                        <td class="to">Mary Cousar</td>
+                                                        <td class="coin">XMR</td>
+                                                        <td class="amount">$7,015</td>
+                                                        <td><span class="badge bg-danger-subtle text-danger status">Failed</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="avatar-xs">
+                                                                <div class="avatar-title bg-success rounded-circle">
+                                                                    <i class="bi bi-arrow-down-right"></i>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td><a href="#!" class="transactionId text-reset">#JAD78d9e3588f2</a></td>
+                                                        <td class="date">24 Dec, 2022</td>
+                                                        <td class="from">Charles Nelson</td>
+                                                        <td class="to">Admin</td>
+                                                        <td class="coin">GBP</td>
+                                                        <td class="amount">$341.74</td>
+                                                        <td><span class="badge bg-success-subtle text-success status">Success</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="avatar-xs">
+                                                                <div class="avatar-title bg-danger rounded-circle">
+                                                                    <i class="bi bi-arrow-up-right"></i>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td><a href="#!" class="transactionId text-reset">#JAD0e5af6d490f</a></td>
+                                                        <td class="date">19 Dec, 2022</td>
+                                                        <td class="from">Admin</td>
+                                                        <td class="to">Damaris</td>
+                                                        <td class="coin">EUR</td>
+                                                        <td class="amount">$3,419.74</td>
+                                                        <td><span class="badge bg-warning-subtle text-warning status">Processing</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="avatar-xs">
+                                                                <div class="avatar-title bg-success rounded-circle">
+                                                                    <i class="bi bi-arrow-down-right"></i>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td><a href="#!" class="transactionId text-reset">#JAD186ad801406</a></td>
+                                                        <td class="date">02 Feb, 2023</td>
+                                                        <td class="from">Kevin Dawson</td>
+                                                        <td class="to">Admin</td>
+                                                        <td class="coin">BTC</td>
+                                                        <td class="amount">$12,037</td>
+                                                        <td><span class="badge bg-success-subtle text-success status">Success</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="avatar-xs">
+                                                                <div class="avatar-title bg-success rounded-circle">
+                                                                    <i class="bi bi-arrow-down-right"></i>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td><a href="#!" class="transactionId text-reset">#JADc94b558141c</a></td>
+                                                        <td class="date">18 Jan, 2023</td>
+                                                        <td class="from">Tonya Noble</td>
+                                                        <td class="to">Admin</td>
+                                                        <td class="coin">ETH</td>
+                                                        <td class="amount">$4,308</td>
+                                                        <td><span class="badge bg-warning-subtle text-warning status">Processing</span></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <div class="noresult" style="display: none">
+                                                <div class="text-center py-4">
+                                                    <i class="ph-magnifying-glass fs-1 text-primary"></i>
+                                                    <h5 class="mt-2">Sorry! No Result Found</h5>
+                                                    <p class="text-muted mb-0">We've searched more than 164+ Transaction We did not find any Transaction for you search.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="align-items-center mt-3 justify-content-between row text-center text-sm-start" id="pagination-element">
+                                            <div class="col-sm">
+                                                <div class="text-muted">
+                                                    Showing <span class="fw-semibold">10</span> of <span class="fw-semibold">12</span> Results
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-auto mt-3 mt-sm-0">
+                                                <div class="pagination-wrap hstack gap-2 justify-content-center justify-content-sm-end">
+                                                    <a class="page-item pagination-prev disabled" href="#">
+                                                        Previous
+                                                    </a>
+                                                    <ul class="pagination listjs-pagination mb-0"></ul>
+                                                    <a class="page-item pagination-next" href="#">
+                                                        Next
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><!--end card-->
+                            </div><!--end col-->
+                      </div><!--end row-->
+{% endblock content %}
+                  
+{% block extra_js %}
+
+    <!-- List Js -->
+    <script src="{% static 'libs/list.js/list.min.js' %}"></script>
+
+    <!--list pagination js-->
+    <script src="{% static 'libs/list.pagination.js/list.pagination.min.js' %}"></script>
+
+    <!-- crypto-transaction init js -->
+    <script src="{% static 'js/pages/crypto-transaction.init.js' %}"></script>
+
+{% endblock extra_js %}
+      

@@ -1,0 +1,33 @@
+# Development Dependencies
+# Linters y formateo de código
+black==25.1.0
+flake8==7.1.1
+flake8-django==1.4
+flake8-bugbear==25.1.5
+pylint==3.3.4
+pylint-django==2.6.1
+isort==5.13.2
+mypy==1.14.1
+django-stubs==5.1.2
+types-psycopg2==2.9.21.20250115
+
+# Testing (si no están en requirements.txt)
+pytest==8.3.4
+pytest-django==4.9.0
+pytest-cov==6.0.0
+factory-boy==3.3.1
+faker==33.1.0
+coverage==7.6.10
+
+# Pre-commit hooks
+pre-commit==4.0.1
+
+# Análisis de código
+bandit==1.8.0  # Seguridad
+radon==6.0.1   # Complejidad de código
+prospector==1.12.0
+
+# Debug tools
+django-debug-toolbar==5.0.0
+django-extensions==3.2.3
+ipython==8.31.0

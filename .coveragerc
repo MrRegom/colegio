@@ -1,0 +1,30 @@
+# Configuration for Coverage.py
+# https://coverage.readthedocs.io/
+
+[run]
+source = apps.accounts
+omit =
+    */migrations/*
+    */tests.py
+    */test_*.py
+    */__pycache__/*
+    */venv/*
+    */env/*
+
+[report]
+exclude_lines =
+    pragma: no cover
+    def __repr__
+    def __str__
+    raise AssertionError
+    raise NotImplementedError
+    if __name__ == .__main__.:
+    if TYPE_CHECKING:
+    @abstract
+
+precision = 2
+show_missing = True
+
+[html]
+directory = htmlcov
+title = ProyectoTIC - Cobertura de Tests Autenticacion

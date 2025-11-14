@@ -1,0 +1,26 @@
+//
+// _profile.scss
+//
+
+
+.profile-dot {
+    height: .875rem;
+    width: .875rem;
+    top: -0.1875rem;
+    right: -0.1875rem;
+    border: .125rem solid var(--#{$prefix}secondary-bg);
+}
+
+.case-studies {
+    .overlay-content {
+        &::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-color: var(--#{$prefix}secondary-bg);
+            z-index: 0;
+            backdrop-filter: blur(72px);
+            opacity: 0.6;
+        }
+    }
+}

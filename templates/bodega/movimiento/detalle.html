@@ -1,0 +1,54 @@
+{% extends 'partials/base.html' %}
+
+{% block content %}
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0">{{ titulo }}</h4>
+                    <div>
+                        <a href="{% url 'bodega:movimiento_lista' %}" class="btn btn-secondary">
+                            <i class="ri-arrow-left-line"></i> Volver
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h5>Información del Movimiento</h5>
+                        <dl class="row">
+                            <dt class="col-sm-4">Fecha:</dt>
+                            <dd class="col-sm-8">{{ movimiento.fecha_creacion|date:"d/m/Y H:i:s" }}</dd>
+                            <dt class="col-sm-4">Artículo:</dt>
+                            <dd class="col-sm-8"><strong>{{ movimiento.articulo.codigo }}</strong> - {{ movimiento.articulo.nombre }}</dd>
+                            <dt class="col-sm-4">Tipo:</dt>
+                            <dd class="col-sm-8">{{ movimiento.tipo.nombre }}</dd>
+                            <dt class="col-sm-4">Operación:</dt>
+                            <dd class="col-sm-8">
+                                <span class="badge {% if movimiento.operacion == 'ENTRADA' %}bg-success{% else %}bg-danger{% endif %}">
+                                    {{ movimiento.get_operacion_display }}
+                                </span>
+                            </dd>
+                            <dt class="col-sm-4">Cantidad:</dt>
+                            <dd class="col-sm-8"><strong>{{ movimiento.cantidad }} {% for u in movimiento.articulo.unidades_medida.all %}{{ u.simbolo }}{% if not forloop.last %}, {% endif %}{% empty %}unidad{% endfor %}</strong></dd>
+                            <dt class="col-sm-4">Stock Antes:</dt>
+                            <dd class="col-sm-8">{{ movimiento.stock_antes }} {% for u in movimiento.articulo.unidades_medida.all %}{{ u.simbolo }}{% if not forloop.last %}, {% endif %}{% empty %}unidad{% endfor %}</dd>
+                            <dt class="col-sm-4">Stock Después:</dt>
+                            <dd class="col-sm-8">{{ movimiento.stock_despues }} {% for u in movimiento.articulo.unidades_medida.all %}{{ u.simbolo }}{% if not forloop.last %}, {% endif %}{% empty %}unidad{% endfor %}</dd>
+                            <dt class="col-sm-4">Usuario:</dt>
+                            <dd class="col-sm-8">{{ movimiento.usuario.username }}</dd>
+                            <dt class="col-sm-4">Motivo:</dt>
+                            <dd class="col-sm-8">{{ movimiento.motivo }}</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

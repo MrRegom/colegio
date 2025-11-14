@@ -1,0 +1,50 @@
+// 
+// _suneditor.scss
+// 
+
+.sun-editor {
+    font-family: $font-family-base;
+    border: 1px solid var(--#{$prefix}border-color);
+    background-color: var(--#{$prefix}secondary-bg);
+    color: var(--#{$prefix}body-color);
+
+    .se-toolbar {
+        background-color: var(--#{$prefix}secondary-bg);
+        outline: 1px solid var(--#{$prefix}border-color);
+    }
+
+    .se-btn-tray {
+        padding: calc(#{$card-cap-padding-y} * 0.5) calc(#{$card-cap-padding-x} * 0.5);
+    }
+
+    .se-btn-module-border {
+        border: 1px solid var(--#{$prefix}border-color);
+        border-radius: $border-radius-sm;
+        margin-right: 8px;
+    }
+
+    .se-btn:enabled:focus,
+    .se-btn:enabled:hover,
+    .se-btn:enabled:active {
+        background-color: var(--#{$prefix}light);
+        border-color: var(--#{$prefix}light);
+        box-shadow: none;
+    }
+
+    .se-resizing-bar {
+        border-top: 1px solid var(--#{$prefix}border-color);
+        background-color: var(--#{$prefix}light);
+    }
+}
+
+
+.sun-editor-editable {
+    font-family: $font-family-base;
+    background-color: var(--#{$prefix}secondary-bg);
+    color: var(--#{$prefix}body-color);
+}
+
+.sun-editor button {
+    color: var(--#{$prefix}body-color);
+
+}

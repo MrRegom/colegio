@@ -1,0 +1,101 @@
+//
+// _timeline.scss
+//
+
+//activity-timeline
+.activity-timeline {
+    position: relative;
+    overflow: hidden;
+
+    .activity-item {
+        position: relative;
+
+        .flex-shrink-0 {
+            z-index: 2;
+        }
+
+        .activity-avatar {
+            background-color: var(--#{$prefix}secondary-bg);
+            border: 3px solid var(--#{$prefix}secondary-bg);
+            height: 32px;
+            width: 32px;
+        }
+
+        &:before {
+            content: "";
+            position: absolute;
+            border-left: 1px dashed var(--#{$prefix}border-color);
+            left: 16px;
+            height: 100%;
+            top: 5px;
+            z-index: 0;
+        }
+
+        &:last-child {
+            &::before {
+                border-color: transparent;
+            }
+        }
+    }
+}
+
+.activity-timeline-2 {
+    border-radius: 12px;
+    position: relative;
+
+    li {
+        padding-bottom: 1.5rem;
+        border-left: 1px solid #abaaed;
+        position: relative;
+        padding-left: 20px;
+        margin-left: 10px;
+
+        &:last-child {
+            border: 0px;
+            padding-bottom: 0;
+        }
+
+        &:before {
+            content: '';
+            width: 12px;
+            height: 12px;
+            background: var(--#{$prefix}primary);
+            border: 2px solid var(--#{$prefix}secondary-bg);
+            outline: 1px solid var(--#{$prefix}primary);
+            border-radius: 50%;
+            position: absolute;
+            left: -6px;
+            top: 0px;
+        }
+    }
+
+    &.effect-dot {
+        li {
+            &:before {
+                border: 3px solid var(--#{$prefix}secondary-bg);
+                outline: none;
+            }
+        }
+    }
+
+    &.effect-square {
+        li {
+            &:before {
+                background-color: var(--#{$prefix}secondary-bg);
+                border: 1px solid var(--#{$prefix}primary);
+                outline: none;
+                border-radius: 0.25rem;
+            }
+        }
+    }
+
+    &.effect-circle {
+        li {
+            &:before {
+                background-color: var(--#{$prefix}secondary-bg);
+                border: 1px solid var(--#{$prefix}primary);
+                outline: none;
+            }
+        }
+    }
+}

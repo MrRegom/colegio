@@ -1,0 +1,179 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block title %}{{ titulo }}{% endblock %}
+
+{% block content %}
+<div class="page-content">
+    <div class="container-fluid">
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0">{{ titulo }}</h4>
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="{% url 'dashboard_analytics' %}">Dashboard</a></li>
+                            <li class="breadcrumb-item"><a href="{% url 'accounts:menu_usuarios' %}">Usuarios</a></li>
+                            <li class="breadcrumb-item active">{{ titulo }}</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header d-flex align-items-center">
+                        <h5 class="card-title mb-0 flex-grow-1">Listado de Usuarios</h5>
+                        {% if permisos.puede_crear %}
+                        <div>
+                            <a href="{% url 'accounts:crear_usuario' %}" class="btn btn-primary">
+                                <i class="ri-add-line align-bottom me-1"></i> Nuevo Usuario
+                            </a>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="card-body">
+                        <!-- Filtros -->
+                        <form method="get" class="row g-3 mb-3">
+                            <div class="col-md-4">
+                                {{ form.buscar.label_tag }}
+                                {{ form.buscar }}
+                            </div>
+                            <div class="col-md-2">
+                                {{ form.is_active.label_tag }}
+                                {{ form.is_active }}
+                            </div>
+                            <div class="col-md-2">
+                                {{ form.is_staff.label_tag }}
+                                {{ form.is_staff }}
+                            </div>
+                            <div class="col-md-2">
+                                {{ form.group.label_tag }}
+                                {{ form.group }}
+                            </div>
+                            <div class="col-md-2 d-flex align-items-end">
+                                <button type="submit" class="btn btn-secondary w-100">
+                                    <i class="ri-filter-3-line"></i> Filtrar
+                                </button>
+                            </div>
+                        </form>
+
+                        <!-- Tabla -->
+                        <div class="table-responsive">
+                            <table class="table table-hover table-nowrap align-middle mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Usuario</th>
+                                        <th>Nombre</th>
+                                        <th>Email</th>
+                                        <th>Roles</th>
+                                        <th>Estado</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for usuario in usuarios %}
+                                    <tr>
+                                        <td>
+                                            <strong>{{ usuario.username }}</strong>
+                                            {% if usuario.is_superuser %}
+                                            <span class="badge bg-danger ms-1">Super</span>
+                                            {% elif usuario.is_staff %}
+                                            <span class="badge bg-warning ms-1">Staff</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ usuario.get_full_name|default:"-" }}</td>
+                                        <td>{{ usuario.email|default:"-" }}</td>
+                                        <td>
+                                            {% for grupo in usuario.groups.all %}
+                                            <span class="badge bg-info">{{ grupo.name }}</span>
+                                            {% empty %}
+                                            <span class="text-muted">Sin roles</span>
+                                            {% endfor %}
+                                        </td>
+                                        <td>
+                                            {% if usuario.is_active %}
+                                            <span class="badge bg-success">Activo</span>
+                                            {% else %}
+                                            <span class="badge bg-secondary">Inactivo</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <div class="dropdown">
+                                                <button class="btn btn-sm btn-soft-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                                    <i class="ri-more-fill"></i>
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-end">
+                                                    <li>
+                                                        <a class="dropdown-item" href="{% url 'accounts:detalle_usuario' usuario.pk %}">
+                                                            <i class="ri-eye-line align-bottom me-2"></i> Ver Detalle
+                                                        </a>
+                                                    </li>
+                                                    {% if permisos.puede_editar %}
+                                                    <li>
+                                                        <a class="dropdown-item" href="{% url 'accounts:editar_usuario' usuario.pk %}">
+                                                            <i class="ri-edit-line align-bottom me-2"></i> Editar
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item" href="{% url 'accounts:asignar_grupos_usuario' usuario.pk %}">
+                                                            <i class="ri-shield-user-line align-bottom me-2"></i> Asignar Roles
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item" href="{% url 'accounts:asignar_permisos_usuario' usuario.pk %}">
+                                                            <i class="ri-key-line align-bottom me-2"></i> Asignar Permisos
+                                                        </a>
+                                                    </li>
+                                                    {% endif %}
+                                                    {% if permisos.puede_cambiar_password %}
+                                                    <li><hr class="dropdown-divider"></li>
+                                                    <li>
+                                                        <a class="dropdown-item" href="{% url 'accounts:cambiar_password_usuario' usuario.pk %}">
+                                                            <i class="ri-lock-password-line align-bottom me-2"></i> Cambiar Contraseña
+                                                        </a>
+                                                    </li>
+                                                    {% endif %}
+                                                    {% if permisos.puede_eliminar and not usuario.is_superuser %}
+                                                    <li><hr class="dropdown-divider"></li>
+                                                    <li>
+                                                        <a class="dropdown-item text-danger" href="{% url 'accounts:eliminar_usuario' usuario.pk %}">
+                                                            <i class="ri-delete-bin-line align-bottom me-2"></i> Desactivar
+                                                        </a>
+                                                    </li>
+                                                    {% endif %}
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="6" class="text-center py-4">
+                                            <p class="text-muted mb-0">No se encontraron usuarios.</p>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

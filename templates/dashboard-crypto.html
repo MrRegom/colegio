@@ -1,0 +1,899 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block title %} Dashboard Crypto {% endblock title %} 
+
+{% block main_title %}
+
+                <div class="page-title-box">
+                    <div class="row align-items-center">
+                        <div class="col-md-5">
+                            {% block pagetitle %}
+                                {% include "partials/page-title.html" with pagetitle="Dashboards" title="Crypto" %}
+                            {% endblock pagetitle %}
+                        </div><!--end col-->
+                        <div class="col-md-auto ms-auto">
+
+                            {% block customizer %}
+                                {% include "partials/customizer.html" %}
+                            {% endblock customizer %}
+                        </div><!--end col-->
+                    </div><!--end row-->
+                </div>
+{% endblock main_title %}
+
+
+{% block content %}
+                    <div class="row">
+                        <div class="col-xxl-9">
+                            <div class="row">
+                                <div class="col-xxl col-sm-6">
+                                    <div class="card overflow-hidden">
+                                        <div class="card-body">
+                                            <span class="badge bg-danger-subtle text-danger float-end"><i class="bi bi-arrow-down"></i> 0.18%</span>
+                                            <a href="{% url 'apps:crypto.coin_overview' %}"><h5 class="fs-lg mb-1">Bitcoin</h5></a>
+                                            <p class="text-muted fs-xs mb-4">BTC/USD</p>
+                                            <h4 class="mb-0">$<span class="counter-value" data-target="26807.45">0</span> <small class="fw-normal text-muted fs-xs">USD</small></h4>
+                                        </div>
+                                    </div>
+                                </div><!--end col-->
+                                <div class="col-xxl col-sm-6">
+                                    <div class="card overflow-hidden">
+                                        <div class="card-body">
+                                            <span class="badge bg-success-subtle text-success float-end"><i class="bi bi-arrow-up"></i> 0.61%</span>
+                                            <a href="{% url 'apps:crypto.coin_overview' %}"><h5 class="fs-lg mb-1">Ethereum</h5></a>
+                                            <p class="text-muted fs-xs mb-4">ETH/USD</p>
+                                            <h4 class="mb-0">$<span class="counter-value" data-target="1819.98">0</span> <small class="fw-normal text-muted fs-xs">USD</small></h4>
+                                        </div>
+                                    </div>
+                                </div><!--end col-->
+                                <div class="col-xxl col-sm-6">
+                                    <div class="card overflow-hidden">
+                                        <div class="card-body">
+                                            <span class="badge bg-success-subtle text-success float-end"><i class="bi bi-arrow-up"></i> 9.03%</span>
+                                            <a href="{% url 'apps:crypto.coin_overview' %}"><h5 class="fs-lg mb-1">Solana</h5></a>
+                                            <p class="text-muted fs-xs mb-4">SOL/USD</p>
+                                            <h4 class="mb-0">$<span class="counter-value" data-target="19.52">0</span> <small class="fw-normal text-muted fs-xs">USD</small></h4>
+                                        </div>
+                                    </div>
+                                </div><!--end col-->
+                                <div class="col-xxl col-sm-6">
+                                    <div class="card overflow-hidden">
+                                        <div class="card-body">
+                                            <span class="badge bg-danger-subtle text-danger float-end"><i class="bi bi-arrow-down"></i> 5.51%</span>
+                                            <a href="{% url 'apps:crypto.coin_overview' %}"><h5 class="fs-lg mb-1">Litecoin</h5></a>
+                                            <p class="text-muted fs-xs mb-4">LTC/USD</p>
+                                            <h4 class="mb-0">$<span class="counter-value" data-target="86.72">0</span> <small class="fw-normal text-muted fs-xs">USD</small></h4>
+                                        </div>
+                                    </div>
+                                </div><!--end col-->
+                            </div><!--end row-->
+
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="d-flex flex-wrap gap-2 align-items-center">
+                                        <img src="https://img.themesbrand.com/judia/svg/crypto-icons/eth.svg" alt="ETH" class="avatar-xs flex-shrink-0">
+                                        <div class="flex-grow-1">
+                                            <h5 class="fs-lg mb-0">Ethereum</h5>
+                                            <p class="text-muted xs-sm mb-0">Social Chain</p>
+                                        </div>
+                                        <div class="flex-shrink-0">
+                                            <div class="d-flex gap-3">
+                                                <div class="flex-shrink-0">
+                                                    <p class="text-muted xs-sm mb-1">Price</p>
+                                                    <h5 class="fs-lg mb-0">$1,818.98</h5>
+                                                </div>
+                                                <div class="vr"></div>
+                                                <div class="flex-shrink-0">
+                                                    <p class="text-muted xs-sm mb-1">24h change</p>
+                                                    <h5 class="fs-lg mb-0">$1,472.12</h5>
+                                                </div>
+                                                <div class="vr"></div>
+                                                <div class="flex-shrink-0">
+                                                    <p class="text-muted xs-sm mb-1">24h volume</p>
+                                                    <h5 class="fs-lg mb-0">11,748.77</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="d-flex gap-2 align-items-center flex-wrap">
+                                        <ul class="list-unstyled crypto-chart-menu d-inline-flex gap-3 flex-wrap p-1 bg-light rounded-pill flex-shrink-0">
+                                            <li>
+                                                <a href="#!" class="avatar-xs btn fs-2xs fw-medium rounded-circle d-flex align-items-center flex-shrink-0 justify-content-center active">
+                                                    15M
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#!" class="avatar-xs btn fs-2xs fw-medium rounded-circle d-flex align-items-center flex-shrink-0 justify-content-center">
+                                                    1H
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#!" class="avatar-xs btn fs-2xs fw-medium rounded-circle d-flex align-items-center flex-shrink-0 justify-content-center">
+                                                    6H
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#!" class="avatar-xs btn fs-2xs fw-medium rounded-circle d-flex align-items-center flex-shrink-0 justify-content-center">
+                                                    12H
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#!" class="avatar-xs btn fs-2xs fw-medium rounded-circle d-flex align-items-center flex-shrink-0 justify-content-center">
+                                                    1D
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        <ul class="list-unstyled crypto-chart-menu d-inline-flex gap-3 flex-wrap p-1 bg-light rounded-pill me-auto">
+                                            <li>
+                                                <a href="#!" class="avatar-xs btn fs-2xs fw-medium rounded-circle d-flex align-items-center flex-shrink-0 justify-content-center active">
+                                                    <i class="bi bi-sliders"></i>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#!" class="avatar-xs btn fs-2xs fw-medium rounded-circle d-flex align-items-center flex-shrink-0 justify-content-center">
+                                                    <i class="ph ph-chart-bar-horizontal"></i>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#!" class="avatar-xs btn fs-2xs fw-medium rounded-circle d-flex align-items-center flex-shrink-0 justify-content-center">
+                                                    <i class="bi bi-bar-chart"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        <div class="flex-shrink-0">
+                                            <div class="dropdown">
+                                                <button class="btn btn-subtle-secondary btn-icon" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="bi bi-gear"></i>
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-end">
+                                                    <li><a class="dropdown-item" href="#!">Today</a></li>
+                                                    <li><a class="dropdown-item" href="#!">Yesterday</a></li>
+                                                    <li><a class="dropdown-item" href="#!">This Month</a></li>
+                                                    <li><a class="dropdown-item" href="#!">Last Month</a></li>
+                                                    <li><a class="dropdown-item" href="#!">This Year</a></li>
+                                                    <li><a class="dropdown-item" href="#!">Last Year</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="ethereum_overview" data-colors='["--tb-success", "--tb-danger"]' class="apex-charts" dir="ltr"></div>
+                                </div>
+                            </div>
+                        </div><!--end col-->
+                        <div class="col-xxl-3">
+                            <div class="row">
+                                <div class="col-xxl-12 col-lg-6">
+                                    <div class="card card-height-100">
+                                        <div class="card-body">
+                                            <ul class="nav nav-pills nav-fill nav-secondary gap-1 p-1 small bg-light rounded-pill shadow-sm" id="balanceWidgets" role="tablist">
+                                                <li class="nav-item" role="presentation">
+                                                    <button class="nav-link active rounded-pill" id="balance-tab" data-bs-toggle="pill" data-bs-target="#balance" type="button" role="tab" aria-controls="balance" aria-selected="true">Balance</button>
+                                                </li>
+                                                <li class="nav-item" role="presentation">
+                                                    <button class="nav-link rounded-pill" id="pending-tab" data-bs-toggle="pill" data-bs-target="#pending" type="button" role="tab" aria-controls="pending" aria-selected="false">Pending</button>
+                                                </li>
+                                            </ul>
+                                            <div class="tab-content mt-3" id="balanceWidgetsContent">
+                                                <div class="tab-pane show active" id="balance" role="tabpanel" aria-labelledby="balance-tab" tabindex="0">
+                                                    <div class="d-flex gap-2">
+                                                        <div class="flex-grow-1">
+                                                            <h5>$23,475.97</h5>
+                                                            <p class="text-muted mb-0">14:35:21</p>
+                                                        </div>
+                                                        <div class="flex-shrink-0">
+                                                            <select class="form-control" id="choices-single-no-search2" name="choices-single-no-search2" data-choices data-choices-search-false>
+                                                                <option value="ETH">ETH</option>
+                                                                <option value="BTC">BTC</option>
+                                                                <option value="LTC">LTC</option>
+                                                                <option value="SOL">SOL</option>
+                                                                <option value="USD">USD</option>
+                                                                <option value="DCR">DCR</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="pt-4 mt-4 border-top">
+                                                        <div class="row gy-3">
+                                                            <div class="col-md-4">
+                                                                <h6 class="mb-1">$120.48</h6>
+                                                                <p class="text-muted mb-0">Daily volume</p>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <h6 class="mb-1">0.074</h6>
+                                                                <p class="text-muted mb-0">BTC volume</p>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <h6 class="mb-1">0.64%</h6>
+                                                                <p class="text-muted mb-0">% amount</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="hstack gap-2 mt-4">
+                                                        <button class="btn btn-primary w-100">Deposit</button>
+                                                        <button class="btn btn-outline-primary w-100">Withdraw</button>
+                                                    </div>
+                                                </div>
+                                                <div class="tab-pane" id="pending" role="tabpanel" aria-labelledby="pending-tab" tabindex="0">
+                                                    <div class="d-flex gap-2">
+                                                        <div class="flex-grow-1">
+                                                            <h5>$14,941.26</h5>
+                                                            <p class="text-muted mb-0">08:27:39</p>
+                                                        </div>
+                                                        <div class="flex-shrink-0">
+                                                            <select class="form-control" id="choices-single-no-search" name="choices-single-no-search" data-choices data-choices-search-false>
+                                                                <option value="ETH">ETH</option>
+                                                                <option value="BTC">BTC</option>
+                                                                <option value="LTC">LTC</option>
+                                                                <option value="SOL">SOL</option>
+                                                                <option value="USD">USD</option>
+                                                                <option value="DCR">DCR</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="pt-4 mt-4 border-top">
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <h6 class="mb-1">$97.11</h6>
+                                                                <p class="text-muted mb-0">Daily volume</p>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <h6 class="mb-1">0.024</h6>
+                                                                <p class="text-muted mb-0">BTC volume</p>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <h6 class="mb-1">0.87%</h6>
+                                                                <p class="text-muted mb-0">% amount</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="hstack gap-2 mt-4">
+                                                        <a href="{% url 'apps:crypto.transactions' %}" class="btn btn-primary w-100">View Transaction</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><!--end col-->
+                                <div class="col-xxl-12 col-lg-6">
+                                    <div class="card card-height-100">
+                                        <div class="card-header align-items-center d-flex">
+                                            <h6 class="card-title mb-0 flex-grow-1">Recent Transaction</h6>
+                                            <div class="flex-shrink-0">
+                                                <a class="icon-link" href="{% url 'apps:crypto.transactions' %}">
+                                                    View All <i class="bi bi-arrow-right"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <ul class="list-unstyled vstack gap-3 mb-0">
+                                                <li class="d-flex align-items-center gap-2 position-relative">
+                                                    <img src="https://img.themesbrand.com/judia/svg/crypto-icons/btc.svg" alt="" class="avatar-xxs">
+                                                    <div class="flex-grow-1">
+                                                        <a href="{% url 'apps:crypto.coin_overview' %}" class="stretched-link">
+                                                            <h6 class="fs-sm mb-0">Bitcoin (BTC)</h6>
+                                                        </a>
+                                                        <p class="text-danger fs-xs mb-0">Buy</p>
+                                                    </div>
+                                                    <div class="text-end flex-shrink-0">
+                                                        <h6 class="fs-sm mb-0">$154.31</h6>
+                                                        <p class="text-muted fs-xs mb-0">21 June, 2023</p>
+                                                    </div>
+                                                </li>
+                                                <li class="d-flex align-items-center gap-2 position-relative">
+                                                    <img src="https://img.themesbrand.com/judia/svg/crypto-icons/usdt.svg" alt="" class="avatar-xxs">
+                                                    <div class="flex-grow-1">
+                                                        <a href="{% url 'apps:crypto.coin_overview' %}" class="stretched-link">
+                                                            <h6 class="fs-sm mb-0">Tether (USDT)</h6>
+                                                        </a>
+                                                        <p class="text-success fs-xs mb-0">Sell</p>
+                                                    </div>
+                                                    <div class="text-end flex-shrink-0">
+                                                        <h6 class="fs-sm mb-0">$2.5487</h6>
+                                                        <p class="text-muted fs-xs mb-0">19 June, 2023</p>
+                                                    </div>
+                                                </li>
+                                                <li class="d-flex align-items-center gap-2 position-relative">
+                                                    <img src="https://img.themesbrand.com/judia/svg/crypto-icons/dcr.svg" alt="" class="avatar-xxs">
+                                                    <div class="flex-grow-1">
+                                                        <a href="{% url 'apps:crypto.coin_overview' %}" class="stretched-link">
+                                                            <h6 class="fs-sm mb-0">Decred (DCR)</h6>
+                                                        </a>
+                                                        <p class="text-danger fs-xs mb-0">Buy</p>
+                                                    </div>
+                                                    <div class="text-end flex-shrink-0">
+                                                        <h6 class="fs-sm mb-0">$136.97</h6>
+                                                        <p class="text-muted fs-xs mb-0">14 June, 2023</p>
+                                                    </div>
+                                                </li>
+                                                <li class="d-flex align-items-center gap-2 position-relative">
+                                                    <img src="https://img.themesbrand.com/judia/svg/crypto-icons/eth.svg" alt="" class="avatar-xxs">
+                                                    <div class="flex-grow-1">
+                                                        <a href="{% url 'apps:crypto.coin_overview' %}" class="stretched-link">
+                                                            <h6 class="fs-sm mb-0">Ethereum (ETH)</h6>
+                                                        </a>
+                                                        <p class="text-success fs-xs mb-0">Sell</p>
+                                                    </div>
+                                                    <div class="text-end flex-shrink-0">
+                                                        <h6 class="fs-sm mb-0">$324.15</h6>
+                                                        <p class="text-muted fs-xs mb-0">01 June, 2023</p>
+                                                    </div>
+                                                </li>
+                                                <li class="d-flex align-items-center gap-2 position-relative">
+                                                    <img src="https://img.themesbrand.com/judia/svg/crypto-icons/aave.svg" alt="" class="avatar-xxs">
+                                                    <div class="flex-grow-1">
+                                                        <a href="{% url 'apps:crypto.coin_overview' %}" class="stretched-link">
+                                                            <h6 class="fs-sm mb-0">Aave (AAVE)</h6>
+                                                        </a>
+                                                        <p class="text-danger fs-xs mb-0">Buy</p>
+                                                    </div>
+                                                    <div class="text-end flex-shrink-0">
+                                                        <h6 class="fs-sm mb-0">$87.64</h6>
+                                                        <p class="text-muted fs-xs mb-0">27 May, 2023</p>
+                                                    </div>
+                                                </li>
+                                                <li class="d-flex align-items-center gap-2 position-relative">
+                                                    <img src="https://img.themesbrand.com/judia/svg/crypto-icons/ltc.svg" alt="" class="avatar-xxs">
+                                                    <div class="flex-grow-1">
+                                                        <a href="{% url 'apps:crypto.coin_overview' %}" class="stretched-link">
+                                                            <h6 class="fs-sm mb-0">Litecoin (LTC)</h6>
+                                                        </a>
+                                                        <p class="text-danger fs-xs mb-0">Buy</p>
+                                                    </div>
+                                                    <div class="text-end flex-shrink-0">
+                                                        <h6 class="fs-sm mb-0">$874.31</h6>
+                                                        <p class="text-muted fs-xs mb-0">17 May, 2023</p>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div><!--end col-->
+                            </div><!--end row-->
+                        </div><!--end col-->
+                    </div><!--end row-->
+
+                    <div class="row">
+                        <div class="col-xl-4">
+                            <div class="card card-height-100">
+                                <div class="card-header align-items-center d-flex">
+                                    <h6 class="card-title mb-0 flex-grow-1">Stock Market</h6>
+                                    <div class="flex-shrink-0">
+                                        <div class="nav nav-pills gap-1" id="popularProperty" role="tablist" aria-orientation="vertical">
+                                            <button class="btn btn-ghost-success btn-sm active" id="stockMarketActive" data-bs-toggle="pill" data-bs-target="#stockMarketActiveTabs" type="button" role="tab" aria-controls="stockMarketActiveTabs" aria-selected="true">Active</button>
+                                            <button class="btn btn-ghost-secondary btn-sm" id="stockMarketGainers" data-bs-toggle="pill" data-bs-target="#stockMarketGainersTabs" type="button" role="tab" aria-controls="stockMarketGainersTabs" aria-selected="false" tabindex="-1">Gainers</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="tab-content" id="popularPropertyContent">
+                                        <div class="tab-pane show active" id="stockMarketActiveTabs" role="tabpanel" aria-labelledby="stockMarketActive" tabindex="0">
+                                            <div id="stock_market_active" data-colors='["--tb-primary"]' class="apex-charts" dir="ltr"></div>
+                                            <ul class="list-group list-group-none mb-0 mt-2">
+                                                <li class="list-group-item list-group-item-action list-group-item-light">
+                                                    <div class="d-flex">
+                                                        <div class="flex-grow-1">
+                                                            <a href="{% url 'apps:crypto.coin_overview' %}"><h6 class="mb-1">ETC</h6></a>
+                                                            <p class="text-muted mb-0">Ethereum Classic</p>
+                                                        </div>
+                                                        <div class="flex-shrink-0 text-end">
+                                                            <h6 class="mb-1">$16.90</h6>
+                                                            <p class="fs-xs mb-0"><span class="text-success me-1">0.45</span> <span class="text-success">-2.65%</span></p>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item list-group-item-action">
+                                                    <div class="d-flex">
+                                                        <div class="flex-grow-1">
+                                                            <a href="{% url 'apps:crypto.coin_overview' %}"><h6 class="mb-1">NEO</h6></a>
+                                                            <p class="text-muted mb-0">NEO Cryptocurrency</p>
+                                                        </div>
+                                                        <div class="flex-shrink-0 text-end">
+                                                            <h6 class="mb-1">$8.91</h6>
+                                                            <p class="fs-xs mb-0"><span class="text-danger me-1">-0.59</span> <span class="text-danger">-6.32%</span></p>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item list-group-item-action">
+                                                    <div class="d-flex">
+                                                        <div class="flex-grow-1">
+                                                            <a href="{% url 'apps:crypto.coin_overview' %}"><h6 class="mb-1">MKR</h6></a>
+                                                            <p class="text-muted mb-0">Maker Cryptocurrency</p>
+                                                        </div>
+                                                        <div class="flex-shrink-0 text-end">
+                                                            <h6 class="mb-1">$621.00</h6>
+                                                            <p class="fs-xs mb-0"><span class="text-danger me-1">-16</span> <span class="text-danger">-2.51%</span></p>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item list-group-item-action">
+                                                    <div class="d-flex">
+                                                        <div class="flex-grow-1">
+                                                            <a href="{% url 'apps:crypto.coin_overview' %}"><h6 class="mb-1">ZEC</h6></a>
+                                                            <p class="text-muted mb-0">Zcash Cryptocurrency</p>
+                                                        </div>
+                                                        <div class="flex-shrink-0 text-end">
+                                                            <h6 class="mb-1">$28.70</h6>
+                                                            <p class="fs-xs mb-0"><span class="text-success me-1">1.2</span> <span class="text-success">4.01%</span></p>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item list-group-item-action">
+                                                    <div class="d-flex">
+                                                        <div class="flex-grow-1">
+                                                            <a href="{% url 'apps:crypto.coin_overview' %}"><h6 class="mb-1">QNT</h6></a>
+                                                            <p class="text-muted mb-0">Qaunt Cryptocurrency</p>
+                                                        </div>
+                                                        <div class="flex-shrink-0 text-end">
+                                                            <h6 class="mb-1">$110.80</h6>
+                                                            <p class="fs-xs mb-0"><span class="text-danger me-1">-5.7</span> <span class="text-danger">-4.90%</span></p>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="tab-pane" id="stockMarketGainersTabs" role="tabpanel" aria-labelledby="stockMarketGainers" tabindex="0">
+                                            <div id="stock_market_gainers" data-colors='["--tb-secondary"]' class="apex-charts" dir="ltr"></div>
+                                            <ul class="list-group list-group-none mb-0 mt-2">
+                                                <li class="list-group-item list-group-item-action list-group-item-light">
+                                                    <div class="d-flex">
+                                                        <div class="flex-grow-1">
+                                                            <a href="{% url 'apps:crypto.coin_overview' %}"><h6 class="mb-1">BNB</h6></a>
+                                                            <p class="text-muted mb-0">BNB Cryptocurrency</p>
+                                                        </div>
+                                                        <div class="flex-shrink-0 text-end">
+                                                            <h6 class="mb-1">$260.70</h6>
+                                                            <p class="fs-xs mb-0"><span class="text-danger me-1">-2.3</span> <span class="text-danger">-6.56%</span></p>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item list-group-item-action">
+                                                    <div class="d-flex">
+                                                        <div class="flex-grow-1">
+                                                            <a href="{% url 'apps:crypto.coin_overview' %}"><h6 class="mb-1">XMR</h6></a>
+                                                            <p class="text-muted mb-0">Monero Cryptocurrency</p>
+                                                        </div>
+                                                        <div class="flex-shrink-0 text-end">
+                                                            <h6 class="mb-1">$144.60</h6>
+                                                            <p class="fs-xs mb-0"><span class="text-success me-1">0.47</span> <span class="text-success">1.57%</span></p>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item list-group-item-action">
+                                                    <div class="d-flex">
+                                                        <div class="flex-grow-1">
+                                                            <a href="{% url 'apps:crypto.coin_overview' %}"><h6 class="mb-1">QNT</h6></a>
+                                                            <p class="text-muted mb-0">Qaunt Cryptocurrency</p>
+                                                        </div>
+                                                        <div class="flex-shrink-0 text-end">
+                                                            <h6 class="mb-1">$110.80</h6>
+                                                            <p class="fs-xs mb-0"><span class="text-danger me-1">-5.7</span> <span class="text-danger">-4.90%</span></p>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item list-group-item-action">
+                                                    <div class="d-flex">
+                                                        <div class="flex-grow-1">
+                                                            <a href="{% url 'apps:crypto.coin_overview' %}"><h6 class="mb-1">EGLD</h6></a>
+                                                            <p class="text-muted mb-0">MultiversX Cryptocurrency</p>
+                                                        </div>
+                                                        <div class="flex-shrink-0 text-end">
+                                                            <h6 class="mb-1">$34.87</h6>
+                                                            <p class="fs-xs mb-0"><span class="text-danger me-1">-1.51</span> <span class="text-danger">-4.15%</span></p>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item list-group-item-action">
+                                                    <div class="d-flex">
+                                                        <div class="flex-grow-1">
+                                                            <a href="{% url 'apps:crypto.coin_overview' %}"><h6 class="mb-1">NEO</h6></a>
+                                                            <p class="text-muted mb-0">NEO Cryptocurrency</p>
+                                                        </div>
+                                                        <div class="flex-shrink-0 text-end">
+                                                            <h6 class="mb-1">$8.91</h6>
+                                                            <p class="fs-xs mb-0"><span class="text-danger me-1">-0.59</span> <span class="text-danger">-6.32%</span></p>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!--end col-->
+                        <div class="col-xl-8">
+                            <div class="card card-height-100">
+                                <div class="card-header align-items-center d-flex">
+                                    <h6 class="card-title mb-0 flex-grow-1">Forex Cross Rates</h6>
+                                    <div class="flex-shrink-0">
+                                        <a href="#!" class="btn btn-sm btn-subtle-primary icon-link">View More <i class="bi bi-arrow-right"></i></a>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive table-card mb-0">
+                                        <table class="table table-bordered align-middle mb-0 text-center">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"><img src="https://img.themesbrand.com/judia/flags/eu.svg" height="16" alt="" class="rounded-circle me-1"> EUR</th>
+                                                    <th scope="col"><img src="https://img.themesbrand.com/judia/flags/us.svg" height="16" alt="" class="rounded-circle me-1"> USD</th>
+                                                    <th scope="col"><img src="https://img.themesbrand.com/judia/flags/jp.svg" height="16" alt="" class="rounded-circle me-1"> JPY</th>
+                                                    <th scope="col"><img src="https://img.themesbrand.com/judia/flags/gb.svg" height="16" alt="" class="rounded-circle me-1"> GBP</th>
+                                                    <th scope="col"><img src="https://img.themesbrand.com/judia/flags/ch.svg" height="16" alt="" class="rounded-circle me-1"> CHF</th>
+                                                    <th scope="col"><img src="https://img.themesbrand.com/judia/flags/au.svg" height="16" alt="" class="rounded-circle me-1"> AUD</th>
+                                                    <th scope="col"><img src="https://img.themesbrand.com/judia/flags/ca.svg" height="16" alt="" class="rounded-circle me-1"> CAD</th>
+                                                    <th scope="col"><img src="https://img.themesbrand.com/judia/flags/nz.svg" height="16" alt="" class="rounded-circle me-1"> NZD</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="col" class="text-start"><a href="{% url 'apps:crypto.coin_overview' %}" class="text-reset"><img src="https://img.themesbrand.com/judia/flags/eu.svg" height="16" alt="" class="rounded-circle me-1"> EUR</a></th>
+                                                    <td></td>
+                                                    <td class="bg-success-subtle">1.07085</td>
+                                                    <td class="bg-danger-subtle">149.807</td>
+                                                    <td>0.86052</td>
+                                                    <td>0.974080</td>
+                                                    <td>1.60809</td>
+                                                    <td>1.43090</td>
+                                                    <td>1.771710</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="col" class="text-start"><a href="{% url 'apps:crypto.coin_overview' %}" class="text-reset"><img src="https://img.themesbrand.com/judia/flags/us.svg" height="16" alt="" class="rounded-circle me-1"> USD</a></th>
+                                                    <td class="bg-danger-subtle">1.07085</td>
+                                                    <td></td>
+                                                    <td>149.807</td>
+                                                    <td>0.86052</td>
+                                                    <td class="bg-success-subtle">0.974080</td>
+                                                    <td>1.60809</td>
+                                                    <td class="bg-danger-subtle">1.43090</td>
+                                                    <td>1.771710</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="col" class="text-start"><a href="{% url 'apps:crypto.coin_overview' %}" class="text-reset"><img src="https://img.themesbrand.com/judia/flags/jp.svg" height="16" alt="" class="rounded-circle me-1"> JPY</a></th>
+                                                    <td>1.07085</td>
+                                                    <td>149.807</td>
+                                                    <td></td>
+                                                    <td class="bg-danger-subtle">0.86052</td>
+                                                    <td>0.974080</td>
+                                                    <td class="bg-success-subtle">1.60809</td>
+                                                    <td>1.43090</td>
+                                                    <td>1.771710</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="col" class="text-start"><a href="{% url 'apps:crypto.coin_overview' %}" class="text-reset"><img src="https://img.themesbrand.com/judia/flags/us.svg" height="16" alt="" class="rounded-circle me-1"> GBP</a></th>
+                                                    <td>1.07085</td>
+                                                    <td>149.807</td>
+                                                    <td class="bg-danger-subtle">0.86052</td>
+                                                    <td></td>
+                                                    <td>0.974080</td>
+                                                    <td>1.60809</td>
+                                                    <td>1.43090</td>
+                                                    <td>1.771710</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="col" class="text-start"><a href="{% url 'apps:crypto.coin_overview' %}" class="text-reset"><img src="https://img.themesbrand.com/judia/flags/ch.svg" height="16" alt="" class="rounded-circle me-1"> CHF</a></th>
+                                                    <td class="bg-success-subtle">1.07085</td>
+                                                    <td>149.807</td>
+                                                    <td>0.86052</td>
+                                                    <td>0.974080</td>
+                                                    <td></td>
+                                                    <td class="bg-success-subtle">1.60809</td>
+                                                    <td>1.43090</td>
+                                                    <td>1.771710</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="col" class="text-start"><a href="{% url 'apps:crypto.coin_overview' %}" class="text-reset"><img src="https://img.themesbrand.com/judia/flags/au.svg" height="16" alt="" class="rounded-circle me-1"> AUD</a></th>
+                                                    <td>1.07085</td>
+                                                    <td class="bg-danger-subtle">149.807</td>
+                                                    <td class="bg-success-subtle">0.86052</td>
+                                                    <td>0.974080</td>
+                                                    <td class="bg-danger-subtle">1.60809</td>
+                                                    <td></td>
+                                                    <td class="bg-success-subtle">1.43090</td>
+                                                    <td>1.771710</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="col" class="text-start"><a href="{% url 'apps:crypto.coin_overview' %}" class="text-reset"><img src="https://img.themesbrand.com/judia/flags/ca.svg" height="16" alt="" class="rounded-circle me-1"> CAD</a></th>
+                                                    <td class="bg-danger-subtle">1.07085</td>
+                                                    <td>149.807</td>
+                                                    <td class="bg-success-subtle">0.86052</td>
+                                                    <td>0.974080</td>
+                                                    <td>1.60809</td>
+                                                    <td>1.43090</td>
+                                                    <td></td>
+                                                    <td class="bg-success-subtle">1.771710</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="col" class="text-start"><a href="{% url 'apps:crypto.coin_overview' %}" class="text-reset"><img src="https://img.themesbrand.com/judia/flags/nz.svg" height="16" alt="" class="rounded-circle me-1"> NZD</a></th>
+                                                    <td>1.07085</td>
+                                                    <td class="bg-success-subtle">149.807</td>
+                                                    <td>0.86052</td>
+                                                    <td>0.974080</td>
+                                                    <td class="bg-danger-subtle">1.60809</td>
+                                                    <td class="bg-success-subtle">1.43090</td>
+                                                    <td>1.771710</td>
+                                                    <td></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="alert alert-warning mt-3 mb-0">
+                                        Judia Will Support the Bitcoin (btc) Network <a href="{% url 'pages:pricing' %}" class="alert-link text-decoration-underline">Upgrade Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!--end col-->
+                    </div><!--end row-->
+                    
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h6 class="card-title mb-0">Market Capitalization</h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <div id="market_capitalization" data-colors='["--tb-primary", "--tb-success", "--tb-warning","--tb-secondary", "--tb-danger"]' class="apex-charts" dir="ltr"></div>
+                                            <div class="vstack gap-2 mt-3">
+                                                <div class="d-flex align-items-center">
+                                                    <p class="fw-medium mb-0 flex-grow-1"><i class="ri-checkbox-blank-circle-fill text-primary align-middle me-2"></i> Giant</p>
+                                                    <div>
+                                                        <span class="text-muted fw-medium fs-sm">17.2%</span>
+                                                    </div>
+                                                </div><!-- end -->
+                                                <div class="d-flex align-items-center">
+                                                    <p class="fw-medium mb-0 flex-grow-1"><i class="ri-checkbox-blank-circle-fill text-success align-middle me-2"></i> Large</p>
+                                                    <div>
+                                                        <span class="text-muted fw-medium fs-sm">23.2%</span>
+                                                    </div>
+                                                </div><!-- end -->
+                                                <div class="d-flex align-items-center">
+                                                    <p class="fw-medium mb-0 flex-grow-1"><i class="ri-checkbox-blank-circle-fill text-warning align-middle me-2"></i> Mid</p>
+                                                    <div>
+                                                        <span class="text-muted fw-medium fs-sm">28.9%</span>
+                                                    </div>
+                                                </div><!-- end -->
+                                                <div class="d-flex align-items-center">
+                                                    <p class="fw-medium mb-0 flex-grow-1"><i class="ri-checkbox-blank-circle-fill text-secondary align-middle me-2"></i> Small</p>
+                                                    <div>
+                                                        <span class="text-muted fw-medium fs-sm">21.6%</span>
+                                                    </div>
+                                                </div><!-- end -->
+                                                <div class="d-flex align-items-center">
+                                                    <p class="fw-medium mb-0 flex-grow-1"><i class="ri-checkbox-blank-circle-fill text-danger align-middle me-2"></i> Micro</p>
+                                                    <div>
+                                                        <span class="text-muted fw-medium fs-sm">8.9%</span>
+                                                    </div>
+                                                </div><!-- end -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><!--end col-->
+                                <div class="col-md-6">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h6 class="card-title mb-0">Allocation Overview</h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <div id="allocation_overview" data-colors='["--tb-secondary", "--tb-primary", "--tb-danger","--tb-info", "--tb-warning"]' class="apex-charts" dir="ltr"></div>
+                                            <div class="vstack gap-2 mt-3">
+                                                <div class="d-flex align-items-center">
+                                                    <p class="fw-medium mb-0 flex-grow-1"><i class="ri-checkbox-blank-circle-fill text-secondary align-middle me-2"></i> Cash</p>
+                                                    <div>
+                                                        <span class="text-muted fw-medium fs-sm">18.7%</span>
+                                                    </div>
+                                                </div><!-- end -->
+                                                <div class="d-flex align-items-center">
+                                                    <p class="fw-medium mb-0 flex-grow-1"><i class="ri-checkbox-blank-circle-fill text-primary align-middle me-2"></i> Fixed Income</p>
+                                                    <div>
+                                                        <span class="text-muted fw-medium fs-sm">21.0%</span>
+                                                    </div>
+                                                </div><!-- end -->
+                                                <div class="d-flex align-items-center">
+                                                    <p class="fw-medium mb-0 flex-grow-1"><i class="ri-checkbox-blank-circle-fill text-danger align-middle me-2"></i> Equities</p>
+                                                    <div>
+                                                        <span class="text-muted fw-medium fs-sm">17.3%</span>
+                                                    </div>
+                                                </div><!-- end -->
+                                                <div class="d-flex align-items-center">
+                                                    <p class="fw-medium mb-0 flex-grow-1"><i class="ri-checkbox-blank-circle-fill text-info align-middle me-2"></i> FX</p>
+                                                    <div>
+                                                        <span class="text-muted fw-medium fs-sm">20.3%</span>
+                                                    </div>
+                                                </div><!-- end -->
+                                                <div class="d-flex align-items-center">
+                                                    <p class="fw-medium mb-0 flex-grow-1"><i class="ri-checkbox-blank-circle-fill text-warning align-middle me-2"></i> Alternative</p>
+                                                    <div>
+                                                        <span class="text-muted fw-medium fs-sm">22.7%</span>
+                                                    </div>
+                                                </div><!-- end -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><!--end col-->
+                            </div><!--end row-->
+                        </div><!--end col-->
+                        <div class="col-lg-6">
+                            <div class="card" id="leadsList">
+                                <div class="card-header align-items-center d-flex">
+                                    <h4 class="card-title mb-0 flex-grow-1">My Currencies</h4>
+                                    <div class="flex-shrink-0">
+                                        <button class="btn btn-subtle-primary btn-sm">24H</button>
+                                    </div>
+                                    <div class="flex-shrink-0 ms-2">
+                                        <div class="dropdown card-header-dropdown">
+                                            <a class="btn btn-subtle-secondary btn-sm" role="button" href="#!" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Get Report<i class="bi bi-chevron-down align-middle ms-1"></i>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-end">
+                                                <a class="dropdown-item" href="#!">Download Report</a>
+                                                <a class="dropdown-item" href="#!">Export</a>
+                                                <a class="dropdown-item" href="#!">Import</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive table-card">
+                                        <table class="table table-hover table-borderless table-centered align-middle table-nowrap mb-0">
+                                            <thead class="text-muted border-top">
+                                                <tr>
+                                                    <th class="sort cursor-pointer" data-sort="coin_name">Coin Name</th>
+                                                    <th class="sort cursor-pointer" data-sort="price">Price</th>
+                                                    <th class="sort cursor-pointer" data-sort="24h_change">24h Change</th>
+                                                    <th class="sort cursor-pointer" data-sort="total_coin">Total Coin</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead><!-- end thead -->
+                                            <tbody class="list">
+                                                <tr>
+                                                    <td>
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="me-2">
+                                                                <img src="https://img.themesbrand.com/judia/svg/crypto-icons/btc.svg" alt="" class="avatar-xxs">
+                                                            </div>
+                                                            <div>
+                                                                <a href="{% url 'apps:crypto.coin_overview' %}"><h6 class="fs-md mb-0 coin_name">Bitcoin</h6></a>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="price">$48,568.025</td>
+                                                    <td>
+                                                        <h6 class="text-success fs-xs mb-0 24h_change"> 5.26 </h6>
+                                                    </td>
+                                                    <td class="total_coin">1.25634801</td>
+                                                    <td><a href="{% url 'apps:crypto.exchange' %}" class="btn btn-sm btn-subtle-primary">Trade</a></td>
+                                                </tr><!-- end -->
+                                                <tr>
+                                                    <td>
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="me-2">
+                                                                <img src="https://img.themesbrand.com/judia/svg/crypto-icons/ltc.svg" alt="" class="avatar-xxs">
+                                                            </div>
+                                                            <div>
+                                                                <a href="{% url 'apps:crypto.coin_overview' %}"><h6 class="fs-md mb-0 coin_name">Litecoin</h6></a>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="price">$87,142.027</td>
+                                                    <td>
+                                                        <h6 class="text-danger fs-xs mb-0 24h_change">3.07 </h6>
+                                                    </td>
+                                                    <td class="total_coin">2.85472161</td>
+                                                    <td><a href="{% url 'apps:crypto.exchange' %}" class="btn btn-sm btn-subtle-primary">Trade</a></td>
+                                                </tr><!-- end -->
+                                                <tr>
+                                                    <td>
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="me-2">
+                                                                <a href="{% url 'apps:crypto.coin_overview' %}"><img src="https://img.themesbrand.com/judia/svg/crypto-icons/eth.svg" alt="" class="avatar-xxs"></a>
+                                                            </div>
+                                                            <div>
+                                                                <a href="{% url 'apps:crypto.coin_overview' %}">  <h6 class="fs-md mb-0 coin_name">Ethereum</h6></a>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="price">$33,847.961</td>
+                                                    <td>
+                                                        <h6 class="text-success fs-sm mb-0 24h_change">7.13 </h6>
+                                                    </td>
+                                                    <td class="total_coin">1.45612347</td>
+                                                    <td><a href="{% url 'apps:crypto.exchange' %}" class="btn btn-sm btn-subtle-primary">Trade</a></td>
+                                                </tr><!-- end -->
+                                                <tr>
+                                                    <td>
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="me-2">
+                                                                <img src="https://img.themesbrand.com/judia/svg/crypto-icons/bnb.svg" alt="" class="avatar-xxs">
+                                                            </div>
+                                                            <div>
+                                                                <a href="{% url 'apps:crypto.coin_overview' %}"><h6 class="fs-md mb-0 coin_name">Binance</h6></a>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="price">$73,654.421</td>
+                                                    <td>
+                                                        <h6 class="text-success fs-sm mb-0 24h_change">0.97</h6>
+                                                    </td>
+                                                    <td class="total_coin">0.35734601</td>
+                                                    <td><a href="{% url 'apps:crypto.exchange' %}" class="btn btn-sm btn-subtle-primary">Trade</a></td>
+                                                </tr><!-- end -->
+                                                <tr>
+                                                    <td>
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="me-2">
+                                                                <img src="https://img.themesbrand.com/judia/svg/crypto-icons/usdt.svg" alt="" class="avatar-xxs">
+                                                            </div>
+                                                            <div>
+                                                                <a href="{% url 'apps:crypto.coin_overview' %}"><h6 class="fs-md mb-0 coin_name">Tether</h6></a>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="price">$66,742.077</td>
+                                                    <td>
+                                                        <h6 class="text-danger fs-sm mb-0 24h_change">1.08 </h6>
+                                                    </td>
+                                                    <td class="total_coin">3.62912570</td>
+                                                    <td><a href="{% url 'apps:crypto.exchange' %}" class="btn btn-sm btn-subtle-primary">Trade</a></td>
+                                                </tr><!-- end -->
+                                                <tr>
+                                                    <td>
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="me-2">
+                                                                <img src="https://img.themesbrand.com/judia/svg/crypto-icons/dash.svg" alt="" class="avatar-xxs">
+                                                            </div>
+                                                            <div>
+                                                                <a href="{% url 'apps:crypto.coin_overview' %}"><h6 class="fs-md mb-0 coin_name">Dash</h6></a>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="price">$34,736.209</td>
+                                                    <td>
+                                                        <h6 class="text-success fs-sm mb-0 24h_change">4.52 </h6>
+                                                    </td>
+                                                    <td class="total_coin">1.85412740</td>
+                                                    <td><a href="{% url 'apps:crypto.exchange' %}" class="btn btn-sm btn-subtle-primary">Trade</a></td>
+                                                </tr><!-- end -->
+                                            </tbody><!-- end tbody -->
+                                        </table><!-- end table -->
+                                    </div>
+                                    <div class="align-items-center mt-4 pt-2 row">
+                                        <div class="col-sm">
+                                            <div class="text-muted text-center text-sm-start">
+                                                Showing <span class="fw-semibold">05</span> of <span class="fw-semibold">07</span> Results
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-auto mt-3 mt-sm-0">
+                                            <div class="pagination-wrap pagination-sm hstack gap-2 justify-content-center">
+                                                <a class="page-item pagination-prev disabled" href="#!">
+                                                    <i class="bi bi-arrow-left"></i>
+                                                </a>
+                                                <ul class="pagination listjs-pagination mb-0"></ul>
+                                                <a class="page-item pagination-next" href="#!">
+                                                    <i class="bi bi-arrow-right"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!--end col-->
+                    </div><!--end row-->
+{% endblock content %}
+               
+{% block extra_js %}
+
+    <!-- list js-->
+    <script src="{% static 'libs/list.js/list.min.js' %}"></script>
+    <script src="{% static 'libs/list.pagination.js/list.pagination.min.js' %}"></script>
+
+    <!-- apexcharts -->
+    <script src="{% static 'libs/apexcharts/apexcharts.min.js' %}"></script>
+
+    <!--dashboard crm init js-->
+    <script src="{% static 'js/pages/dashboard-crypto.init.js' %}"></script>
+
+{% endblock extra_js %}
+
+   

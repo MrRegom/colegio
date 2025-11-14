@@ -1,0 +1,74 @@
+{% extends 'account/account_base.html' %}
+{% load static %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}Iniciar sesión{% endblock title %}
+    
+{% block content %}
+        <div class="col-xxl-6 mx-auto">
+            <div class="card-gob-top mb-0 border-1 shadow mb-0">
+                <div class="card-body p-sm-5">
+                    <div class="text-center mt-5">
+                        <h5 class="fs-3xl text-primary">Bienvenido</h5>
+                        <p class="text-muted">Inicia sesión para continuar.</p>
+                    </div>
+                    <div class="p-2 mt-5">
+                        <form class="needs-validation" novalidate method="POST" action="{% url 'account_login' %}">
+                            {% comment %} {% for message in messages %}
+                                <div class="alert {{ message.tags }} mb-4" role="alert">
+                                    <strong>{{ message }}</strong>
+                                </div>
+                                {% endfor %} {% endcomment %} 
+
+                                {% if form.non_field_errors %}
+                                {% for error in form.non_field_errors %}
+                                    <div class="alert alert-danger mb-4" role="alert">
+                                        <strong>{{ error }}</strong>
+                                    </div>
+                                {% endfor %}
+                                {% endif %}
+                                {% if field.help_text %}
+                                    <div class="alert alert-danger mb-4" role="alert">
+                                        <strong>{{ field.help_text }}</strong>
+                                    </div>
+                            {% endif %}
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                {{ form.login|as_crispy_field }}
+                            </div>
+    
+                            <div class="mb-3">
+                            {% comment %}  <div class="float-end">
+                                    <a href="{% url 'account_reset_password' %}" class="text-muted">¿Olvidaste tu contraseña?</a>
+                                </div> {% endcomment %}
+                                {{ form.password|as_crispy_field }}
+                            </div>
+    
+                            <!-- Campo 'remember me' eliminado -->
+    
+                            <div class="mt-4">
+                                <button class="btn btn-primary w-100" type="submit">Iniciar sesión</button>
+                            </div>
+    
+                            <div class="mt-4 pt-2 text-center">
+                                <h5 class="fs-sm mb-3 title" style="color: #1e3a8a;">Contáctanos</h5>
+                                <p class="mb-2" style="color: #666;">Ignacio Carrera Pinto #100, La Calera, Chile</p>
+                                <p class="mb-2"><a href="mailto:info@tba.cl" class="fw-semibold text-decoration-underline" style="color: #1e3a8a;">info@tba.cl</a></p>
+                                <p class="mb-0"><a href="tel:+56443699954" class="fw-semibold text-decoration-underline" style="color: #1e3a8a;">+56 44 369 9954</a></p>
+                            </div>
+                        </form>
+                    </div>
+                </div><!-- end card body -->
+            </div><!-- end card --> 
+        </div>
+        <!--end col-->
+{% endblock content %}
+
+{% block extra_js %}
+
+    <!-- password create init js-->
+    <script src="{% static 'js/pages/passowrd-create.init.js' %}"></script>
+
+{% endblock extra_js %} 
+  

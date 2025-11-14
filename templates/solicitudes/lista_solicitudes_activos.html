@@ -1,0 +1,173 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block title %}{{ titulo }}{% endblock %}
+
+{% block content %}
+<div class="page-content">
+    <div class="container-fluid">
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0">{{ titulo }}</h4>
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="{% url 'dashboard_analytics' %}">Dashboard</a></li>
+                            <li class="breadcrumb-item active">Solicitudes de Activos</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header d-flex align-items-center">
+                        <h5 class="card-title mb-0 flex-grow-1">Solicitudes de Activos/Bienes</h5>
+                        {% if perms.solicitudes.add_solicitud %}
+                        <div>
+                            <a href="{% url 'solicitudes:crear_solicitud_activos' %}" class="btn btn-primary">
+                                <i class="ri-add-line align-bottom me-1"></i> Nueva Solicitud de Activos
+                            </a>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="card-body">
+                        <!-- Filtros -->
+                        <form method="get" class="row g-3 mb-3">
+                            <div class="col-md-4">
+                                {{ form.estado.label_tag }}
+                                {{ form.estado }}
+                            </div>
+                            <div class="col-md-3">
+                                {{ form.fecha_desde.label_tag }}
+                                {{ form.fecha_desde }}
+                            </div>
+                            <div class="col-md-3">
+                                {{ form.fecha_hasta.label_tag }}
+                                {{ form.fecha_hasta }}
+                            </div>
+                            <div class="col-md-2 d-flex align-items-end">
+                                <button type="submit" class="btn btn-secondary w-100">
+                                    <i class="ri-filter-3-line"></i> Filtrar
+                                </button>
+                            </div>
+                            <div class="col-md-10">
+                                {{ form.buscar.label_tag }}
+                                {{ form.buscar }}
+                            </div>
+                            <div class="col-md-2 d-flex align-items-end">
+                                <a href="{% url 'solicitudes:lista_solicitudes_activos' %}" class="btn btn-light w-100">
+                                    <i class="ri-refresh-line"></i> Limpiar
+                                </a>
+                            </div>
+                        </form>
+
+                        <!-- Tabla -->
+                        <div class="table-responsive">
+                            <table class="table table-hover table-nowrap align-middle mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Número</th>
+                                        <th>Fecha</th>
+                                        <th>Tipo</th>
+                                        <th>Solicitante</th>
+                                        <th>Área</th>
+                                        <th>Estado</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for solicitud in solicitudes %}
+                                    <tr>
+                                        <td><strong>{{ solicitud.numero }}</strong></td>
+                                        <td>{{ solicitud.fecha_solicitud|date:"d/m/Y H:i" }}</td>
+                                        <td>{{ solicitud.tipo_solicitud.nombre }}</td>
+                                        <td>{{ solicitud.solicitante.username }}</td>
+                                        <td>{{ solicitud.area_solicitante }}</td>
+                                        <td>
+                                            <span class="badge" style="background-color: {{ solicitud.estado.color }}">
+                                                {{ solicitud.estado.nombre }}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <div class="dropdown">
+                                                <button class="btn btn-sm btn-soft-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                                    <i class="ri-more-fill"></i>
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-end">
+                                                    <li>
+                                                        <a class="dropdown-item" href="{% url 'solicitudes:detalle_solicitud' solicitud.pk %}">
+                                                            <i class="ri-eye-line align-bottom me-2"></i> Ver Detalle
+                                                        </a>
+                                                    </li>
+                                                    {% if perms.solicitudes.change_solicitud and solicitud.solicitante == user and not solicitud.estado.es_final %}
+                                                    <li>
+                                                        <a class="dropdown-item" href="{% url 'solicitudes:editar_solicitud_activos' solicitud.pk %}">
+                                                            <i class="ri-edit-line align-bottom me-2"></i> Editar
+                                                        </a>
+                                                    </li>
+                                                    {% endif %}
+                                                    {% if perms.solicitudes.delete_solicitud and solicitud.solicitante == user and solicitud.estado.es_inicial %}
+                                                    <li>
+                                                        <a class="dropdown-item text-danger" href="{% url 'solicitudes:eliminar_solicitud' solicitud.pk %}">
+                                                            <i class="ri-delete-bin-line align-bottom me-2"></i> Eliminar
+                                                        </a>
+                                                    </li>
+                                                    {% endif %}
+                                                    {% if perms.solicitudes.aprobar_solicitud and not solicitud.aprobador %}
+                                                    <li><hr class="dropdown-divider"></li>
+                                                    <li>
+                                                        <a class="dropdown-item text-success" href="{% url 'solicitudes:aprobar_solicitud' solicitud.pk %}">
+                                                            <i class="ri-check-line align-bottom me-2"></i> Aprobar
+                                                        </a>
+                                                    </li>
+                                                    {% endif %}
+                                                    {% if perms.solicitudes.rechazar_solicitud and not solicitud.estado.es_final %}
+                                                    <li>
+                                                        <a class="dropdown-item text-warning" href="{% url 'solicitudes:rechazar_solicitud' solicitud.pk %}">
+                                                            <i class="ri-close-line align-bottom me-2"></i> Rechazar
+                                                        </a>
+                                                    </li>
+                                                    {% endif %}
+                                                    {% if perms.solicitudes.despachar_solicitud and solicitud.aprobador and not solicitud.despachador %}
+                                                    <li>
+                                                        <a class="dropdown-item text-info" href="{% url 'solicitudes:despachar_solicitud' solicitud.pk %}">
+                                                            <i class="ri-truck-line align-bottom me-2"></i> Despachar
+                                                        </a>
+                                                    </li>
+                                                    {% endif %}
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="7" class="text-center py-4">
+                                            <p class="text-muted mb-0">No se encontraron solicitudes de activos.</p>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

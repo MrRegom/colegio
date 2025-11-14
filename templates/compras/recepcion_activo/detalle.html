@@ -1,0 +1,116 @@
+{% extends 'partials/base.html' %}
+
+{% block content %}
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0">{{ titulo }}</h4>
+                    <div>
+                        {% if not recepcion.estado.es_final %}
+                        <a href="{% url 'compras:recepcion_activo_agregar' recepcion.pk %}" class="btn btn-success">
+                            <i class="ri-add-line"></i> Agregar Bien/Activo
+                        </a>
+                        <a href="{% url 'compras:recepcion_activo_confirmar' recepcion.pk %}" class="btn btn-primary">
+                            <i class="ri-check-line"></i> Confirmar Recepción
+                        </a>
+                        {% endif %}
+                        <a href="{% url 'compras:recepcion_activo_lista' %}" class="btn btn-secondary">
+                            <i class="ri-arrow-left-line"></i> Volver
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <h5>Información General</h5>
+                                <table class="table table-sm">
+                                    <tr>
+                                        <th width="40%">Número:</th>
+                                        <td>{{ recepcion.numero }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Fecha Recepción:</th>
+                                        <td>{{ recepcion.fecha_recepcion|date:"d/m/Y H:i" }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Estado:</th>
+                                        <td><span class="badge bg-success">{{ recepcion.estado.nombre }}</span></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-md-6">
+                                <h5>Información Adicional</h5>
+                                <table class="table table-sm">
+                                    <tr>
+                                        <th width="40%">Orden de Compra:</th>
+                                        <td>
+                                            {% if recepcion.orden_compra %}
+                                            <a href="{% url 'compras:orden_compra_detalle' recepcion.orden_compra.pk %}">{{ recepcion.orden_compra.numero }}</a>
+                                            {% else %}
+                                            -
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Recibido Por:</th>
+                                        <td>{{ recepcion.recibido_por.get_full_name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Doc. Referencia:</th>
+                                        <td>{{ recepcion.documento_referencia|default:"-" }}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        {% if recepcion.observaciones %}
+                        <div class="mb-4">
+                            <h5>Observaciones</h5>
+                            <p>{{ recepcion.observaciones }}</p>
+                        </div>
+                        {% endif %}
+
+                        <h5>Bienes/Activos Recibidos</h5>
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Activo</th>
+                                        <th>Categoría</th>
+                                        <th>Cantidad</th>
+                                        <th>Número de Serie</th>
+                                        <th>Observaciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for detalle in detalles %}
+                                    <tr>
+                                        <td>{{ detalle.activo.nombre }}</td>
+                                        <td>{{ detalle.activo.categoria.nombre|default:"-" }}</td>
+                                        <td>{{ detalle.cantidad }}</td>
+                                        <td>{{ detalle.numero_serie|default:"-" }}</td>
+                                        <td>{{ detalle.observaciones|default:"-" }}</td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="5" class="text-center">No hay bienes/activos en esta recepción</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

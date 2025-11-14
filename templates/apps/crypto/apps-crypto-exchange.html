@@ -1,0 +1,398 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block title %} Exchange {% endblock title %} 
+
+
+{% block main_title %}
+
+    <div class="page-title-box">
+        <div class="row align-items-center gy-3">
+            <div class="col-md">
+
+                {% block pagetitle %}
+                    {% include "partials/page-title.html" with pagetitle="Crypto" title="Exchange" %}
+                {% endblock pagetitle %}
+
+            </div><!--end col-->
+            <div class="col-md-auto ms-auto">
+                {% block customizer %}
+                    {% include "partials/customizer.html" %}
+                {% endblock customizer %}
+            </div><!--end col-->
+        </div><!--end row-->
+    </div>
+{% endblock main_title %}
+
+{% block content %}
+                        <div class="row">
+                            <div class="col-xl-3 col-sm-6">
+                                <div class="card card-warning overflow-hidden">
+                                    <div class="position-absolute top-0 right-0">
+                                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="350" height="200" preserveAspectRatio="none" viewBox="0 0 350 200">
+                                            <g mask="url(&quot;#SvgjsMask1046&quot;)" fill="none">
+                                                <path d="M385.59 13.35C356.64 14.32 333.88 59.69 279.23 59.35 224.58 59.01 208.1-30.2 172.87-37" style="stroke: rgba(var(--tb-white-rgb), 0.14);" stroke-width="2"></path>
+                                                <path d="M397.1 120.72C352.81 118.98 323.8 49.73 235.97 46.72 148.15 43.71 118.4-18.41 74.85-19.7" style="stroke: rgba(var(--tb-white-rgb), 0.14);" stroke-width="2"></path>
+                                                <path d="M353.25 33.52C326.55 35.03 307.47 83.9 258.67 83.52 209.87 83.14 197.14-6.35 164.09-14.66" style="stroke: rgba(var(--tb-white-rgb), 0.14);" stroke-width="2"></path>
+                                                <path d="M385.3 171.91C344.67 169.99 308.53 110.04 239.41 99.91 170.28 89.78 195.34 10.2 166.46-1.88" style="stroke: rgba(var(--tb-white-rgb), 0.14);" stroke-width="2"></path>
+                                                <path d="M360.8 147.25C313.76 146.8 258.96 103.74 179.4 97.25 99.84 90.76 123.43-6.99 88.7-19.8" style="stroke: rgba(var(--tb-white-rgb), 0.14);" stroke-width="2"></path>
+                                            </g>
+                                            <defs>
+                                                <mask id="SvgjsMask1046">
+                                                    <rect width="350" height="200" fill="#ffffff"></rect>
+                                                </mask>
+                                            </defs>
+                                        </svg>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="fs-lg text-reset mb-4">Bitcoin (BTC)</p>
+                                        <div class="display-6 mb-3">
+                                            <i class="ph ph-currency-btc"></i>
+                                        </div>
+                                        <h5 class="text-reset fw-medium mb-0">$26,807.45 (USD)</h5>
+                                    </div>
+                                </div>
+                            </div><!--end col-->
+                            <div class="col-xl-3 col-sm-6">
+                                <div class="card card-primary overflow-hidden">
+                                    <div class="position-absolute top-0 right-0">
+                                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="350" height="200" preserveAspectRatio="none" viewBox="0 0 350 200">
+                                            <g mask="url(&quot;#SvgjsMask1046&quot;)" fill="none">
+                                                <path d="M385.59 13.35C356.64 14.32 333.88 59.69 279.23 59.35 224.58 59.01 208.1-30.2 172.87-37" style="stroke: rgba(var(--tb-white-rgb), 0.07);" stroke-width="2"></path>
+                                                <path d="M397.1 120.72C352.81 118.98 323.8 49.73 235.97 46.72 148.15 43.71 118.4-18.41 74.85-19.7" style="stroke: rgba(var(--tb-white-rgb), 0.07);" stroke-width="2"></path>
+                                                <path d="M353.25 33.52C326.55 35.03 307.47 83.9 258.67 83.52 209.87 83.14 197.14-6.35 164.09-14.66" style="stroke: rgba(var(--tb-white-rgb), 0.07);" stroke-width="2"></path>
+                                                <path d="M385.3 171.91C344.67 169.99 308.53 110.04 239.41 99.91 170.28 89.78 195.34 10.2 166.46-1.88" style="stroke: rgba(var(--tb-white-rgb), 0.07);" stroke-width="2"></path>
+                                                <path d="M360.8 147.25C313.76 146.8 258.96 103.74 179.4 97.25 99.84 90.76 123.43-6.99 88.7-19.8" style="stroke: rgba(var(--tb-white-rgb), 0.07);" stroke-width="2"></path>
+                                            </g>
+                                            <defs>
+                                                <mask id="SvgjsMask1046">
+                                                    <rect width="350" height="200" fill="#ffffff"></rect>
+                                                </mask>
+                                            </defs>
+                                        </svg>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="fs-lg text-reset mb-4">Ethereum (ETH)</p>
+                                        <div class="display-6 mb-3">
+                                            <i class="ph ph-currency-eth"></i>
+                                        </div>
+                                        <h5 class="text-reset fw-medium mb-0">$1,818.98 (USD)</h5>
+                                    </div>
+                                </div>
+                            </div><!--end col-->
+                            <div class="col-xl-3 col-sm-6">
+                                <div class="card card-success overflow-hidden">
+                                    <div class="position-absolute top-0 right-0">
+                                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="350" height="200" preserveAspectRatio="none" viewBox="0 0 350 200">
+                                            <g mask="url(&quot;#SvgjsMask1046&quot;)" fill="none">
+                                                <path d="M385.59 13.35C356.64 14.32 333.88 59.69 279.23 59.35 224.58 59.01 208.1-30.2 172.87-37" style="stroke: rgba(var(--tb-white-rgb), 0.1);" stroke-width="2"></path>
+                                                <path d="M397.1 120.72C352.81 118.98 323.8 49.73 235.97 46.72 148.15 43.71 118.4-18.41 74.85-19.7" style="stroke: rgba(var(--tb-white-rgb), 0.1);" stroke-width="2"></path>
+                                                <path d="M353.25 33.52C326.55 35.03 307.47 83.9 258.67 83.52 209.87 83.14 197.14-6.35 164.09-14.66" style="stroke: rgba(var(--tb-white-rgb), 0.1);" stroke-width="2"></path>
+                                                <path d="M385.3 171.91C344.67 169.99 308.53 110.04 239.41 99.91 170.28 89.78 195.34 10.2 166.46-1.88" style="stroke: rgba(var(--tb-white-rgb), 0.1);" stroke-width="2"></path>
+                                                <path d="M360.8 147.25C313.76 146.8 258.96 103.74 179.4 97.25 99.84 90.76 123.43-6.99 88.7-19.8" style="stroke: rgba(var(--tb-white-rgb), 0.1);" stroke-width="2"></path>
+                                            </g>
+                                            <defs>
+                                                <mask id="SvgjsMask1046">
+                                                    <rect width="350" height="200" fill="#ffffff"></rect>
+                                                </mask>
+                                            </defs>
+                                        </svg>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="fs-lg text-reset mb-4">Nigerian Naira (NGN)</p>
+                                        <div class="display-6 mb-3">
+                                            <i class="ph ph-currency-ngn"></i>
+                                        </div>
+                                        <h5 class="text-reset fw-medium mb-0">$0.0022 (USD)</h5>
+                                    </div>
+                                </div>
+                            </div><!--end col-->
+                            <div class="col-xl-3 col-sm-6">
+                                <div class="card card-secondary overflow-hidden">
+                                    <div class="position-absolute top-0 right-0">
+                                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="350" height="200" preserveAspectRatio="none" viewBox="0 0 350 200">
+                                            <g mask="url(&quot;#SvgjsMask1046&quot;)" fill="none">
+                                                <path d="M385.59 13.35C356.64 14.32 333.88 59.69 279.23 59.35 224.58 59.01 208.1-30.2 172.87-37" style="stroke: rgba(var(--tb-white-rgb), 0.07);" stroke-width="2"></path>
+                                                <path d="M397.1 120.72C352.81 118.98 323.8 49.73 235.97 46.72 148.15 43.71 118.4-18.41 74.85-19.7" style="stroke: rgba(var(--tb-white-rgb), 0.07);" stroke-width="2"></path>
+                                                <path d="M353.25 33.52C326.55 35.03 307.47 83.9 258.67 83.52 209.87 83.14 197.14-6.35 164.09-14.66" style="stroke: rgba(var(--tb-white-rgb), 0.07);" stroke-width="2"></path>
+                                                <path d="M385.3 171.91C344.67 169.99 308.53 110.04 239.41 99.91 170.28 89.78 195.34 10.2 166.46-1.88" style="stroke: rgba(var(--tb-white-rgb), 0.07);" stroke-width="2"></path>
+                                                <path d="M360.8 147.25C313.76 146.8 258.96 103.74 179.4 97.25 99.84 90.76 123.43-6.99 88.7-19.8" style="stroke: rgba(var(--tb-white-rgb), 0.07);" stroke-width="2"></path>
+                                            </g>
+                                            <defs>
+                                                <mask id="SvgjsMask1046">
+                                                    <rect width="350" height="200" fill="#ffffff"></rect>
+                                                </mask>
+                                            </defs>
+                                        </svg>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="fs-lg text-reset mb-4">Dollar (USD)</p>
+                                        <div class="display-6 mb-3">
+                                            <i class="ph ph-currency-circle-dollar"></i>
+                                        </div>
+                                        <h5 class="text-reset fw-medium mb-0">0.000038 (BTC)</h5>
+                                    </div>
+                                </div>
+                            </div><!--end col-->
+                        </div><!--end row-->
+
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-5">
+                                        <div class="text-center">
+                                            <h3 class="lh-base"><span class="fw-bold">Buy</span> and <span class="fw-bold">Sell</span> Coins at the <span class="text-primary-emphasis">Judia</span> without Additional Charges</h3>
+                                            <p class="text-muted fs-md">Explore and learn more about everything from learning and global payments to scaling your team.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <form action="#!">
+                                    <div class="row gy-3 align-items-center justify-content-center">
+                                        <div class="col-lg-3">
+                                            <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="00.00" value="10.875">
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <select class="form-control" id="choices-single-no-search" name="choices-single-no-search" data-choices data-choices-search-false>
+                                                <option value="BTC">BTC</option>
+                                                <option value="ETH">ETH</option>
+                                                <option value="LTC">LTC</option>
+                                                <option value="USD">USD</option>
+                                                <option value="USDT">USDT</option>
+                                                <option value="SOL">SOL</option>
+                                                <option value="DASH">DASH</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="ph ph-equals"></i>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="00.00" value="10.875">
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <select class="form-control" id="choices-single-no-search" name="choices-single-no-search" data-choices data-choices-search-false>
+                                                <option value="BTC">BTC</option>
+                                                <option value="ETH">ETH</option>
+                                                <option value="LTC">LTC</option>
+                                                <option value="USD">USD</option>
+                                                <option value="USDT">USDT</option>
+                                                <option value="SOL">SOL</option>
+                                                <option value="DASH">DASH</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="mt-3 text-center">
+                                                <button class="btn btn-primary">Exchange Coin</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="card overflow-hidden card-height-100">
+                                    <div class="card-header">
+                                        <h5 class="card-title mb-0">Coin Market</h5>
+                                    </div>
+                                    <div class="card-body p-0 pt-2">
+                                        <ul class="list-group list-group-flush mb-0">
+                                            <li class="list-group-item">
+                                                <div class="d-flex gap-2">
+                                                    <img src="https://img.themesbrand.com/judia/svg/crypto-icons/btc.svg" alt="" class="avatar-xs">
+                                                    <div class="flex-grow-1">
+                                                        <a href="{% url 'apps:crypto.coin_overview' %}"><h5 class="fs-md mb-1">BTCUSD</h5></a>
+                                                        <p class="text-muted mb-0">Bitcoin / U.S. Dollar</p>
+                                                    </div>
+                                                    <div class="flex-shrink-0 text-end">
+                                                        <h5 class="fs-md mb-1">84.60</h5>
+                                                        <p class="mb-0"><span class="text-danger">−1.56</span> <span class="text-danger ms-1">−1.89%</span></p>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <div class="d-flex gap-2">
+                                                    <img src="https://img.themesbrand.com/judia/svg/crypto-icons/ltc.svg" alt="" class="avatar-xs">
+                                                    <div class="flex-grow-1">
+                                                        <a href="{% url 'apps:crypto.coin_overview' %}"><h5 class="fs-md mb-1">LTCUSD</h5></a>
+                                                        <p class="text-muted mb-0">Litecoin / U.S. Dollar</p>
+                                                    </div>
+                                                    <div class="flex-shrink-0 text-end">
+                                                        <h5 class="fs-md mb-1">1786.98</h5>
+                                                        <p class="mb-0"><span class="text-danger">−13.30</span> <span class="text-danger ms-1">−0.73%</span></p>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <div class="d-flex gap-2">
+                                                    <img src="https://img.themesbrand.com/judia/svg/crypto-icons/usdt.svg" alt="" class="avatar-xs">
+                                                    <div class="flex-grow-1">
+                                                        <a href="{% url 'apps:crypto.coin_overview' %}"><h5 class="fs-md mb-1">USDT</h5></a>
+                                                        <p class="text-muted mb-0">Tether / U.S. Dollar</p>
+                                                    </div>
+                                                    <div class="flex-shrink-0 text-end">
+                                                        <h5 class="fs-md mb-1">0.9999</h5>
+                                                        <p class="mb-0"><span class="text-success">+1.43</span> <span class="text-success ms-1">+5.51%</span></p>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <div class="d-flex gap-2">
+                                                    <img src="https://img.themesbrand.com/judia/svg/crypto-icons/sol.svg" alt="" class="avatar-xs">
+                                                    <div class="flex-grow-1">
+                                                        <a href="{% url 'apps:crypto.coin_overview' %}"><h5 class="fs-md mb-1">SOLUSD</h5></a>
+                                                        <p class="text-muted mb-0">Solana / U.S. Dollar</p>
+                                                    </div>
+                                                    <div class="flex-shrink-0 text-end">
+                                                        <h5 class="fs-md mb-1">19.52</h5>
+                                                        <p class="mb-0"><span class="text-danger">−1.26</span> <span class="text-success ms-1">−1.89%</span></p>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <div class="d-flex gap-2">
+                                                    <img src="https://img.themesbrand.com/judia/svg/crypto-icons/ada.svg" alt="" class="avatar-xs">
+                                                    <div class="flex-grow-1">
+                                                        <a href="{% url 'apps:crypto.coin_overview' %}"><h5 class="fs-md mb-1">ADABTC</h5></a>
+                                                        <p class="text-muted mb-0">ADA / Bitcoin</p>
+                                                    </div>
+                                                    <div class="flex-shrink-0 text-end">
+                                                        <h5 class="fs-md mb-1">16.71</h5>
+                                                        <p class="mb-0"><span class="text-success">0.84</span> <span class="text-success ms-1">1.65%</span></p>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="card overflow-hidden">
+                                    <div class="card-header">
+                                        <h5 class="card-title mb-0">Live Trading</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row gy-3">
+                                            <div class="col-lg-6">
+                                                <table class="table table-sm mb-0">
+                                                    <thead class="thead-light">
+                                                        <tr>
+                                                            <th scope="col">Price(USD)</th>
+                                                            <th scope="col">Amount(BTC)</th>
+                                                            <th scope="col">Total(USD)</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="text-success">2145.32</td>
+                                                            <td class="text-muted">1.3460172</td>
+                                                            <td class="text-muted">1842.67</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-success">1235.12</td>
+                                                            <td class="text-muted">1.3460172</td>
+                                                            <td class="text-muted">1842.67</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-success">2145.32</td>
+                                                            <td class="text-muted">1.3460172</td>
+                                                            <td class="text-muted">1842.67</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-success">2145.32</td>
+                                                            <td class="text-muted">1.3460172</td>
+                                                            <td class="text-muted">1842.67</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-success">2145.32</td>
+                                                            <td class="text-muted">1.3460172</td>
+                                                            <td class="text-muted">1842.67</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-success">2145.32</td>
+                                                            <td class="text-muted">1.3460172</td>
+                                                            <td class="text-muted">1842.67</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-success">2145.32</td>
+                                                            <td class="text-muted">1.3460172</td>
+                                                            <td class="text-muted">1842.67</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-success">2145.32</td>
+                                                            <td class="text-muted">1.3460172</td>
+                                                            <td class="text-muted">1842.67</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-success">2145.32</td>
+                                                            <td class="text-muted">1.3460172</td>
+                                                            <td class="text-muted">1842.67</td>
+                                                        </tr>
+                                                
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <table class="table table-sm mb-0">
+                                                    <thead class="thead-light">
+                                                        <tr>
+                                                            <th scope="col">Price(USD)</th>
+                                                            <th scope="col">Amount(BTC)</th>
+                                                            <th scope="col">Total(USD)</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="text-danger">1458.36</td>
+                                                            <td class="text-muted">1.1548700</td>
+                                                            <td class="text-muted">1483.84</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-danger">1348.97</td>
+                                                            <td class="text-muted">1.154120</td>
+                                                            <td class="text-muted">1371.08</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-danger">2145.32</td>
+                                                            <td class="text-muted">1.3460172</td>
+                                                            <td class="text-muted">1842.67</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-danger">19852.63</td>
+                                                            <td class="text-muted">2.362877</td>
+                                                            <td class="text-muted">0.050300</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-danger">1458.36</td>
+                                                            <td class="text-muted">1.1548700</td>
+                                                            <td class="text-muted">1483.84</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-danger">1348.97</td>
+                                                            <td class="text-muted">1.154120</td>
+                                                            <td class="text-muted">1371.08</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-danger">2145.32</td>
+                                                            <td class="text-muted">1.3460172</td>
+                                                            <td class="text-muted">1842.67</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-danger">19852.63</td>
+                                                            <td class="text-muted">2.362877</td>
+                                                            <td class="text-muted">0.050300</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-danger">19852.63</td>
+                                                            <td class="text-muted">2.362877</td>
+                                                            <td class="text-muted">0.050300</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+{% endblock content %}

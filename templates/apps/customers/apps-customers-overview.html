@@ -1,0 +1,816 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block title %} Overview {% endblock title %} 
+
+
+{% block main_title %}
+
+<div class="page-title-box">
+    <div class="row align-items-center gy-3">
+        <div class="col-md">
+            {% block pagetitle %}
+                {% include "partials/page-title.html" with pagetitle="Customers" title="Overview" %}
+            {% endblock pagetitle %}
+
+        </div><!--end col-->
+        <div class="col-md-auto ms-auto">
+
+            {% block customizer %}
+                {% include "partials/customizer.html" %}
+            {% endblock customizer %}
+
+        </div><!--end col-->
+    </div><!--end row-->
+</div>
+
+{% endblock main_title %}
+
+{% block content %}
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-body rounded-top py-5" style="background-image: url('https://img.themesbrand.com/judia/customer-bg.jpg');background-repeat: no-repeat;background-size: cover;">
+                                        <div class="py-5 my-2"></div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div>
+                                            <div class="row mt-n5">
+                                                <div class="col-sm-auto">
+                                                    <img src="https://img.themesbrand.com/judia/users/avatar-9.jpg" alt="" class="avatar-xl rounded p-1 bg-body-secondary">
+                                                </div>
+                                                <div class="col-sm">
+                                                    <div class="mt-4 mt-sm-5">
+                                                        <h5 class="mb-1">Tamara Gibson <i class="bi bi-patch-check-fill align-baseline text-info ms-1"></i></h5>
+                                                        <p class="text-muted mb-3">Product Designer @themesbrand</p>
+                                                        <p><i class="bi bi-geo-alt"></i> United Kingdom</p>
+    
+                                                        <ul class="list-unstyled d-flex gap-2 align-items-center flex-wrap mb-0">
+                                                            <li>
+                                                                <a href="#!" class="d-inline-block avatar-xs">
+                                                                    <div class="avatar-title bg-success-subtle text-success rounded">
+                                                                        <i class="bi bi-whatsapp"></i>
+                                                                    </div>
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="#!" class="d-inline-block avatar-xs">
+                                                                    <div class="avatar-title bg-secondary-subtle text-secondary rounded">
+                                                                        <i class="bi bi-facebook"></i>
+                                                                    </div>
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="#!" class="d-inline-block avatar-xs">
+                                                                    <div class="avatar-title bg-danger-subtle text-danger rounded">
+                                                                        <i class="bi bi-instagram"></i>
+                                                                    </div>
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="#!" class="d-inline-block avatar-xs">
+                                                                    <div class="avatar-title bg-warning-subtle text-warning rounded">
+                                                                        <i class="bi bi-google"></i>
+                                                                    </div>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-auto">
+                                                    <div class="mt-4 mt-sm-5">
+                                                        <div class="hstack gap-2">
+                                                            <button class="btn btn-subtle-success">Hire Me</button>
+                                                            <button type="button" class="btn btn-outline-secondary custom-toggle active" data-bs-toggle="button" aria-pressed="false">
+                                                                <span class="icon-on"><i class="ri-add-line align-bottom me-1"></i> Follow</span>
+                                                                <span class="icon-off"><i class="ri-user-unfollow-line align-bottom me-1"></i> Unfollow</span>
+                                                            </button>
+                                                            <div class="dropdown">
+                                                                <button class="btn btn-subtle-dark btn-icon" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                    <i class="bi bi-share"></i>
+                                                                </button>
+                                                                <ul class="dropdown-menu dropdown-menu-end">
+                                                                    <li><a class="dropdown-item" href="#!">Facebook</a></li>
+                                                                    <li><a class="dropdown-item" href="#!">Instagram</a></li>
+                                                                    <li><a class="dropdown-item" href="#!">Email</a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!--end col-->
+                        </div><!--end row-->
+                        
+                        <ul class="nav nav-pills nav-success mb-3" role="tablist">
+                            <li class="nav-item " role="presentation">
+                                <a class="nav-link active" data-bs-toggle="tab" href="#followers" role="tab" aria-selected="true">Followers</a>
+                            </li>
+                            <li class="nav-item " role="presentation">
+                                <a class="nav-link" data-bs-toggle="tab" href="#following" role="tab" aria-selected="false" tabindex="-1">Following</a>
+                            </li>
+                            <li class="nav-item " role="presentation">
+                                <a class="nav-link" data-bs-toggle="tab" href="#gallery" role="tab" aria-selected="false" tabindex="-1">Gallery</a>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content text-muted">
+                            <div class="tab-pane active" id="followers" role="tabpanel">
+                                <h5 class="mb-4">Followers <span class="badge bg-primary align-middle ms-1">248</span></h5>
+                                <div class="row">
+                                    <div class="col-xl-3 col-lg-4 col-sm-6">
+                                        <div class="card card-animate">
+                                            <div class="card-body">
+                                                <div class="d-flex gap-3">
+                                                    <img src="https://img.themesbrand.com/judia/users/avatar-2.jpg" alt="" class="avatar-sm rounded-1">
+                                                    <div class="flex-grow-1">
+                                                        <a href="{% url 'pages:profile' %}"><h6>@charlotte_saleh</h6></a>
+                                                        <p class="text-muted mb-0"><i class="bi bi-geo-alt align-middle me-1"></i> Los Angeles</p>
+                                                    </div>
+                                                    <div>
+                                                        <button type="button" class="btn btn-subtle-primary btn-sm custom-toggle active" data-bs-toggle="button" aria-pressed="false">
+                                                            <span class="icon-on">Follow</span>
+                                                            <span class="icon-off">Unfollow</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3 col-lg-4 col-sm-6">
+                                        <div class="card card-animate">
+                                            <div class="card-body">
+                                                <div class="d-flex gap-3">
+                                                    <img src="https://img.themesbrand.com/judia/users/avatar-3.jpg" alt="" class="avatar-sm rounded-1">
+                                                    <div class="flex-grow-1">
+                                                        <a href="{% url 'pages:profile' %}"><h6>@pamela_lister</h6></a>
+                                                        <p class="text-muted mb-0"><i class="bi bi-geo-alt align-middle me-1"></i> New York</p>
+                                                    </div>
+                                                    <div>
+                                                        <button type="button" class="btn btn-subtle-primary btn-sm custom-toggle" data-bs-toggle="button" aria-pressed="false">
+                                                            <span class="icon-on">Follow</span>
+                                                            <span class="icon-off">Unfollow</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3 col-lg-4 col-sm-6">
+                                        <div class="card card-animate">
+                                            <div class="card-body">
+                                                <div class="d-flex gap-3">
+                                                    <img src="https://img.themesbrand.com/judia/users/avatar-4.jpg" alt="" class="avatar-sm rounded-1">
+                                                    <div class="flex-grow-1">
+                                                        <a href="{% url 'pages:profile' %}"><h6>@joseph_krick</h6></a>
+                                                        <p class="text-muted mb-0"><i class="bi bi-geo-alt align-middle me-1"></i> San Francisco</p>
+                                                    </div>
+                                                    <div>
+                                                        <button type="button" class="btn btn-subtle-primary btn-sm custom-toggle" data-bs-toggle="button" aria-pressed="false">
+                                                            <span class="icon-on">Follow</span>
+                                                            <span class="icon-off">Unfollow</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3 col-lg-4 col-sm-6">
+                                        <div class="card card-animate">
+                                            <div class="card-body">
+                                                <div class="d-flex gap-3">
+                                                    <img src="https://img.themesbrand.com/judia/users/avatar-5.jpg" alt="" class="avatar-sm rounded-1">
+                                                    <div class="flex-grow-1">
+                                                        <a href="{% url 'pages:profile' %}"><h6>@nadine_lilly</h6></a>
+                                                        <p class="text-muted mb-0"><i class="bi bi-geo-alt align-middle me-1"></i> Philadelphia</p>
+                                                    </div>
+                                                    <div>
+                                                        <button type="button" class="btn btn-subtle-primary btn-sm custom-toggle active" data-bs-toggle="button" aria-pressed="false">
+                                                            <span class="icon-on">Follow</span>
+                                                            <span class="icon-off">Unfollow</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3 col-lg-4 col-sm-6">
+                                        <div class="card card-animate">
+                                            <div class="card-body">
+                                                <div class="d-flex gap-3">
+                                                    <img src="https://img.themesbrand.com/judia/users/user-dummy-img.jpg" alt="" class="avatar-sm rounded-1 border">
+                                                    <div class="flex-grow-1">
+                                                        <a href="{% url 'pages:profile' %}"><h6>@joseph_krick</h6></a>
+                                                        <p class="text-muted mb-0"><i class="bi bi-geo-alt align-middle me-1"></i> Chelmsford</p>
+                                                    </div>
+                                                    <div>
+                                                        <button type="button" class="btn btn-subtle-primary btn-sm custom-toggle" data-bs-toggle="button" aria-pressed="false">
+                                                            <span class="icon-on">Follow</span>
+                                                            <span class="icon-off">Unfollow</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3 col-lg-4 col-sm-6">
+                                        <div class="card card-animate">
+                                            <div class="card-body">
+                                                <div class="d-flex gap-3">
+                                                    <img src="https://img.themesbrand.com/judia/users/avatar-6.jpg" alt="" class="avatar-sm rounded-1">
+                                                    <div class="flex-grow-1">
+                                                        <a href="{% url 'pages:profile' %}"><h6>@jack_davison</h6></a>
+                                                        <p class="text-muted mb-0"><i class="bi bi-geo-alt align-middle me-1"></i> Southfield</p>
+                                                    </div>
+                                                    <div>
+                                                        <button type="button" class="btn btn-subtle-primary btn-sm custom-toggle active" data-bs-toggle="button" aria-pressed="false">
+                                                            <span class="icon-on">Follow</span>
+                                                            <span class="icon-off">Unfollow</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3 col-lg-4 col-sm-6">
+                                        <div class="card card-animate">
+                                            <div class="card-body">
+                                                <div class="d-flex gap-3">
+                                                    <img src="https://img.themesbrand.com/judia/users/avatar-7.jpg" alt="" class="avatar-sm rounded-1">
+                                                    <div class="flex-grow-1">
+                                                        <a href="{% url 'pages:profile' %}"><h6>@bradley_power</h6></a>
+                                                        <p class="text-muted mb-0"><i class="bi bi-geo-alt align-middle me-1"></i> Brazil</p>
+                                                    </div>
+                                                    <div>
+                                                        <button type="button" class="btn btn-subtle-primary btn-sm custom-toggle active" data-bs-toggle="button" aria-pressed="false">
+                                                            <span class="icon-on">Follow</span>
+                                                            <span class="icon-off">Unfollow</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3 col-lg-4 col-sm-6">
+                                        <div class="card card-animate">
+                                            <div class="card-body">
+                                                <div class="d-flex gap-3">
+                                                    <img src="https://img.themesbrand.com/judia/users/user-dummy-img.jpg" alt="" class="avatar-sm rounded-1 border">
+                                                    <div class="flex-grow-1">
+                                                        <a href="{% url 'pages:profile' %}"><h6>@louie_kay</h6></a>
+                                                        <p class="text-muted mb-0"><i class="bi bi-geo-alt align-middle me-1"></i> New Zealand</p>
+                                                    </div>
+                                                    <div>
+                                                        <button type="button" class="btn btn-subtle-primary btn-sm custom-toggle" data-bs-toggle="button" aria-pressed="false">
+                                                            <span class="icon-on">Follow</span>
+                                                            <span class="icon-off">Unfollow</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3 col-lg-4 col-sm-6">
+                                        <div class="card card-animate">
+                                            <div class="card-body">
+                                                <div class="d-flex gap-3">
+                                                    <img src="https://img.themesbrand.com/judia/users/avatar-8.jpg" alt="" class="avatar-sm rounded-1">
+                                                    <div class="flex-grow-1">
+                                                        <a href="{% url 'pages:profile' %}"><h6>@ben_simmons</h6></a>
+                                                        <p class="text-muted mb-0"><i class="bi bi-geo-alt align-middle me-1"></i> Belgium</p>
+                                                    </div>
+                                                    <div>
+                                                        <button type="button" class="btn btn-subtle-primary btn-sm custom-toggle active" data-bs-toggle="button" aria-pressed="false">
+                                                            <span class="icon-on">Follow</span>
+                                                            <span class="icon-off">Unfollow</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3 col-lg-4 col-sm-6">
+                                        <div class="card card-animate">
+                                            <div class="card-body">
+                                                <div class="d-flex gap-3">
+                                                    <img src="https://img.themesbrand.com/judia/users/user-dummy-img.jpg" alt="" class="avatar-sm rounded-1 border">
+                                                    <div class="flex-grow-1">
+                                                        <a href="{% url 'pages:profile' %}"><h6>@amelie_blackburn</h6></a>
+                                                        <p class="text-muted mb-0"><i class="bi bi-geo-alt align-middle me-1"></i> Germany</p>
+                                                    </div>
+                                                    <div>
+                                                        <button type="button" class="btn btn-subtle-primary btn-sm custom-toggle active" data-bs-toggle="button" aria-pressed="false">
+                                                            <span class="icon-on">Follow</span>
+                                                            <span class="icon-off">Unfollow</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3 col-lg-4 col-sm-6">
+                                        <div class="card card-animate">
+                                            <div class="card-body">
+                                                <div class="d-flex gap-3">
+                                                    <img src="https://img.themesbrand.com/judia/users/avatar-10.jpg" alt="" class="avatar-sm rounded-1">
+                                                    <div class="flex-grow-1">
+                                                        <a href="{% url 'pages:profile' %}"><h6>@william_holden</h6></a>
+                                                        <p class="text-muted mb-0"><i class="bi bi-geo-alt align-middle me-1"></i> Denmark</p>
+                                                    </div>
+                                                    <div>
+                                                        <button type="button" class="btn btn-subtle-primary btn-sm custom-toggle" data-bs-toggle="button" aria-pressed="false">
+                                                            <span class="icon-on">Follow</span>
+                                                            <span class="icon-off">Unfollow</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3 col-lg-4 col-sm-6">
+                                        <div class="card card-animate">
+                                            <div class="card-body">
+                                                <div class="d-flex gap-3">
+                                                    <img src="https://img.themesbrand.com/judia/users/avatar-9.jpg" alt="" class="avatar-sm rounded-1">
+                                                    <div class="flex-grow-1">
+                                                        <a href="{% url 'pages:profile' %}"><h6>@harvey_bennett</h6></a>
+                                                        <p class="text-muted mb-0"><i class="bi bi-geo-alt align-middle me-1"></i> France</p>
+                                                    </div>
+                                                    <div>
+                                                        <button type="button" class="btn btn-subtle-primary btn-sm custom-toggle" data-bs-toggle="button" aria-pressed="false">
+                                                            <span class="icon-on">Follow</span>
+                                                            <span class="icon-off">Unfollow</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3 col-lg-4 col-sm-6">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="d-flex gap-3">
+                                                    <img src="https://img.themesbrand.com/judia/users/user-dummy-img.jpg" alt="" class="avatar-sm rounded-1 border">
+                                                    <div class="flex-grow-1">
+                                                        <a href="{% url 'pages:profile' %}"><h6>@oscar_french</h6></a>
+                                                        <p class="text-muted mb-0"><i class="bi bi-geo-alt align-middle me-1"></i> Australia</p>
+                                                    </div>
+                                                    <div>
+                                                        <button type="button" class="btn btn-subtle-primary btn-sm custom-toggle active" data-bs-toggle="button" aria-pressed="false">
+                                                            <span class="icon-on">Follow</span>
+                                                            <span class="icon-off">Unfollow</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3 col-lg-4 col-sm-6">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="d-flex gap-3">
+                                                    <img src="https://img.themesbrand.com/judia/users/avatar-2.jpg" alt="" class="avatar-sm rounded-1">
+                                                    <div class="flex-grow-1">
+                                                        <a href="{% url 'pages:profile' %}"><h6>@elise_moss</h6></a>
+                                                        <p class="text-muted mb-0"><i class="bi bi-geo-alt align-middle me-1"></i> United States</p>
+                                                    </div>
+                                                    <div>
+                                                        <button type="button" class="btn btn-subtle-primary btn-sm custom-toggle" data-bs-toggle="button" aria-pressed="false">
+                                                            <span class="icon-on">Follow</span>
+                                                            <span class="icon-off">Unfollow</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3 col-lg-4 col-sm-6">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="d-flex gap-3">
+                                                    <img src="https://img.themesbrand.com/judia/users/user-dummy-img.jpg" alt="" class="avatar-sm rounded-1 border">
+                                                    <div class="flex-grow-1">
+                                                        <a href="{% url 'pages:profile' %}"><h6>@sophia_hyde</h6></a>
+                                                        <p class="text-muted mb-0"><i class="bi bi-geo-alt align-middle me-1"></i> Colombia</p>
+                                                    </div>
+                                                    <div>
+                                                        <button type="button" class="btn btn-subtle-primary btn-sm custom-toggle active" data-bs-toggle="button" aria-pressed="false">
+                                                            <span class="icon-on">Follow</span>
+                                                            <span class="icon-off">Unfollow</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3 col-lg-4 col-sm-6">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="d-flex gap-3">
+                                                    <img src="https://img.themesbrand.com/judia/users/avatar-1.jpg" alt="" class="avatar-sm rounded-1">
+                                                    <div class="flex-grow-1">
+                                                        <a href="{% url 'pages:profile' %}"><h6>@katherine_law</h6></a>
+                                                        <p class="text-muted mb-0"><i class="bi bi-geo-alt align-middle me-1"></i> Brazil</p>
+                                                    </div>
+                                                    <div>
+                                                        <button type="button" class="btn btn-subtle-primary btn-sm custom-toggle active" data-bs-toggle="button" aria-pressed="false">
+                                                            <span class="icon-on">Follow</span>
+                                                            <span class="icon-off">Unfollow</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><!--end row-->
+                                <div class="row align-items-center mb-4 justify-content-between text-center text-sm-start" id="pagination-element">
+                                    <div class="col-sm">
+                                        <div class="text-muted">
+                                            Showing <span class="fw-semibold">16</span> of <span class="fw-semibold">24</span> Results
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-auto  mt-3 mt-sm-0">
+                                        <div class="pagination-wrap hstack gap-2">
+                                            <a class="page-item pagination-prev disabled" href="javascript:void(0)">Previous</a>
+                                            <ul class="pagination listjs-pagination mb-0">
+                                                <li class="active"><a class="page" href="#!" data-i="1" data-page="10">1</a></li>
+                                                <li><a class="page" href="#!" data-i="2" data-page="10">2</a></li>
+                                            </ul>
+                                            <a class="page-item pagination-next" href="javascript:void(0)">Next</a>
+                                        </div>
+                                    </div>
+                                </div><!--end row-->
+                            </div>
+                            <div class="tab-pane" id="following" role="tabpanel">
+                                <h5 class="mb-4">Following <span class="badge bg-primary align-middle ms-1">85</span></h5>
+                                <div class="row">
+                                    <div class="col-xl-3 col-lg-4 col-sm-6">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="d-flex gap-3">
+                                                    <img src="https://img.themesbrand.com/judia/users/avatar-1.jpg" alt="" class="avatar-sm rounded-1">
+                                                    <div class="flex-grow-1">
+                                                        <a href="{% url 'pages:profile' %}"><h6>@oscar_holland</h6></a>
+                                                        <p class="text-muted mb-0"><i class="bi bi-geo-alt align-middle me-1"></i> Denmark</p>
+                                                    </div>
+                                                    <div>
+                                                        <button type="button" class="btn btn-subtle-primary btn-sm custom-toggle active" data-bs-toggle="button" aria-pressed="false">
+                                                            <span class="icon-on">Follow</span>
+                                                            <span class="icon-off">Unfollow</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3 col-lg-4 col-sm-6">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="d-flex gap-3">
+                                                    <img src="https://img.themesbrand.com/judia/users/avatar-9.jpg" alt="" class="avatar-sm rounded-1">
+                                                    <div class="flex-grow-1">
+                                                        <a href="{% url 'pages:profile' %}"><h6>@connor_higgins</h6></a>
+                                                        <p class="text-muted mb-0"><i class="bi bi-geo-alt align-middle me-1"></i> United States</p>
+                                                    </div>
+                                                    <div>
+                                                        <button type="button" class="btn btn-subtle-primary btn-sm custom-toggle active" data-bs-toggle="button" aria-pressed="false">
+                                                            <span class="icon-on">Follow</span>
+                                                            <span class="icon-off">Unfollow</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3 col-lg-4 col-sm-6">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="d-flex gap-3">
+                                                    <img src="https://img.themesbrand.com/judia/users/user-dummy-img.jpg" alt="" class="avatar-sm rounded-1 border">
+                                                    <div class="flex-grow-1">
+                                                        <a href="{% url 'pages:profile' %}"><h6>@toby_hilton</h6></a>
+                                                        <p class="text-muted mb-0"><i class="bi bi-geo-alt align-middle me-1"></i> Australia</p>
+                                                    </div>
+                                                    <div>
+                                                        <button type="button" class="btn btn-subtle-primary btn-sm custom-toggle active" data-bs-toggle="button" aria-pressed="false">
+                                                            <span class="icon-on">Follow</span>
+                                                            <span class="icon-off">Unfollow</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3 col-lg-4 col-sm-6">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="d-flex gap-3">
+                                                    <img src="https://img.themesbrand.com/judia/users/avatar-10.jpg" alt="" class="avatar-sm rounded-1">
+                                                    <div class="flex-grow-1">
+                                                        <a href="{% url 'pages:profile' %}"><h6>@skye_connor</h6></a>
+                                                        <p class="text-muted mb-0"><i class="bi bi-geo-alt align-middle me-1"></i> Germany</p>
+                                                    </div>
+                                                    <div>
+                                                        <button type="button" class="btn btn-subtle-primary btn-sm custom-toggle active" data-bs-toggle="button" aria-pressed="false">
+                                                            <span class="icon-on">Follow</span>
+                                                            <span class="icon-off">Unfollow</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3 col-lg-4 col-sm-6">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="d-flex gap-3">
+                                                    <img src="https://img.themesbrand.com/judia/users/avatar-6.jpg" alt="" class="avatar-sm rounded-1">
+                                                    <div class="flex-grow-1">
+                                                        <a href="{% url 'pages:profile' %}"><h6>@jack_davison</h6></a>
+                                                        <p class="text-muted mb-0"><i class="bi bi-geo-alt align-middle me-1"></i> Southfield</p>
+                                                    </div>
+                                                    <div>
+                                                        <button type="button" class="btn btn-subtle-primary btn-sm custom-toggle active" data-bs-toggle="button" aria-pressed="false">
+                                                            <span class="icon-on">Follow</span>
+                                                            <span class="icon-off">Unfollow</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3 col-lg-4 col-sm-6">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="d-flex gap-3">
+                                                    <img src="https://img.themesbrand.com/judia/users/user-dummy-img.jpg" alt="" class="avatar-sm rounded-1 border">
+                                                    <div class="flex-grow-1">
+                                                        <a href="{% url 'pages:profile' %}"><h6>@joseph_krick</h6></a>
+                                                        <p class="text-muted mb-0"><i class="bi bi-geo-alt align-middle me-1"></i> Chelmsford</p>
+                                                    </div>
+                                                    <div>
+                                                        <button type="button" class="btn btn-subtle-primary btn-sm custom-toggle active" data-bs-toggle="button" aria-pressed="false">
+                                                            <span class="icon-on">Follow</span>
+                                                            <span class="icon-off">Unfollow</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3 col-lg-4 col-sm-6">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="d-flex gap-3">
+                                                    <img src="https://img.themesbrand.com/judia/users/avatar-7.jpg" alt="" class="avatar-sm rounded-1">
+                                                    <div class="flex-grow-1">
+                                                        <a href="{% url 'pages:profile' %}"><h6>@bradley_power</h6></a>
+                                                        <p class="text-muted mb-0"><i class="bi bi-geo-alt align-middle me-1"></i> Brazil</p>
+                                                    </div>
+                                                    <div>
+                                                        <button type="button" class="btn btn-subtle-primary btn-sm custom-toggle active" data-bs-toggle="button" aria-pressed="false">
+                                                            <span class="icon-on">Follow</span>
+                                                            <span class="icon-off">Unfollow</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3 col-lg-4 col-sm-6">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="d-flex gap-3">
+                                                    <img src="https://img.themesbrand.com/judia/users/avatar-8.jpg" alt="" class="avatar-sm rounded-1">
+                                                    <div class="flex-grow-1">
+                                                        <a href="{% url 'pages:profile' %}"><h6>@ben_simmons</h6></a>
+                                                        <p class="text-muted mb-0"><i class="bi bi-geo-alt align-middle me-1"></i> Belgium</p>
+                                                    </div>
+                                                    <div>
+                                                        <button type="button" class="btn btn-subtle-primary btn-sm custom-toggle active" data-bs-toggle="button" aria-pressed="false">
+                                                            <span class="icon-on">Follow</span>
+                                                            <span class="icon-off">Unfollow</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3 col-lg-4 col-sm-6">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="d-flex gap-3">
+                                                    <img src="https://img.themesbrand.com/judia/users/user-dummy-img.jpg" alt="" class="avatar-sm rounded-1 border">
+                                                    <div class="flex-grow-1">
+                                                        <a href="{% url 'pages:profile' %}"><h6>@louie_kay</h6></a>
+                                                        <p class="text-muted mb-0"><i class="bi bi-geo-alt align-middle me-1"></i> New Zealand</p>
+                                                    </div>
+                                                    <div>
+                                                        <button type="button" class="btn btn-subtle-primary btn-sm custom-toggle active" data-bs-toggle="button" aria-pressed="false">
+                                                            <span class="icon-on">Follow</span>
+                                                            <span class="icon-off">Unfollow</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3 col-lg-4 col-sm-6">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="d-flex gap-3">
+                                                    <img src="https://img.themesbrand.com/judia/users/avatar-1.jpg" alt="" class="avatar-sm rounded-1">
+                                                    <div class="flex-grow-1">
+                                                        <a href="{% url 'pages:profile' %}"><h6>@amelie_blackburn</h6></a>
+                                                        <p class="text-muted mb-0"><i class="bi bi-geo-alt align-middle me-1"></i> Germany</p>
+                                                    </div>
+                                                    <div>
+                                                        <button type="button" class="btn btn-subtle-primary btn-sm custom-toggle active" data-bs-toggle="button" aria-pressed="false">
+                                                            <span class="icon-on">Follow</span>
+                                                            <span class="icon-off">Unfollow</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3 col-lg-4 col-sm-6">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="d-flex gap-3">
+                                                    <img src="https://img.themesbrand.com/judia/users/avatar-9.jpg" alt="" class="avatar-sm rounded-1">
+                                                    <div class="flex-grow-1">
+                                                        <a href="{% url 'pages:profile' %}"><h6>@harvey_bennett</h6></a>
+                                                        <p class="text-muted mb-0"><i class="bi bi-geo-alt align-middle me-1"></i> France</p>
+                                                    </div>
+                                                    <div>
+                                                        <button type="button" class="btn btn-subtle-primary btn-sm custom-toggle active" data-bs-toggle="button" aria-pressed="false">
+                                                            <span class="icon-on">Follow</span>
+                                                            <span class="icon-off">Unfollow</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3 col-lg-4 col-sm-6">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="d-flex gap-3">
+                                                    <img src="https://img.themesbrand.com/judia/users/user-dummy-img.jpg" alt="" class="avatar-sm rounded-1 border">
+                                                    <div class="flex-grow-1">
+                                                        <a href="{% url 'pages:profile' %}"><h6>@oscar_french</h6></a>
+                                                        <p class="text-muted mb-0"><i class="bi bi-geo-alt align-middle me-1"></i> Australia</p>
+                                                    </div>
+                                                    <div>
+                                                        <button type="button" class="btn btn-subtle-primary btn-sm custom-toggle active" data-bs-toggle="button" aria-pressed="false">
+                                                            <span class="icon-on">Follow</span>
+                                                            <span class="icon-off">Unfollow</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3 col-lg-4 col-sm-6">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="d-flex gap-3">
+                                                    <img src="https://img.themesbrand.com/judia/users/avatar-2.jpg" alt="" class="avatar-sm rounded-1">
+                                                    <div class="flex-grow-1">
+                                                        <a href="{% url 'pages:profile' %}"><h6>@elise_moss</h6></a>
+                                                        <p class="text-muted mb-0"><i class="bi bi-geo-alt align-middle me-1"></i> United States</p>
+                                                    </div>
+                                                    <div>
+                                                        <button type="button" class="btn btn-subtle-primary btn-sm custom-toggle active" data-bs-toggle="button" aria-pressed="false">
+                                                            <span class="icon-on">Follow</span>
+                                                            <span class="icon-off">Unfollow</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3 col-lg-4 col-sm-6">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="d-flex gap-3">
+                                                    <img src="https://img.themesbrand.com/judia/users/avatar-10.jpg" alt="" class="avatar-sm rounded-1">
+                                                    <div class="flex-grow-1">
+                                                        <a href="{% url 'pages:profile' %}"><h6>@william_holden</h6></a>
+                                                        <p class="text-muted mb-0"><i class="bi bi-geo-alt align-middle me-1"></i> Denmark</p>
+                                                    </div>
+                                                    <div>
+                                                        <button type="button" class="btn btn-subtle-primary btn-sm custom-toggle active" data-bs-toggle="button" aria-pressed="false">
+                                                            <span class="icon-on">Follow</span>
+                                                            <span class="icon-off">Unfollow</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3 col-lg-4 col-sm-6">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="d-flex gap-3">
+                                                    <img src="https://img.themesbrand.com/judia/users/avatar-1.jpg" alt="" class="avatar-sm rounded-1">
+                                                    <div class="flex-grow-1">
+                                                        <a href="{% url 'pages:profile' %}"><h6>@katherine_law</h6></a>
+                                                        <p class="text-muted mb-0"><i class="bi bi-geo-alt align-middle me-1"></i> Brazil</p>
+                                                    </div>
+                                                    <div>
+                                                        <button type="button" class="btn btn-subtle-primary btn-sm custom-toggle active" data-bs-toggle="button" aria-pressed="false">
+                                                            <span class="icon-on">Follow</span>
+                                                            <span class="icon-off">Unfollow</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3 col-lg-4 col-sm-6">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="d-flex gap-3">
+                                                    <img src="https://img.themesbrand.com/judia/users/user-dummy-img.jpg" alt="" class="avatar-sm rounded-1 border">
+                                                    <div class="flex-grow-1">
+                                                        <a href="{% url 'pages:profile' %}"><h6>@sophia_hyde</h6></a>
+                                                        <p class="text-muted mb-0"><i class="bi bi-geo-alt align-middle me-1"></i> Colombia</p>
+                                                    </div>
+                                                    <div>
+                                                        <button type="button" class="btn btn-subtle-primary btn-sm custom-toggle active" data-bs-toggle="button" aria-pressed="false">
+                                                            <span class="icon-on">Follow</span>
+                                                            <span class="icon-off">Unfollow</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><!--end row-->
+                                <div class="row align-items-center mb-4 justify-content-between text-center text-sm-start" id="pagination-element">
+                                    <div class="col-sm">
+                                        <div class="text-muted">
+                                            Showing <span class="fw-semibold">16</span> of <span class="fw-semibold">24</span> Results
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-auto  mt-3 mt-sm-0">
+                                        <div class="pagination-wrap hstack gap-2">
+                                            <a class="page-item pagination-prev disabled" href="javascript:void(0)">Previous</a>
+                                            <ul class="pagination listjs-pagination mb-0">
+                                                <li class="active"><a class="page" href="#!" data-i="1" data-page="10">1</a></li>
+                                                <li><a class="page" href="#!" data-i="2" data-page="10">2</a></li>
+                                            </ul>
+                                            <a class="page-item pagination-next" href="javascript:void(0)">Next</a>
+                                        </div>
+                                    </div>
+                                </div><!--end row-->
+                            </div>
+                            <div class="tab-pane" id="gallery" role="tabpanel">
+                                <h5 class="mb-4">Gallery</h5>
+                                <div class="row">
+                                    <div class="col-xl-3 col-lg-4 col-sm-6">
+                                        <div class="card card-animate">
+                                            <img src="https://img.themesbrand.com/judia/small/img-1.jpg" alt="" class="card-img-top">
+                                            <div class="card-body">
+                                                <p class="text-muted mb-2"><i class="bi bi-calendar-check me-1 align-baseline"></i> 08 June, 2023</p>
+                                                <a href="#!"><h5 class="fs-lg mb-0 lh-base text-truncate">This is a group of landscape photos of the Lukeqin Desert</h5></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3 col-lg-4 col-sm-6">
+                                        <div class="card card-animate">
+                                            <img src="https://img.themesbrand.com/judia/small/img-2.jpg" alt="" class="card-img-top">
+                                            <div class="card-body">
+                                                <p class="text-muted mb-2"><i class="bi bi-calendar-check me-1 align-baseline"></i> 24 May, 2023</p>
+                                                <a href="#!"><h5 class="fs-lg mb-0 lh-base text-truncate">Standing on the road with sunlight</h5></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3 col-lg-4 col-sm-6">
+                                        <div class="card card-animate">
+                                            <img src="https://img.themesbrand.com/judia/small/img-6.jpg" alt="" class="card-img-top">
+                                            <div class="card-body">
+                                                <p class="text-muted mb-2"><i class="bi bi-calendar-check me-1 align-baseline"></i> 12 May, 2023</p>
+                                                <a href="#!"><h5 class="fs-lg mb-0 lh-base text-truncate">The sun rises over a saguaro cactus in Saguaro National Park</h5></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3 col-lg-4 col-sm-6">
+                                        <div class="card card-animate">
+                                            <img src="https://img.themesbrand.com/judia/small/img-7.jpg" alt="" class="card-img-top">
+                                            <div class="card-body">
+                                                <p class="text-muted mb-2"><i class="bi bi-calendar-check me-1 align-baseline"></i> 03 May, 2023</p>
+                                                <a href="#!"><h5 class="fs-lg mb-0 lh-base text-truncate">Group of colleagues discussing</h5></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+{% endblock content %}
+                        
+               

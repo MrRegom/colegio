@@ -1,0 +1,89 @@
+{% extends 'partials/base.html' %}
+
+{% block content %}
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0">{{ titulo }}</h4>
+                    <div>
+                        <a href="{% url 'compras:orden_compra_crear' %}" class="btn btn-primary">
+                            <i class="ri-add-line"></i> Nueva Orden
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <form method="get" class="row g-3">
+                            <div class="col-md-4">
+                                <input type="text" name="q" class="form-control" placeholder="Buscar..." value="{{ query }}">
+                            </div>
+                            <div class="col-md-3">
+                                <select name="estado" class="form-select">
+                                    <option value="">Todos los estados</option>
+                                    {% for estado in estados %}
+                                    <option value="{{ estado.id }}" {% if estado.id|stringformat:"s" == estado_id %}selected{% endif %}>{{ estado.nombre }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <select name="proveedor" class="form-select">
+                                    <option value="">Todos los proveedores</option>
+                                    {% for prov in proveedores %}
+                                    <option value="{{ prov.id }}" {% if prov.id|stringformat:"s" == proveedor_id %}selected{% endif %}>{{ prov.razon_social }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-primary w-100"><i class="ri-search-line"></i> Buscar</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Número</th>
+                                        <th>Fecha</th>
+                                        <th>Proveedor</th>
+                                        <th>Estado</th>
+                                        <th>Total</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for orden in ordenes %}
+                                    <tr>
+                                        <td><strong>{{ orden.numero }}</strong></td>
+                                        <td>{{ orden.fecha_orden|date:"d/m/Y" }}</td>
+                                        <td>{{ orden.proveedor.razon_social }}</td>
+                                        <td><span class="badge bg-primary">{{ orden.estado.nombre }}</span></td>
+                                        <td>${{ orden.total|floatformat:0 }}</td>
+                                        <td>
+                                            <a href="{% url 'compras:orden_compra_detalle' orden.pk %}" class="btn btn-sm btn-info">
+                                                <i class="ri-eye-line"></i> Ver
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="6" class="text-center">No hay órdenes registradas</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

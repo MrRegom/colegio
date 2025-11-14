@@ -1,0 +1,143 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0">Gestión de Nombres de Artículos</h4>
+                    <div class="page-title-right">
+                        <a href="{% url 'inventario:nombre_articulo_create' %}" class="btn btn-primary">
+                            <i class="ri-add-line"></i> Nuevo Nombre
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <form method="get" class="row g-3">
+                            <div class="col-md-4">
+                                <input type="text" name="search" class="form-control" placeholder="Buscar por código o nombre..." value="{{ search_query }}">
+                            </div>
+                            <div class="col-md-2">
+                                <select name="activo" class="form-select">
+                                    <option value="">Todos</option>
+                                    <option value="true" {% if activo_filter == 'true' %}selected{% endif %}>Activos</option>
+                                    <option value="false" {% if activo_filter == 'false' %}selected{% endif %}>Inactivos</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <select name="order_by" class="form-select">
+                                    <option value="nombre" {% if order_by == 'nombre' %}selected{% endif %}>Ordenar por Nombre</option>
+                                    <option value="codigo" {% if order_by == 'codigo' %}selected{% endif %}>Ordenar por Código</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-primary w-100">
+                                    <i class="ri-search-line"></i> Buscar
+                                </button>
+                            </div>
+                            <div class="col-md-2">
+                                <a href="{% url 'inventario:nombre_articulo_list' %}" class="btn btn-secondary w-100">
+                                    <i class="ri-refresh-line"></i> Limpiar
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Código/SKU</th>
+                                        <th>Nombre</th>
+                                        <th>Categoría Recomendada</th>
+                                        <th>Descripción</th>
+                                        <th>Estado</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for nombre in page_obj %}
+                                    <tr>
+                                        <td><strong>{{ nombre.codigo }}</strong></td>
+                                        <td>{{ nombre.nombre }}</td>
+                                        <td>{{ nombre.categoria_recomendada.nombre|default:"-" }}</td>
+                                        <td>{{ nombre.descripcion|truncatewords:10|default:"-" }}</td>
+                                        <td>
+                                            {% if nombre.activo %}
+                                                <span class="badge bg-success">Activo</span>
+                                            {% else %}
+                                                <span class="badge bg-secondary">Inactivo</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                                <a href="{% url 'inventario:nombre_articulo_update' nombre.pk %}" class="btn btn-sm btn-info">
+                                                    <i class="ri-edit-line"></i> Editar
+                                                </a>
+                                                <a href="{% url 'inventario:nombre_articulo_delete' nombre.pk %}" class="btn btn-sm btn-danger">
+                                                    <i class="ri-delete-bin-line"></i> Eliminar
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="6" class="text-center">No hay nombres de artículos registrados</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        {% if page_obj.has_other_pages %}
+                        <nav aria-label="Paginación">
+                            <ul class="pagination justify-content-center">
+                                {% if page_obj.has_previous %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page=1{% if search_query %}&search={{ search_query }}{% endif %}{% if activo_filter %}&activo={{ activo_filter }}{% endif %}{% if order_by %}&order_by={{ order_by }}{% endif %}">Primera</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}{% if activo_filter %}&activo={{ activo_filter }}{% endif %}{% if order_by %}&order_by={{ order_by }}{% endif %}">Anterior</a>
+                                    </li>
+                                {% endif %}
+                                
+                                <li class="page-item active">
+                                    <span class="page-link">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+                                </li>
+                                
+                                {% if page_obj.has_next %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}{% if activo_filter %}&activo={{ activo_filter }}{% endif %}{% if order_by %}&order_by={{ order_by }}{% endif %}">Siguiente</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}{% if search_query %}&search={{ search_query }}{% endif %}{% if activo_filter %}&activo={{ activo_filter }}{% endif %}{% if order_by %}&order_by={{ order_by }}{% endif %}">Última</a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

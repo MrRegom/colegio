@@ -1,0 +1,91 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0">Gestión de Tipos de Equipo</h4>
+                    <div class="page-title-right">
+                        <a href="{% url 'inventario:tipo_equipo_create' %}" class="btn btn-primary">
+                            <i class="ri-add-line"></i> Nuevo Tipo
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <form method="get" class="row g-3">
+                            <div class="col-md-6">
+                                <input type="text" name="search" class="form-control" placeholder="Buscar..." value="{{ search_query }}">
+                            </div>
+                            <div class="col-md-2">
+                                <select name="activo" class="form-select">
+                                    <option value="">Todos</option>
+                                    <option value="true" {% if activo_filter == 'true' %}selected{% endif %}>Activos</option>
+                                    <option value="false" {% if activo_filter == 'false' %}selected{% endif %}>Inactivos</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-primary w-100">Buscar</button>
+                            </div>
+                            <div class="col-md-2">
+                                <a href="{% url 'inventario:tipo_equipo_list' %}" class="btn btn-secondary w-100">Limpiar</a>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Código</th>
+                                        <th>Nombre</th>
+                                        <th>Requiere Mantenimiento</th>
+                                        <th>Período (días)</th>
+                                        <th>Estado</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for tipo in page_obj %}
+                                    <tr>
+                                        <td><strong>{{ tipo.codigo }}</strong></td>
+                                        <td>{{ tipo.nombre }}</td>
+                                        <td>{% if tipo.requiere_mantenimiento %}<span class="badge bg-info">Sí</span>{% else %}<span class="badge bg-secondary">No</span>{% endif %}</td>
+                                        <td>{{ tipo.periodo_mantenimiento_dias|default:"-" }}</td>
+                                        <td>{% if tipo.activo %}<span class="badge bg-success">Activo</span>{% else %}<span class="badge bg-secondary">Inactivo</span>{% endif %}</td>
+                                        <td>
+                                            <a href="{% url 'inventario:tipo_equipo_update' tipo.pk %}" class="btn btn-sm btn-info"><i class="ri-edit-line"></i></a>
+                                            <a href="{% url 'inventario:tipo_equipo_delete' tipo.pk %}" class="btn btn-sm btn-danger"><i class="ri-delete-bin-line"></i></a>
+                                        </td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr><td colspan="6" class="text-center">No hay tipos de equipo registrados</td></tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,571 @@
+{% load static %}
+{% block topbar %}
+
+<div class="menu-wrapper">
+    <header id="page-topbar">
+        <div class="layout-width">
+            <div class="navbar-header" id="navbar-header">
+                <div class="d-flex" id="header-logo">
+
+                    <!-- LOGO -->
+                    <div class="navbar-brand-box horizontal-logo" style="display: flex; align-items: center; padding-left: 1.5rem;">
+                        <a href="" class="logo logo-dark">
+                            <span class="logo-sm">
+                                <img src="{% static 'images/imagenes_colegio/logoColegio.png' %}" alt="" height="42" style="display: block;">
+                            </span>
+                            <span class="logo-lg">
+                                <img src="{% static 'images/imagenes_colegio/logoColegio.png' %}" alt="" height="42" style="display: block;">
+                            </span>
+                        </a>
+
+                        <a href="" class="logo logo-light">
+                            <span class="logo-sm">
+                                <img src="{% static 'images/imagenes_colegio/logoColegio.png' %}" alt="" height="42" style="display: block;">
+                            </span>
+                            <span class="logo-lg">
+                                <img src="{% static 'images/imagenes_colegio/logoColegio.png' %}" alt="" height="42" style="display: block;">
+                            </span>
+                        </a>
+                    </div>
+
+
+                    <button type="button"
+                        class="btn btn-sm px-3 header-item vertical-menu-btn topnav-hamburger shadow-none"
+                        id="topnav-hamburger-icon">
+                        <span class="hamburger-icon">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </span>
+                    </button>
+
+                </div>
+                <!-- ========== App Menu ========== -->
+                <div class="app-menu navbar-menu mx-auto">
+                    <!-- LOGO -->
+                    <div class="navbar-brand-box vertical-logo" style="height: 70px;">
+                        <a href="" class="logo logo-dark">
+                            <span class="logo-sm">
+                                <img src="{% static 'images/imagenes_colegio/logoColegio.png' %}" alt="" height="42">
+                            </span>
+                            <span class="logo-lg">
+                                <img src="{% static 'images/imagenes_colegio/logoColegio.png' %}" alt="" height="42">
+                            </span>
+                        </a>
+
+                        <a href="" class="logo logo-light">
+                            <span class="logo-sm">
+                                <img src="{% static 'images/imagenes_colegio/logoColegio.png' %}" alt="" height="42">
+                            </span>
+                            <span class="logo-lg">
+                                <img src="{% static 'images/imagenes_colegio/logoColegio.png' %}" alt="" height="42">
+                            </span>
+                        </a>
+                    </div>
+                    <div id="scrollbar">
+                        <ul class="navbar-nav" id="navbar-nav">
+                            <li class="menu-title"><span data-key="t-menu">Menu</span></li>
+                            <li class="nav-item">
+                                <a class="nav-link menu-link" href="{% url 'dashboard' %}">
+                                    <i class="ph-gauge"></i> <span data-key="t-home">Home</span>
+                                </a>
+                            </li>
+
+                            <!-- Menú de Reportes - Con desplegable por app -->
+                            <li class="nav-item">
+                                <a class="nav-link menu-link collapsed" href="#sidebarReportes"
+                                    data-bs-toggle="collapse" role="button" aria-expanded="false"
+                                    aria-controls="sidebarReportes">
+                                    <i class="ri-file-chart-line"></i> <span data-key="t-reportes">Reportes</span>
+                                </a>
+                                <div class="collapse menu-dropdown" id="sidebarReportes">
+                                    <ul class="nav nav-sm flex-column">
+                                        <li class="nav-item">
+                                            <a href="{% url 'reportes:dashboard_app' 'bodega' %}" class="nav-link">
+                                                <i class="ri-archive-line"></i> Bodega
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{% url 'reportes:dashboard_app' 'compras' %}" class="nav-link">
+                                                <i class="ri-shopping-cart-line"></i> Compras
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{% url 'reportes:dashboard_app' 'solicitudes' %}" class="nav-link">
+                                                <i class="ri-file-text-line"></i> Solicitudes
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{% url 'reportes:dashboard_app' 'activos' %}" class="nav-link">
+                                                <i class="ri-box-3-line"></i> Activos
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{% url 'reportes:dashboard_app' 'bajas' %}" class="nav-link">
+                                                <i class="ri-delete-bin-line"></i> Bajas
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <!-- Menú de Bodega - Enlace directo al menú con Cards -->
+                            <li class="nav-item">
+                                <a class="nav-link menu-link" href="{% url 'bodega:menu_bodega' %}">
+                                    <i class="ri-archive-line"></i> <span data-key="t-bodega">Bodega</span>
+                                </a>
+                            </li>
+
+                            <!-- Menú de Compras - Enlace directo al menú con Cards -->
+                            <li class="nav-item">
+                                <a class="nav-link menu-link" href="{% url 'compras:menu_compras' %}">
+                                    <i class="ri-shopping-cart-line"></i> <span data-key="t-compras">Compras</span>
+                                </a>
+                            </li>
+
+                            <!-- Menú de Solicitudes - Enlace directo al menú con Cards -->
+                            <li class="nav-item">
+                                <a class="nav-link menu-link" href="{% url 'solicitudes:menu_solicitudes' %}">
+                                    <i class="ri-file-text-line"></i> <span data-key="t-solicitudes">Solicitudes</span>
+                                </a>
+                            </li>
+
+                            <!-- Menú de Inventario (Activos) - Enlace directo al menú con Cards -->
+                            <li class="nav-item">
+                                <a class="nav-link menu-link" href="{% url 'activos:menu_inventario' %}">
+                                    <i class="ri-clipboard-line"></i> <span data-key="t-inventario">Inventario</span>
+                                </a>
+                            </li>
+
+                            <!-- Menú de Bajas de Inventario - Enlace directo al menú con Cards -->
+                            <li class="nav-item">
+                                <a class="nav-link menu-link" href="{% url 'bajas_inventario:menu_bajas' %}">
+                                    <i class="ri-delete-bin-line"></i> <span data-key="t-bajas">Bajas de Inventario</span>
+                                </a>
+                            </li>
+
+                            <!-- Menú de Gestores - CRUD de catálogos -->
+                            <li class="nav-item">
+                                <a class="nav-link menu-link collapsed" href="#sidebarGestores"
+                                    data-bs-toggle="collapse" role="button" aria-expanded="false"
+                                    aria-controls="sidebarGestores">
+                                    <i class="ri-settings-3-line"></i> <span data-key="t-gestores">Gestores</span>
+                                </a>
+                                <div class="collapse menu-dropdown" id="sidebarGestores">
+                                    <ul class="nav nav-sm flex-column">
+                                        <li class="nav-item">
+                                            <a class="nav-link collapsed" href="#gestoresInventario" data-bs-toggle="collapse"
+                                                role="button" aria-expanded="false" aria-controls="gestoresInventario">
+                                                <i class="ri-clipboard-line"></i> <span>Inventario</span>
+                                            </a>
+                                            <div class="collapse menu-dropdown" id="gestoresInventario">
+                                                <ul class="nav nav-sm flex-column">
+                                                    <li class="nav-item">
+                                                        <a href="{% url 'bodega:articulo_lista' %}" class="nav-link">Artículos</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a href="{% url 'bodega:categoria_lista' %}" class="nav-link">Categorías (Bodega)</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a href="{% url 'activos:lista_categorias' %}" class="nav-link">Categorías (Activos)</a>
+                                                    </li>
+                                                    <!-- Bodegas: Vista no implementada, línea eliminada -->
+                                                    <li class="nav-item">
+                                                        <a href="{% url 'bodega:lista_unidades' %}" class="nav-link">Unidades de Medida</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link collapsed" href="#gestoresOrganizacion" data-bs-toggle="collapse"
+                                                role="button" aria-expanded="false" aria-controls="gestoresOrganizacion">
+                                                <i class="ri-building-line"></i> <span>Organización</span>
+                                            </a>
+                                            <div class="collapse menu-dropdown" id="gestoresOrganizacion">
+                                                <ul class="nav nav-sm flex-column">
+                                                    <!-- Departamentos: Vista no implementada en solicitudes -->
+                                                    <!-- Talleres migrado a activos - TODO: crear vista en activos -->
+                                                    <li class="nav-item">
+                                                        <a href="{% url 'activos:lista_ubicaciones' %}" class="nav-link">Ubicaciones</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link collapsed" href="#gestoresConfiguracion" data-bs-toggle="collapse"
+                                                role="button" aria-expanded="false" aria-controls="gestoresConfiguracion">
+                                                <i class="ri-settings-line"></i> <span>Configuración</span>
+                                            </a>
+                                            <div class="collapse menu-dropdown" id="gestoresConfiguracion">
+                                                <ul class="nav nav-sm flex-column">
+                                                    <li class="nav-item">
+                                                        <a href="{% url 'activos:lista_estados' %}" class="nav-link">Estados de Activo</a>
+                                                    </li>
+                                                    <!-- Estados Orden Compra y Recepción: Vistas no implementadas en compras -->
+                                                    <li class="nav-item">
+                                                        <a href="{% url 'bodega:movimiento_lista' %}" class="nav-link">Tipos de Movimiento</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a href="{% url 'activos:lista_tipos_movimiento' %}" class="nav-link">Tipos Mov. Activo</a>
+                                                    </li>
+                                                    <!-- Proveniencias: Vista no implementada en activos -->
+                                                </ul>
+                                            </div>
+                                        </li>
+                                        <!-- Marcas migrado a activos (Modelo eliminado, ahora es CharField) -->
+                                        <!-- Equipos eliminado, reemplazado por Activos -->
+                                        <li class="nav-item">
+                                            <a class="nav-link collapsed" href="#gestoresProveedores" data-bs-toggle="collapse"
+                                                role="button" aria-expanded="false" aria-controls="gestoresProveedores">
+                                                <i class="ri-user-line"></i> <span>Proveedores</span>
+                                            </a>
+                                            <div class="collapse menu-dropdown" id="gestoresProveedores">
+                                                <ul class="nav nav-sm flex-column">
+                                                    <li class="nav-item">
+                                                        <a href="{% url 'compras:proveedor_lista' %}" class="nav-link">Proveedores</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <!-- Menú de Administración - Gestión de Usuarios, Grupos y Permisos -->
+                            {% if perms.auth.view_user or perms.auth.view_group %}
+                            <li class="menu-title"><span data-key="t-admin">Administración</span></li>
+                            <li class="nav-item">
+                                <a class="nav-link menu-link" href="{% url 'accounts:menu_usuarios' %}">
+                                    <i class="ri-shield-user-line"></i> <span data-key="t-gestion-usuarios">Gestión de Usuarios</span>
+                                </a>
+                            </li>
+                            {% endif %}
+
+
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center opacity-100" id="header-items">
+
+                    <div class="dropdown ms-1 topbar-head-dropdown header-item">
+                        <button type="button" class="btn btn-icon btn-topbar rounded-circle"
+                            id="page-header-search-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            <i class="bx bx-search align-middle fs-3xl"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
+                            aria-labelledby="page-header-search-dropdown">
+                            <form class="p-3">
+                                <div class="form-group m-0">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Search ..."
+                                            aria-label="Recipient's username">
+                                        <button class="btn btn-primary" type="submit"><i
+                                                class="bi bi-search"></i></button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+
+                    <div class="dropdown topbar-head-dropdown ms-1 header-item">
+                        <button type="button" class="btn btn-icon btn-topbar rounded-circle mode-layout"
+                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="bi bi-sun align-middle fs-3xl"></i>
+                        </button>
+                        <div class="dropdown-menu p-2 dropdown-menu-end" id="light-dark-mode">
+                            <a href="#!" class="dropdown-item" data-mode="light"><i
+                                    class="bi bi-sun align-middle me-2"></i> Default (light mode)</a>
+                            <a href="#!" class="dropdown-item" data-mode="dark"><i
+                                    class="bi bi-moon align-middle me-2"></i> Dark</a>
+                            <a href="#!" class="dropdown-item" data-mode="brand"><i
+                                    class="bi bi-award align-middle me-2"></i> Brand</a>
+                            <a href="#!" class="dropdown-item" data-mode="auto"><i
+                                    class="bi bi-moon-stars align-middle me-2"></i> Auto (system default)</a>
+                        </div>
+                    </div>
+
+                    <div class="dropdown topbar-head-dropdown ms-1 header-item" id="notificationDropdown">
+                        <button type="button" class="btn btn-icon btn-topbar rounded-circle"
+                            id="page-header-notifications-dropdown" data-bs-toggle="dropdown"
+                            data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false">
+                            <i class='bi bi-bell fs-2xl'></i>
+                            <span
+                                class="position-absolute topbar-badge p-0 d-flex align-items-center justify-content-center translate-middle badge rounded-pill bg-danger"><span
+                                    class="notification-badge">4</span><span class="visually-hidden">unread
+                                    messages</span></span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-xl dropdown-menu-end p-0"
+                            aria-labelledby="page-header-notifications-dropdown">
+
+                            <div class="dropdown-head rounded-top">
+                                <div class="p-3 pb-1">
+                                    <div class="row align-items-center mb-3">
+                                        <div class="col">
+                                            <h6 class="mb-0 fs-lg fw-semibold"> Notifications <span
+                                                    class="badge bg-danger-subtle text-danger fs-sm notification-badge">
+                                                    4</span></h6>
+                                        </div>
+                                        <div class="col-auto dropdown">
+                                            <a href="javascript:void(0);" data-bs-toggle="dropdown"
+                                                class="link-secondary fs-md"><i
+                                                    class="bi bi-three-dots-vertical"></i></a>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" href="javascript:void(0)"
+                                                        id="deleteAllNotification">All Clear</a></li>
+                                                <li><a class="dropdown-item" href="javascript:void(0)"
+                                                        id="markRead">Mark all as read</a></li>
+                                                <li><a class="dropdown-item" href="#!">Archive All</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card border-top border-bottom mb-0 rounded-0">
+                                <div class="p-3 d-flex align-items-center gap-2">
+                                    <div class="flex-shrink-0">
+                                        <i class="bi bi-bell fs-3xl"></i>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <h6 class="mb-1">Push Notification</h6>
+                                        <p class="text-muted mb-0">Automatically send new notification</p>
+                                    </div>
+                                    <div class="flex-shrink-0">
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" role="switch"
+                                                id="flexSwitchCheckDefault">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="py-2 ps-3" id="notificationItemsTabContent">
+                                <div data-simplebar style="max-height: 300px;" class="pe-3">
+                                    <div
+                                        class="text-reset notification-item d-block dropdown-item position-relative unread-message">
+                                        <div class="d-flex gap-3">
+                                            <div class="flex-shrink-0">
+                                                <img src="{% static 'images/companies/img-3.png' %}"
+                                                    class="rounded-circle avatar-xs" alt="Notification Images">
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <a href="#!" class="stretched-link">
+                                                    <h6 class="fs-md mb-1 lh-base">Judia Membership</h6>
+                                                </a>
+                                                <p class="text-muted mb-0">Successfully purchased a business plan for
+                                                    <span class="text-danger fw-medium">-$24.99</span></p>
+                                            </div>
+                                            <p class="mb-0 fs-xs fw-medium flex-shrink-0 text-muted">
+                                                57 sec ago
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="text-reset notification-item d-block dropdown-item position-relative">
+                                        <div class="d-flex gap-3">
+                                            <div class="flex-shrink-0">
+                                                <img src="{% static 'images/users/avatar-8.jpg' %}"
+                                                    class="rounded-circle avatar-xs" alt="Notification Images">
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <a href="#!" class="stretched-link">
+                                                    <h6 class="fs-md mb-1 lh-base">Bella Bailey</h6>
+                                                </a>
+                                                <p class="text-muted mb-0">Assigned you on the call with Fatima</p>
+                                            </div>
+                                            <p class="mb-0 fs-xs fw-medium flex-shrink-0 text-muted">
+                                                5 min ago
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        class="text-reset notification-item d-block dropdown-item position-relative unread-message">
+                                        <div class="d-flex gap-3">
+                                            <div class="avatar-xs flex-shrink-0">
+                                                <span
+                                                    class="avatar-title bg-danger-subtle text-danger rounded-circle fs-lg">
+                                                    <i class='bx bx-message-square-dots'></i>
+                                                </span>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <p class="text-muted mb-0"><b class="text-body">Nathan Keeling</b>
+                                                    replied to your comment on <b>Steex - Admin & Dashboards</b></p>
+                                            </div>
+                                            <p class="mb-0 fs-xs fw-medium flex-shrink-0 text-muted">
+                                                3 hrs ago
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="text-reset notification-item d-block dropdown-item position-relative">
+                                        <div class="d-flex gap-3">
+                                            <div class="position-relative flex-shrink-0">
+                                                <img src="{% static 'images/users/avatar-2.jpg' %}"
+                                                    class="rounded-circle avatar-xs" alt="Notification Images">
+                                                <span
+                                                    class="active-badge position-absolute start-100 translate-middle p-1 bg-success rounded-circle">
+                                                    <span class="visually-hidden">New alerts</span>
+                                                </span>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <a href="#!" class="stretched-link">
+                                                    <h6 class="fs-md mb-1 lh-base">Angela Bernier</h6>
+                                                </a>
+                                                <p class="text-muted mb-0">Answered to your comment on the cash flow
+                                                    forecast's graph 🔔.</p>
+                                            </div>
+                                            <p class="mb-0 fs-xs fw-medium flex-shrink-0 text-muted">
+                                                1 week ago
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="text-reset notification-item d-block dropdown-item position-relative">
+                                        <div class="d-flex gap-3">
+                                            <div class="position-relative flex-shrink-0">
+                                                <img src="{% static 'images/users/avatar-3.jpg' %}"
+                                                    class="rounded-circle avatar-xs" alt="Notification Images">
+                                                <span
+                                                    class="active-badge position-absolute start-100 translate-middle p-1 bg-warning rounded-circle">
+                                                    <span class="visually-hidden">New alerts</span>
+                                                </span>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <a href="#!" class="stretched-link">
+                                                    <h6 class="fs-md mb-1 lh-base">Maureen Gibson</h6>
+                                                </a>
+                                                <p class="text-muted mb-0">We talked about a project on linkedin.</p>
+                                            </div>
+                                            <p class="mb-0 fs-xs fw-medium flex-shrink-0 text-muted">
+                                                2 week ago
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="notification-actions" id="notification-actions">
+                                    <div class="d-flex text-muted justify-content-center align-items-center">
+                                        Select <div id="select-content" class="text-body fw-semibold px-1">0</div>
+                                        Result <button type="button" class="btn btn-link link-danger p-0 ms-2"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#removeNotificationModal">Remove</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="empty-notification-elem text-center px-4 d-none">
+                                <div class="mt-3 avatar-md mx-auto">
+                                    <div class="avatar-title bg-info-subtle text-info fs-24 rounded-circle"> <i
+                                            class="bi bi-bell "></i> </div>
+                                </div>
+                                <div class="pb-3 mt-2">
+                                    <h6 class="fs-lg fw-semibold lh-base">Hey! You have no any notifications </h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dropdown topbar-head-dropdown ms-2 header-item">
+                        <button type="button" class="btn btn-icon rounded-circle" data-bs-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            <img class="rounded-circle img-fluid"
+                                src="{% static 'images/users/avatar-1.jpg' %}" alt="Header Avatar">
+                        </button>
+                        <div class="dropdown-menu p-2 dropdown-menu-end">
+                            <div class="d-flex gap-2 mb-3 topbar-profile">
+                                <div class="position-relative">
+                                    <img class="rounded-1" src="{% static 'images/users/avatar-1.jpg' %}"
+                                        alt="Header Avatar">
+                                    <span
+                                        class="position-absolute top-0 start-100 translate-middle badge rounded-circle bg-danger"><span
+                                            class="visually-hidden">unread messages</span></span>
+                                </div>
+                                <div>
+                                    <h6 class="mb-1 fs-sm user-name">{{user.username}}</h6>
+                                    <p class="mb-0 fw-medium fs-xs"><a href="#!">{{user.email}}</a></p>
+                                </div>
+                            </div>
+                            <a href="{% url 'pages:profile' %}" class="dropdown-item"><i
+                                    class="bi bi-person align-middle me-2"></i> Profile</a>
+                            <a href="{% url 'pages:pricing' %}" class="dropdown-item"><i
+                                    class="bi bi-gem align-middle me-2"></i> My Subscription</a>
+                            <a href="{% url 'pages:profile' %}" class="dropdown-item"><i
+                                    class="bi bi-person-gear align-middle me-2"></i> Account Settings</a>
+
+                            {% if user.is_authenticated %}
+
+                            <a href="{% url 'account_change_password' %}" class="dropdown-item">
+                                <i class="bi bi-key align-middle me-2"></i> Change Password </a>
+
+                            <a href="{% url 'account_logout' %}" class="dropdown-item">
+                                <i class="bi bi-box-arrow-right align-middle me-2"></i> Sign Out</a>
+
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- removeNotificationModal -->
+    <div id="removeNotificationModal" class="modal fade zoomIn" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        id="NotificationModalbtn-close"></button>
+                </div>
+                <div class="modal-body p-md-5">
+                    <div class="text-center">
+                        <div class="text-danger">
+                            <i class="bi bi-trash display-4"></i>
+                        </div>
+                        <div class="mt-4 fs-base">
+                            <h4 class="mb-1">Are you sure ?</h4>
+                            <p class="text-muted mx-4 mb-0">Are you sure you want to remove this Notification ?</p>
+                        </div>
+                    </div>
+                    <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
+                        <button type="button" class="btn w-sm btn-light" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn w-sm btn-danger" id="delete-notification">Yes, Delete
+                            It!</button>
+                    </div>
+                </div>
+
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <!-- removeCartModal -->
+    <div id="removeCartModal" class="modal fade zoomIn" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        id="close-cartmodal"></button>
+                </div>
+                <div class="modal-body p-md-5">
+                    <div class="text-center">
+                        <div class="text-danger">
+                            <i class="bi bi-trash display-5"></i>
+                        </div>
+                        <div class="mt-4">
+                            <h4>Are you sure ?</h4>
+                            <p class="text-muted mx-4 mb-0">Are you sure you want to remove this product ?</p>
+                        </div>
+                    </div>
+                    <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
+                        <button type="button" class="btn w-sm btn-light" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn w-sm btn-danger" id="remove-cartproduct">Yes, Delete
+                            It!</button>
+                    </div>
+                </div>
+
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+</div>
+
+{% endblock topbar %}

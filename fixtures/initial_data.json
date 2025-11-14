@@ -1,0 +1,140 @@
+[
+  {
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+      "username": "admin",
+      "password": "pbkdf2_sha256$260000$fake$fakehash",
+      "is_superuser": true,
+      "is_staff": true,
+      "is_active": true,
+      "email": "admin@example.com",
+      "first_name": "Admin",
+      "last_name": "User",
+      "date_joined": "2020-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "bodega.bodega",
+    "pk": 1,
+    "fields": {
+      "codigo": "BOD01",
+      "nombre": "Bodega Central",
+      "descripcion": "Bodega principal de almacenamiento",
+      "responsable": 1,
+      "activo": true,
+      "fecha_creacion": "2020-01-01T00:00:00Z",
+      "fecha_actualizacion": "2020-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "bodega.unidadmedida",
+    "pk": 1,
+    "fields": {"codigo": "UND", "nombre": "Unidad", "simbolo": "u", "fecha_creacion": "2020-01-01T00:00:00Z", "fecha_actualizacion": "2020-01-01T00:00:00Z"}
+  },
+  {
+    "model": "bodega.unidadmedida",
+    "pk": 2,
+    "fields": {"codigo": "KG", "nombre": "Kilogramo", "simbolo": "kg", "fecha_creacion": "2020-01-01T00:00:00Z", "fecha_actualizacion": "2020-01-01T00:00:00Z"}
+  },
+  {
+    "model": "bodega.categoria",
+    "pk": 1,
+    "fields": {"codigo": "MAT", "nombre": "Materiales", "descripcion": "Materiales de oficina", "fecha_creacion": "2020-01-01T00:00:00Z", "fecha_actualizacion": "2020-01-01T00:00:00Z"}
+  },
+  {
+    "model": "activos.categoriaactivo",
+    "pk": 1,
+    "fields": {"codigo": "EQ", "nombre": "Equipos", "descripcion": "Equipos electrónicos y mobiliario", "fecha_creacion": "2020-01-01T00:00:00Z", "fecha_actualizacion": "2020-01-01T00:00:00Z"}
+  },
+  {
+    "model": "activos.estadoactivo",
+    "pk": 1,
+    "fields": {"codigo": "DISP", "nombre": "Disponible", "descripcion": "Activo disponible para uso", "color": "#28a745", "es_inicial": true, "permite_movimiento": true, "fecha_creacion": "2020-01-01T00:00:00Z", "fecha_actualizacion": "2020-01-01T00:00:00Z"}
+  },
+  {
+    "model": "activos.marca",
+    "pk": 1,
+    "fields": {"codigo": "MAR01", "nombre": "Marca Ejemplo", "descripcion": "Marca genérica", "fecha_creacion": "2020-01-01T00:00:00Z", "fecha_actualizacion": "2020-01-01T00:00:00Z"}
+  },
+  {
+    "model": "activos.ubicacion",
+    "pk": 1,
+    "fields": {"codigo": "UB01", "nombre": "Almacén Central", "descripcion": "Ubicación principal para activos", "fecha_creacion": "2020-01-01T00:00:00Z", "fecha_actualizacion": "2020-01-01T00:00:00Z"}
+  },
+  {
+    "model": "activos.taller",
+    "pk": 1,
+    "fields": {"codigo": "TAL01", "nombre": "Taller Central", "descripcion": "Taller de mantenimiento", "ubicacion": "Edificio A - Sótano", "responsable": null, "fecha_creacion": "2020-01-01T00:00:00Z", "fecha_actualizacion": "2020-01-01T00:00:00Z"}
+  },
+  {
+    "model": "compras.proveedor",
+    "pk": 1,
+    "fields": {
+      "rut": "12345678-9",
+      "razon_social": "Proveedor Ejemplo SA",
+      "direccion": "Calle Falsa 123",
+      "comuna": "Comuna",
+      "ciudad": "Ciudad",
+      "telefono": "+56912345678",
+      "email": "proveedor@example.com",
+      "sitio_web": "https://proveedor.example.com",
+      "activo": true,
+      "fecha_creacion": "2020-01-01T00:00:00Z",
+      "fecha_actualizacion": "2020-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "compras.tiporecepcion",
+    "pk": 1,
+    "fields": {"codigo": "COMPRA", "nombre": "Recepción por Compra", "descripcion": "Artículos/Activos recibidos por compra", "requiere_orden": true, "activo": true, "fecha_creacion": "2020-01-01T00:00:00Z", "fecha_actualizacion": "2020-01-01T00:00:00Z"}
+  },
+  {
+    "model": "bodega.tipoentrega",
+    "pk": 1,
+    "fields": {"codigo": "DESPACHO", "nombre": "Despacho Interno", "descripcion": "Entrega interna a departamentos", "requiere_autorizacion": false, "fecha_creacion": "2020-01-01T00:00:00Z", "fecha_actualizacion": "2020-01-01T00:00:00Z"}
+  },
+  {
+    "model": "solicitudes.departamento",
+    "pk": 1,
+    "fields": {"codigo": "DEP01", "nombre": "Dirección", "descripcion": "Departamento de Dirección", "responsable": null, "activo": true, "fecha_creacion": "2020-01-01T00:00:00Z", "fecha_actualizacion": "2020-01-01T00:00:00Z"}
+  },
+  {
+    "model": "bodega.articulo",
+    "pk": 1,
+    "fields": {
+      "codigo": "ART-001",
+      "nombre": "Papel A4 500 hojas",
+      "descripcion": "Resma de papel A4",
+      "codigo_barras": null,
+      "categoria": 1,
+      "stock_actual": "100",
+      "stock_minimo": "10",
+      "stock_maximo": "500",
+      "punto_reorden": "20",
+      "unidad_medida": "UND",
+      "ubicacion_fisica": 1,
+      "observaciones": "Artículo inicial",
+      "fecha_creacion": "2020-01-01T00:00:00Z",
+      "fecha_actualizacion": "2020-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "activos.activo",
+    "pk": 1,
+    "fields": {
+      "codigo": "ACT-001",
+      "nombre": "Laptop Dell Inspiron",
+      "descripcion": "Laptop para oficina",
+      "categoria": 1,
+      "estado": 1,
+      "marca": 1,
+      "lote": "",
+      "numero_serie": "SN123456",
+      "codigo_barras": null,
+      "precio_unitario": "450000.00",
+      "fecha_creacion": "2020-01-01T00:00:00Z",
+      "fecha_actualizacion": "2020-01-01T00:00:00Z"
+    }
+  }
+]

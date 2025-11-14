@@ -1,0 +1,25 @@
+//
+// _todo.scss
+//
+
+.todo-menu {
+    li {
+        a {
+            display: block;
+            padding: .5rem .625rem;
+            color: var(--#{$prefix}body-color);
+            border-radius: $border-radius;
+            font-weight: $font-weight-medium;
+            transition: all 0.5s ease;
+
+            &:is(:hover, .active) {
+                color: var(--#{$prefix}primary);
+                background-color: rgba(var(--#{$prefix}primary-rgb), .15);
+            }
+        }
+    }
+}
+
+.task-handle {
+    cursor: move;
+}

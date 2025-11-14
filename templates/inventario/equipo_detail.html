@@ -1,0 +1,108 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box">
+                    <h4 class="mb-sm-0">Detalle de Equipo: {{ equipo.codigo }}</h4>
+                    <div class="page-title-right">
+                        <a href="{% url 'inventario:equipo_list' %}" class="btn btn-secondary">
+                            <i class="ri-arrow-left-line"></i> Volver
+                        </a>
+                        <a href="{% url 'inventario:equipo_update' equipo.pk %}" class="btn btn-primary">
+                            <i class="ri-edit-line"></i> Editar
+                        </a>
+                        <a href="{% url 'inventario:mantenimiento_create' equipo.pk %}" class="btn btn-info">
+                            <i class="ri-tools-line"></i> Registrar Mantenimiento
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Información del Equipo</h5>
+                    </div>
+                    <div class="card-body">
+                        <dl class="row mb-0">
+                            <dt class="col-sm-3">Código:</dt>
+                            <dd class="col-sm-9"><strong>{{ equipo.codigo }}</strong></dd>
+                            
+                            <dt class="col-sm-3">Nombre:</dt>
+                            <dd class="col-sm-9">{{ equipo.nombre }}</dd>
+                            
+                            <dt class="col-sm-3">Tipo:</dt>
+                            <dd class="col-sm-9">{{ equipo.tipo.nombre }}</dd>
+                            
+                            <dt class="col-sm-3">Marca:</dt>
+                            <dd class="col-sm-9">{{ equipo.marca|default:"-" }}</dd>
+                            
+                            <dt class="col-sm-3">Modelo:</dt>
+                            <dd class="col-sm-9">{{ equipo.modelo|default:"-" }}</dd>
+                            
+                            <dt class="col-sm-3">Número de Serie:</dt>
+                            <dd class="col-sm-9">{{ equipo.numero_serie|default:"-" }}</dd>
+                            
+                            <dt class="col-sm-3">Estado:</dt>
+                            <dd class="col-sm-9">
+                                {% if equipo.estado == 'DISPONIBLE' %}<span class="badge bg-success">Disponible</span>
+                                {% elif equipo.estado == 'EN_USO' %}<span class="badge bg-primary">En Uso</span>
+                                {% elif equipo.estado == 'MANTENIMIENTO' %}<span class="badge bg-warning">Mantenimiento</span>
+                                {% else %}<span class="badge bg-secondary">{{ equipo.estado }}</span>
+                                {% endif %}
+                            </dd>
+                            
+                            <dt class="col-sm-3">Ubicación:</dt>
+                            <dd class="col-sm-9">{{ equipo.ubicacion_actual|default:"-" }}</dd>
+                            
+                            <dt class="col-sm-3">Responsable:</dt>
+                            <dd class="col-sm-9">{{ equipo.responsable.get_full_name|default:equipo.responsable.username|default:"-" }}</dd>
+                            
+                            {% if equipo.taller %}
+                            <dt class="col-sm-3">Taller:</dt>
+                            <dd class="col-sm-9">{{ equipo.taller.nombre }}</dd>
+                            {% endif %}
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Mantenimientos</h5>
+                    </div>
+                    <div class="card-body">
+                        {% if mantenimientos %}
+                            <div class="list-group list-group-flush">
+                                {% for mantenimiento in mantenimientos|slice:":5" %}
+                                <div class="list-group-item">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <strong>{{ mantenimiento.tipo_mantenimiento }}</strong><br>
+                                            <small>{{ mantenimiento.fecha_mantenimiento|date:"d/m/Y" }}</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <p class="text-muted">No hay mantenimientos registrados</p>
+                        {% endif %}
+                        <a href="{% url 'inventario:mantenimiento_create' equipo.pk %}" class="btn btn-sm btn-primary mt-2">
+                            <i class="ri-add-line"></i> Registrar Mantenimiento
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

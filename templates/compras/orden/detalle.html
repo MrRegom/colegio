@@ -1,0 +1,216 @@
+{% extends 'partials/base.html' %}
+
+{% block content %}
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0">{{ titulo }}</h4>
+                    <div class="btn-group">
+                        <a href="{% url 'compras:orden_compra_agregar_articulo' orden.pk %}" class="btn btn-success">
+                            <i class="ri-add-line"></i> Agregar Artículo
+                        </a>
+                        <a href="{% url 'compras:orden_compra_agregar_activo' orden.pk %}" class="btn btn-info">
+                            <i class="ri-add-circle-line"></i> Agregar Activo
+                        </a>
+                        <a href="{% url 'compras:orden_compra_editar' orden.pk %}" class="btn btn-warning">
+                            <i class="ri-edit-line"></i> Editar Orden
+                        </a>
+                        <a href="{% url 'compras:orden_compra_lista' %}" class="btn btn-secondary">
+                            <i class="ri-arrow-left-line"></i> Volver
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <h5>Información General</h5>
+                                <table class="table table-sm">
+                                    <tr>
+                                        <th width="40%">Número:</th>
+                                        <td>{{ orden.numero }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Fecha Orden:</th>
+                                        <td>{{ orden.fecha_orden|date:"d/m/Y" }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Proveedor:</th>
+                                        <td>{{ orden.proveedor.razon_social }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Estado:</th>
+                                        <td><span class="badge bg-primary">{{ orden.estado.nombre }}</span></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-md-6">
+                                <h5>Información Adicional</h5>
+                                <table class="table table-sm">
+                                    <tr>
+                                        <th width="40%">Bodega Destino:</th>
+                                        <td>{{ orden.bodega_destino.nombre }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Solicitante:</th>
+                                        <td>{{ orden.solicitante.get_full_name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Fecha Entrega:</th>
+                                        <td>{{ orden.fecha_entrega_esperada|date:"d/m/Y"|default:"-" }}</td>
+                                    </tr>
+                                    {% if orden.aprobador %}
+                                    <tr>
+                                        <th>Aprobador:</th>
+                                        <td>{{ orden.aprobador.get_full_name }}</td>
+                                    </tr>
+                                    {% endif %}
+                                </table>
+                            </div>
+                        </div>
+
+                        {% if orden.observaciones %}
+                        <div class="mb-4">
+                            <h5>Observaciones</h5>
+                            <p>{{ orden.observaciones }}</p>
+                        </div>
+                        {% endif %}
+
+                        {% if orden.solicitudes.exists %}
+                        <div class="mb-4">
+                            <h5>Solicitudes Asociadas</h5>
+                            <div class="table-responsive">
+                                <table class="table table-sm table-bordered">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Número</th>
+                                            <th>Tipo</th>
+                                            <th>Solicitante</th>
+                                            <th>Estado</th>
+                                            <th>Fecha</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for solicitud in orden.solicitudes.all %}
+                                        <tr>
+                                            <td>{{ solicitud.numero }}</td>
+                                            <td>
+                                                {% if solicitud.tipo == 'ARTICULO' %}
+                                                <span class="badge bg-primary">Artículos</span>
+                                                {% else %}
+                                                <span class="badge bg-info">Activos</span>
+                                                {% endif %}
+                                            </td>
+                                            <td>{{ solicitud.solicitante.get_full_name }}</td>
+                                            <td><span class="badge" style="background-color: {{ solicitud.estado.color }}">{{ solicitud.estado.nombre }}</span></td>
+                                            <td>{{ solicitud.fecha_solicitud|date:"d/m/Y" }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        <h5>Artículos de Bodega</h5>
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>SKU</th>
+                                        <th>Artículo</th>
+                                        <th>Categoría</th>
+                                        <th class="text-end">Cantidad</th>
+                                        <th class="text-end">Precio Unit.</th>
+                                        <th class="text-end">Descuento</th>
+                                        <th class="text-end">Subtotal</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for detalle in detalles_articulos %}
+                                    <tr>
+                                        <td>{{ detalle.articulo.codigo }}</td>
+                                        <td>{{ detalle.articulo.nombre }}</td>
+                                        <td>{{ detalle.articulo.categoria.nombre }}</td>
+                                        <td class="text-end">{{ detalle.cantidad }}</td>
+                                        <td class="text-end">${{ detalle.precio_unitario|floatformat:0 }}</td>
+                                        <td class="text-end">${{ detalle.descuento|floatformat:0 }}</td>
+                                        <td class="text-end">${{ detalle.subtotal|floatformat:0 }}</td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="7" class="text-center">No hay artículos en esta orden</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h5 class="mt-4">Activos/Bienes</h5>
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Código</th>
+                                        <th>Activo</th>
+                                        <th class="text-end">Cantidad</th>
+                                        <th class="text-end">Precio Unit.</th>
+                                        <th class="text-end">Descuento</th>
+                                        <th class="text-end">Subtotal</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for detalle in detalles_activos %}
+                                    <tr>
+                                        <td>{{ detalle.activo.codigo }}</td>
+                                        <td>{{ detalle.activo.nombre }}</td>
+                                        <td class="text-end">{{ detalle.cantidad }}</td>
+                                        <td class="text-end">${{ detalle.precio_unitario|floatformat:0 }}</td>
+                                        <td class="text-end">${{ detalle.descuento|floatformat:0 }}</td>
+                                        <td class="text-end">${{ detalle.subtotal|floatformat:0 }}</td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="6" class="text-center">No hay activos en esta orden</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="row mt-4">
+                            <div class="col-md-6 offset-md-6">
+                                <table class="table">
+                                    <tr>
+                                        <th class="text-end">Subtotal:</th>
+                                        <td class="text-end">${{ orden.subtotal|floatformat:0 }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-end">Descuento:</th>
+                                        <td class="text-end">-${{ orden.descuento|floatformat:0 }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-end">Impuesto (IVA 19%):</th>
+                                        <td class="text-end">${{ orden.impuesto|floatformat:0 }}</td>
+                                    </tr>
+                                    <tr class="table-active">
+                                        <th class="text-end">Total:</th>
+                                        <th class="text-end">${{ orden.total|floatformat:0 }}</th>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

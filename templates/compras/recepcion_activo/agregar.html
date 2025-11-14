@@ -1,0 +1,63 @@
+{% extends 'partials/base.html' %}
+
+{% block content %}
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0">{{ titulo }} - Recepción {{ recepcion.numero }}</h4>
+                    <div>
+                        <a href="{% url 'compras:recepcion_activo_detalle' recepcion.pk %}" class="btn btn-secondary">
+                            <i class="ri-arrow-left-line"></i> Volver
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="row g-3">
+                                <div class="col-md-12">
+                                    <label class="form-label">Bien/Activo <span class="text-danger">*</span></label>
+                                    <select name="activo" class="form-select" required>
+                                        <option value="">Seleccione un bien/activo</option>
+                                        {% for activo in activos %}
+                                        <option value="{{ activo.id }}">{{ activo.nombre }} {% if activo.categoria %}({{ activo.categoria.nombre }}){% endif %}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Cantidad <span class="text-danger">*</span></label>
+                                    <input type="number" name="cantidad" class="form-control" step="1" min="1" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Número de Serie</label>
+                                    <input type="text" name="numero_serie" class="form-control" placeholder="Opcional">
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="form-label">Observaciones</label>
+                                    <textarea name="observaciones" class="form-control" rows="2"></textarea>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="ri-add-line"></i> Agregar Bien/Activo
+                                </button>
+                                <a href="{% url 'compras:recepcion_activo_detalle' recepcion.pk %}" class="btn btn-secondary">
+                                    Cancelar
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

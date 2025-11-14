@@ -1,0 +1,33 @@
+{% extends 'partials/base.html' %}
+
+{% block content %}
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card border-danger">
+                    <div class="card-body">
+                        <div class="alert alert-danger">
+                            <h5>¿Eliminar este artículo?</h5>
+                            <p>Esta acción no se puede deshacer.</p>
+                        </div>
+                        <dl class="row">
+                            <dt class="col-sm-4">Código:</dt>
+                            <dd class="col-sm-8">{{ articulo.codigo }}</dd>
+                            <dt class="col-sm-4">Nombre:</dt>
+                            <dd class="col-sm-8">{{ articulo.nombre }}</dd>
+                            <dt class="col-sm-4">Stock:</dt>
+                            <dd class="col-sm-8">{{ articulo.stock_actual }} {% for u in articulo.unidades_medida.all %}{{ u.simbolo }}{% if not forloop.last %}, {% endif %}{% empty %}unidad{% endfor %}</dd>
+                        </dl>
+                        <form method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+                            <a href="{% url 'bodega:articulo_lista' %}" class="btn btn-secondary">Cancelar</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

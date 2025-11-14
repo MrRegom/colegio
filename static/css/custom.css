@@ -1,0 +1,1479 @@
+/*
+Template Name: Judia - Admin & Dashboard Template
+Author: Themesbrand
+Website: https://themesbrand.com/
+Contact: support@themesbrand.com
+File: Custom Css File
+*/
+
+:root,
+[data-bs-theme=light] {
+  /* Colores principales del Framework Kit Gobierno */
+  --tb-primary: #006FB3;
+  --tb-primary-rgb: 0, 111, 179;
+  --tb-secondary: #FE6565;
+  --tb-secondary-rgb: 254, 101, 101;
+  --tb-tertiary: #0A132D;
+  --tb-tertiary-rgb: 10, 19, 45;
+  --tb-accent: #A8B7C7;
+  --tb-accent-rgb: 168, 183, 199;
+  --tb-neutral: #EEEEEE;
+  --tb-neutral-rgb: 238, 238, 238;
+  --tb-gray-a: #4A4A4A;
+  --tb-gray-a-rgb: 74, 74, 74;
+  --tb-gray-b: #8A8A8A;
+  --tb-gray-b-rgb: 138, 138, 138;
+  --tb-black: #111111;
+  --tb-black-rgb: 17, 17, 17;
+  --tb-white: #FFFFFF;
+  --tb-white-rgb: 255, 255, 255;
+  
+  /* Otros colores del Framework */
+  --tb-purple: #6633CC;
+  --tb-purple-rgb: 102, 51, 204;
+  --tb-orange: #E0701E;
+  --tb-orange-rgb: 224, 112, 30;
+  --tb-orange-light: #FFA11B;
+  --tb-orange-light-rgb: 255, 161, 27;
+  --tb-green: #2D717C;
+  --tb-green-rgb: 45, 113, 124;
+  
+  /* Configuraciones de énfasis y enlaces */
+  --tb-primary-text-emphasis: #006FB3;
+  --tb-secondary-text-emphasis: #FE6565;
+  --tb-tertiary-text-emphasis: #0A132D;
+  --tb-font-sans-serif: "Roboto", sans-serif;
+  --tb-font-monospace: "Roboto Mono", monospace;  
+  --tb-link-color: #006FB3;
+  --tb-link-color-rgb: 0, 111, 179;
+  --tb-link-hover-color: #005a8f;
+  --tb-link-hover-color-rgb: 0, 90, 143;
+  --tb-code-color: #FE6565;
+  --tb-focus-ring-color: rgba(var(--tb-primary-rgb), 0.25);
+  --tb-vertical-menu-title: #006FB3;
+}
+
+[data-bs-theme=dark] {
+  color-scheme: dark;
+  /* Colores principales del Framework Kit Gobierno */
+  --tb-primary: #006FB3;
+  --tb-primary-rgb: 0, 111, 179;
+  --tb-secondary: #FE6565;
+  --tb-secondary-rgb: 254, 101, 101;
+  --tb-tertiary: #0A132D;
+  --tb-tertiary-rgb: 10, 19, 45;
+  --tb-accent: #A8B7C7;
+  --tb-accent-rgb: 168, 183, 199;
+  --tb-neutral: #EEEEEE;
+  --tb-neutral-rgb: 238, 238, 238;
+  --tb-gray-a: #4A4A4A;
+  --tb-gray-a-rgb: 74, 74, 74;
+  --tb-gray-b: #8A8A8A;
+  --tb-gray-b-rgb: 138, 138, 138;
+  --tb-black: #111111;
+  --tb-black-rgb: 17, 17, 17;
+  --tb-white: #FFFFFF;
+  --tb-white-rgb: 255, 255, 255;
+  
+  /* Otros colores del Framework */
+  --tb-purple: #6633CC;
+  --tb-purple-rgb: 102, 51, 204;
+  --tb-orange: #E0701E;
+  --tb-orange-rgb: 224, 112, 30;
+  --tb-orange-light: #FFA11B;
+  --tb-orange-light-rgb: 255, 161, 27;
+  --tb-green: #2D717C;
+  --tb-green-rgb: 45, 113, 124;
+  
+  /* Configuraciones de énfasis y enlaces */
+  --tb-primary-text-emphasis: #006FB3;
+  --tb-secondary-text-emphasis: #FE6565;
+  --tb-tertiary-text-emphasis: #0A132D;
+  --tb-font-sans-serif: "Roboto", sans-serif;
+  --tb-font-monospace: "Roboto Mono", monospace;  
+  --tb-link-color: #006FB3;
+  --tb-link-color-rgb: 0, 111, 179;
+  --tb-link-hover-color: #005a8f;
+  --tb-link-hover-color-rgb: 0, 90, 143;
+  --tb-code-color: #FE6565;
+  --tb-focus-ring-color: rgba(var(--tb-primary-rgb), 0.25);
+  --tb-vertical-menu-title: #006FB3;
+}
+
+/* Clases de utilidad para color de texto según framework del gobierno */
+.text-primary { color: var(--tb-primary) !important; }
+.text-secondary { color: var(--tb-secondary) !important; }
+.text-tertiary { color: var(--tb-tertiary) !important; }
+.text-accent { color: var(--tb-accent) !important; }
+.text-gray-a { color: var(--tb-gray-a) !important; }
+.text-gray-b { color: var(--tb-gray-b) !important; }
+.text-purple { color: var(--tb-purple) !important; }
+.text-orange { color: var(--tb-orange) !important; }
+.text-orange-light { color: var(--tb-orange-light) !important; }
+.text-green { color: var(--tb-green) !important; }
+
+/* Clases de utilidad para fondo según framework del gobierno */
+.bg-primary { background-color: var(--tb-primary) !important; }
+.bg-secondary { background-color: var(--tb-secondary) !important; }
+.bg-tertiary { background-color: var(--tb-tertiary) !important; }
+.bg-accent { background-color: var(--tb-accent) !important; }
+.bg-neutral { background-color: var(--tb-neutral) !important; }
+.bg-gray-a { background-color: var(--tb-gray-a) !important; }
+.bg-gray-b { background-color: var(--tb-gray-b) !important; }
+.bg-black { background-color: var(--tb-black) !important; }
+.bg-purple { background-color: var(--tb-purple) !important; }
+.bg-orange { background-color: var(--tb-orange) !important; }
+.bg-orange-light { background-color: var(--tb-orange-light) !important; }
+.bg-green { background-color: var(--tb-green) !important; }
+
+/* Bordes */
+.border-primary { border-color: var(--tb-primary) !important; }
+.border-secondary { border-color: var(--tb-secondary) !important; }
+.border-tertiary { border-color: var(--tb-tertiary) !important; }
+.border-accent { border-color: var(--tb-accent) !important; }
+
+/* Estilos para tarjetas con barra lateral de colores de la bandera chilena */
+.card-gob {
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  background-color: #fff;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  height: 100%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.card-gob:hover {
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
+}
+
+.card-gob::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 5px;
+  background: linear-gradient(to bottom, #1e3a8a 50%, #D4AF37 50%);
+}
+
+.card-gob-top {
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  background-color: #fff;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  height: 100%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.card-gob-top:hover {
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
+}
+
+.card-gob-top::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 5px;
+  background: linear-gradient(to right, #1e3a8a 50%, #D4AF37 50%);
+}
+
+.card-gob .card-body {
+  padding: 1.25rem 1.5rem 1.25rem 1.5rem;
+}
+
+.card-gob-top .card-body {
+  padding: 1.25rem 1.5rem 1.25rem 1.5rem;
+}
+
+.module-title {
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: #0A132D;
+}
+
+.module-subtitle {
+  font-size: 0.8rem;
+  color: #8A8A8A;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+@page {
+  size: 150mm 100mm;
+  margin: 0;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+.page-container {
+  width: 150mm;
+  height: 100mm;
+  page-break-after: always;
+  position: relative;
+}
+.etiqueta {
+  width: 150mm;
+  height: 100mm;
+  box-sizing: border-box;
+  padding: 5mm;
+  position: relative;
+}
+/* Estilo para etiqueta frontal */
+.titulo {
+  font-size: 20pt;
+  font-weight: normal;
+  margin-bottom: 5mm;
+}
+.titulo-ficha {
+  font-size: 20pt;
+  font-weight: normal;
+  color: black;
+}
+.titulo-numero {
+  font-weight: bold;
+}
+.membrete {
+  font-size: 7pt;
+  line-height: 1.2;
+  margin-bottom: 5mm;
+}
+.nombre-label {
+  font-size: 16pt;
+  margin-top: 5mm;
+}
+.nombre-valor {
+  font-size: 16pt;
+  font-weight: bold;
+}
+.social-label {
+  font-size: 16pt;
+  margin-top: 5mm;
+}
+.social-valor {
+  font-size: 14pt;
+}
+.rut-label {
+  font-size: 16pt;
+  margin-top: 5mm;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.rut-valor {
+  font-size: 16pt;
+  font-weight: bold;
+}
+.ficha-gruesa-container {
+  font-size: 20pt;
+  font-weight: bold;
+}
+.info-adicional {
+  font-size: 11pt;
+  margin-top: 5mm;
+  line-height: 1.3;
+}
+
+/* Estilo para etiqueta posterior */
+.etiqueta-posterior {
+  text-align: center;
+}
+.titulo-posterior {
+  font-size: 20pt;
+  text-align: right;
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+.nro-ficha-posterior {
+  font-size: 23pt; 
+  font-weight: bold;
+}
+.datos-paciente {
+  text-align: left;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.nombre-posterior {
+  font-size: 16pt;
+  margin-bottom: 10px;
+}
+.nombre-posterior-valor {
+  font-weight: bold;
+}
+.social-posterior {
+  font-size: 16pt;
+  margin-bottom: 10px;
+}
+.ficha-posterior-bottom {
+  text-align: right;
+  font-size: 20pt;
+}
+
+/* Estilo para códigos de barras */
+.barcode-container {
+  position: absolute;
+  right: 5mm;
+  top: 5mm;
+  text-align: center;
+}
+.barcode-container-posterior {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 15px;
+}
+svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Estilos para el menú de navegación */
+/* Efecto hover para enlaces del menú (no los títulos) */
+.navbar-nav .nav-item:not(.menu-title) .nav-link:hover, 
+.navbar-nav .nav-item:not(.menu-title) .nav-link:focus,
+.navbar-nav .nav-item:not(.menu-title) .menu-link:hover, 
+.navbar-nav .nav-item:not(.menu-title) .menu-link:focus {
+  background-color: rgba(var(--tb-primary-rgb), 0.04);
+  color: var(--tb-primary) !important;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+/* Estilos específicos para elementos activos - borde bicolor gobierno */
+.navbar-nav .nav-link.active, 
+.navbar-nav .menu-link.active,
+.nav-sm .nav-link.active {
+  border-style: solid;
+  border-width: 1px;
+  border-top-color: var(--tb-primary) !important;    /* Azul arriba */
+  border-left-color: var(--tb-primary) !important;   /* Azul izquierda */
+  border-right-color: var(--tb-secondary) !important; /* Rojo derecha */
+  border-bottom-color: var(--tb-secondary) !important; /* Rojo abajo */
+  border-radius: 6px;
+  background-color: rgba(var(--tb-primary-rgb), 0.04) !important;
+  color: var(--tb-primary) !important;
+  font-weight: 700 !important;  /* Negrita más fuerte */
+  padding: calc(0.5rem - 1px) calc(1rem - 1px); /* Ajustado para compensar el borde */
+}
+
+/* Asegurar que los elementos padre no se marquen como activos cuando sus hijos lo están */
+.navbar-nav .nav-link[aria-expanded="true"],
+.navbar-nav .menu-link[aria-expanded="true"] {
+  background-color: rgba(var(--tb-primary-rgb), 0.05) !important;
+  border-color: rgba(var(--tb-primary-rgb), 0.2) !important;
+  font-weight: 600 !important;
+  color: var(--tb-primary) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+  border: 1px solid rgba(var(--tb-primary-rgb), 0.2) !important;
+  opacity: 1 !important;
+}
+
+/* Solo indicador sutil para elementos expandidos */
+.navbar-nav .nav-link[aria-expanded="true"]:not(.active),
+.navbar-nav .menu-link[aria-expanded="true"]:not(.active) {
+  background-color: rgba(var(--tb-primary-rgb), 0.08) !important;
+  color: var(--tb-primary) !important;
+  border-radius: 6px;
+  font-weight: 600 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+  opacity: 1 !important;
+}
+
+/* Destacar elementos del menú en hover dentro de submenús */
+.nav-sm .nav-link:hover {
+  background-color: rgba(var(--tb-primary-rgb), 0.04);
+  color: var(--tb-primary) !important;
+  border-radius: 6px;
+}
+
+/* Efecto de transición suave para todos los enlaces */
+.navbar-nav .nav-link,
+.navbar-nav .menu-link,
+.nav-sm .nav-link {
+  transition: all 0.2s ease-in-out;
+  padding: 0.5rem 1rem;
+  border: 1px solid transparent; /* Para evitar saltos al activarse */
+}
+
+/* Estilo específico para los elementos de título */
+.navbar-nav .menu-title,
+.navbar-nav li.menu-title,
+.navbar-nav li.menu-title span,
+.navbar-nav li.menu-title i {
+  color: var(--tb-vertical-menu-title) !important;
+  font-weight: 600;
+  background-color: transparent !important;
+  cursor: default;
+}
+
+/* Deshabilitar efectos de hover en los títulos */
+.navbar-nav li.menu-title:hover,
+.navbar-nav li.menu-title:focus,
+.navbar-nav li.menu-title:active {
+  background-color: transparent !important;
+}
+
+/* Mejorar espaciado vertical */
+.navbar-nav .nav-item {
+  margin-bottom: 2px;
+}
+
+/* Mejorar estilo del submenú activo - muy sutil */
+.menu-dropdown.show {
+  background-color: rgba(var(--tb-primary-rgb), 0.01);
+  border-radius: 6px;
+  margin-top: 2px;
+  padding-left: 0.5rem;
+}
+
+/* Prevenir que enlaces desplegables se vean "activos" cuando solo están expandidos */
+.nav-link[aria-expanded="true"]:not(.active),
+.menu-link[aria-expanded="true"]:not(.active) {
+  background-color: rgba(var(--tb-primary-rgb), 0.08) !important;
+  color: var(--tb-primary) !important;
+  font-weight: 600 !important;
+  opacity: 1 !important;
+}
+
+/* Elementos anidados en submenús NO deben heredar estilos activos por default */
+.menu-dropdown .nav-link:not(.active) {
+  background-color: transparent !important;
+}
+
+/* Prevenir transparencia en links después de hacer click */
+.nav-link:active,
+.nav-link:visited,
+.menu-link:active,
+.menu-link:visited,
+.nav-sm .nav-link:active,
+.nav-sm .nav-link:visited {
+  opacity: 1 !important;
+  background-color: inherit !important;
+}
+
+/* Asegurar que los links del menú no se vuelvan transparentes */
+.navbar-nav .nav-link,
+.navbar-nav .menu-link,
+.nav-sm .nav-link {
+  opacity: 1 !important;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .menu-link:hover,
+.nav-sm .nav-link:hover {
+  opacity: 1 !important;
+}
+
+/* Específicamente evitar que Reportería SFERE se muestre como activo */
+.navbar-nav .nav-item a[href="#sidebarReportes"] {
+  background-color: transparent !important;
+  border-color: transparent !important;
+  font-weight: normal !important;
+  box-shadow: none !important;
+}
+
+.navbar-nav .nav-item a[href="#sidebarReportes"][aria-expanded="true"] {
+  color: var(--tb-primary) !important;
+  background-color: rgba(var(--tb-primary-rgb), 0.02) !important;
+}
+
+/* Destacar elementos del menú en hover dentro de submenús */
+.nav-sm .nav-link:hover {
+  background-color: rgba(var(--tb-primary-rgb), 0.04);
+  color: var(--tb-primary) !important;
+  border-radius: 6px;
+}
+
+/* ====================================================
+   ESTILOS PARA PESTAÑAS ESTILO KIT DIGITAL
+   ================================================== */
+
+/* Contenedor de pestañas kit digital */
+.kit-digital-tabs {
+  display: flex;
+  gap: 0.5rem;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Botón de pestaña kit digital */
+.kit-digital-tab {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background-color: transparent;
+  color: var(--tb-gray-a);
+  font-weight: 500;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  white-space: nowrap;
+  min-height: 2.5rem;
+  justify-content: flex-start;
+}
+
+/* Icono dentro del botón */
+.kit-digital-tab i {
+  font-size: 1rem;
+  color: inherit;
+  transition: all 0.2s ease-in-out;
+  width: 1.2rem;
+  text-align: center;
+}
+
+/* Estado hover del botón - igual que el menú */
+.kit-digital-tab:hover {
+  background-color: rgba(var(--tb-primary-rgb), 0.04);
+  color: var(--tb-primary);
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+/* Estado activo del botón - exactamente como el menú lateral */
+.kit-digital-tab.active {
+  border-style: solid;
+  border-width: 1px;
+  border-top-color: var(--tb-primary) !important;    /* Azul arriba */
+  border-left-color: var(--tb-primary) !important;   /* Azul izquierda */
+  border-right-color: var(--tb-secondary) !important; /* Rojo derecha */
+  border-bottom-color: var(--tb-secondary) !important; /* Rojo abajo */
+  border-radius: 6px;
+  background-color: rgba(var(--tb-primary-rgb), 0.04) !important;
+  color: var(--tb-primary) !important;
+  font-weight: 700 !important;
+  padding: calc(0.5rem - 1px) calc(1rem - 1px); /* Ajustado para compensar el borde */
+}
+
+/* Icono en estado activo */
+.kit-digital-tab.active i {
+  color: var(--tb-primary) !important;
+}
+
+/* Estado focus para accesibilidad */
+.kit-digital-tab:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(var(--tb-primary-rgb), 0.25);
+}
+
+/* Variantes para diferentes estados - colores sutiles en estado normal */
+.kit-digital-tab[aria-controls="todos"] i {
+  color: var(--tb-gray-a);
+}
+.kit-digital-tab[aria-controls="todos"].active i,
+.kit-digital-tab[aria-controls="todos"]:hover i {
+  color: var(--tb-primary) !important;
+}
+
+.kit-digital-tab[aria-controls="enuso"] i {
+  color: var(--tb-gray-a);
+}
+.kit-digital-tab[aria-controls="enuso"].active i,
+.kit-digital-tab[aria-controls="enuso"]:hover i {
+  color: var(--tb-primary) !important;
+}
+
+.kit-digital-tab[aria-controls="mantencion"] i {
+  color: var(--tb-gray-a);
+}
+.kit-digital-tab[aria-controls="mantencion"].active i,
+.kit-digital-tab[aria-controls="mantencion"]:hover i {
+  color: var(--tb-primary) !important;
+}
+
+.kit-digital-tab[aria-controls="baja"] i {
+  color: var(--tb-gray-a);
+}
+.kit-digital-tab[aria-controls="baja"].active i,
+.kit-digital-tab[aria-controls="baja"]:hover i {
+  color: var(--tb-primary) !important;
+}
+
+/* Responsive design para móviles */
+@media (max-width: 768px) {
+  .kit-digital-tabs {
+    flex-wrap: wrap;
+    gap: 0.25rem;
+  }
+  
+  .kit-digital-tab {
+    flex: 1;
+    min-width: 120px;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
+    justify-content: center;
+    min-height: 2.25rem;
+  }
+  
+  .kit-digital-tab i {
+    font-size: 0.9rem;
+  }
+  
+  .kit-digital-tab.active {
+    padding: calc(0.5rem - 1px) calc(0.75rem - 1px);
+  }
+}
+
+/* ====================================================
+   BOTONES UNIFICADOS ESTILO KIT DIGITAL
+   ================================================== */
+
+/* Base para todos los botones del kit */
+.btn-kit-primary,
+.btn-kit-secondary,
+.btn-kit-success,
+.btn-kit-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background-color: transparent;
+  color: var(--tb-gray-a);
+  font-weight: 500;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  white-space: nowrap;
+  min-height: 2.5rem;
+}
+
+/* Hover para todos los botones */
+.btn-kit-primary:hover,
+.btn-kit-secondary:hover,
+.btn-kit-success:hover,
+.btn-kit-outline:hover {
+  border-style: solid;
+  border-width: 1px;
+  border-top-color: var(--tb-primary) !important;    /* Azul arriba */
+  border-left-color: var(--tb-primary) !important;   /* Azul izquierda */
+  border-right-color: var(--tb-secondary) !important; /* Rojo derecha */
+  border-bottom-color: var(--tb-secondary) !important; /* Rojo abajo */
+  border-radius: 6px;
+  background-color: rgba(var(--tb-primary-rgb), 0.04) !important;
+  color: var(--tb-primary) !important;
+  font-weight: 700 !important;
+  padding: calc(0.5rem - 1px) calc(1rem - 1px); /* Ajustado para compensar el borde */
+  transition: all 0.2s ease;
+}
+
+/* Focus para todos los botones */
+.btn-kit-primary:focus,
+.btn-kit-secondary:focus,
+.btn-kit-success:focus,
+.btn-kit-outline:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(var(--tb-primary-rgb), 0.25);
+}
+
+/* Iconos dentro de los botones */
+.btn-kit-primary i,
+.btn-kit-secondary i,
+.btn-kit-success i,
+.btn-kit-outline i {
+  font-size: 1rem;
+  color: inherit;
+  transition: all 0.2s ease-in-out;
+  width: 1.2rem;
+  text-align: center;
+}
+
+/* Estados disabled */
+.btn-kit-primary:disabled,
+.btn-kit-secondary:disabled,
+.btn-kit-success:disabled,
+.btn-kit-outline:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-kit-primary:disabled:hover,
+.btn-kit-secondary:disabled:hover,
+.btn-kit-success:disabled:hover,
+.btn-kit-outline:disabled:hover {
+  background-color: transparent;
+  color: var(--tb-gray-a);
+}
+
+/* Responsive para botones */
+@media (max-width: 768px) {
+  .btn-kit-primary,
+  .btn-kit-secondary,
+  .btn-kit-success,
+  .btn-kit-outline {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
+    min-height: 2.25rem;
+  }
+  
+  /* Hover en móviles con padding ajustado */
+  .btn-kit-primary:hover,
+  .btn-kit-secondary:hover,
+  .btn-kit-success:hover,
+  .btn-kit-outline:hover {
+    padding: calc(0.5rem - 1px) calc(0.75rem - 1px);
+  }
+  
+  .btn-kit-primary i,
+  .btn-kit-secondary i,
+  .btn-kit-success i,
+  .btn-kit-outline i {
+    font-size: 0.9rem;
+  }
+}
+
+/* ====================================================
+   FONDO PERSONALIZADO CON IMAGEN DEL HOSPITAL
+   ================================================== */
+/* Logo hospital_ges.png removido según solicitud - permite más espacio para contenido */
+
+/* Configuración de imagen de fondo del header principal */
+/* COMENTADO: Logo removido para optimizar espacio
+#layout-wrapper::before {
+  background-image: url('../images/logos/hospital_ges.png'), linear-gradient(135deg, #f8f9fa, rgba(248, 249, 250, 0.85)) !important;
+  background-blend-mode: multiply !important;
+  background-size: 300px auto, cover !important;
+  background-position: center center, center center !important;
+  background-repeat: no-repeat !important;
+  opacity: 0.7 !important;
+}
+*/
+
+/* Variable personalizada para el fondo del wrapper */
+:root {
+  --tb-menu-wrapper-bg: #f8f9fa !important;
+  --tb-menu-wrapper-pattern-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Asegurar que el patrón SVG tenga colores compatibles con gris claro */
+.wrapper-images svg path[stroke] {
+  stroke: rgba(0, 0, 0, 0.08) !important;
+}
+
+.wrapper-images svg path[fill] {
+  fill: rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Header específico con overlay gris claro elegante */
+#page-topbar.topbar-shadow {
+  background-color: rgba(248, 249, 250, 0.95) !important;
+  backdrop-filter: blur(12px) saturate(150%) !important;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Asegurar que el brand tenga contraste adecuado sobre gris claro */
+[data-topbar=brand] .navbar-header .horizontal-logo .logo-light {
+  display: none !important;
+}
+
+[data-topbar=brand] .navbar-header .horizontal-logo .logo-dark {
+  display: block !important;
+}
+
+/* Texto del navbar con buen contraste sobre gris claro */
+.navbar-header, 
+.navbar-header .btn-topbar,
+.navbar-header .topbar-profile,
+#page-topbar .navbar-nav .nav-link,
+#page-topbar .navbar-nav .nav-item > a,
+#page-topbar .dropdown-toggle,
+#page-topbar .navbar-brand,
+.navbar-header .d-flex a,
+.navbar-header .d-flex span {
+  color: #2b313e !important;
+  text-shadow: none !important;
+}
+
+.navbar-header .btn-topbar:hover,
+#page-topbar .navbar-nav .nav-link:hover {
+  background-color: rgba(0, 0, 0, 0.08) !important;
+  color: #2b313e !important;
+  border-radius: 6px !important;
+}
+
+/* Breadcrumbs oscuros */
+/* Para otros módulos (cuando page-title-box está dentro de page-content directamente) */
+.page-content > .container-fluid > .row > .col-12 > .page-title-box {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+  margin-bottom: 1rem !important;
+}
+
+.page-title-box,
+.page-title-box h4,
+.page-title-box .breadcrumb,
+.page-title-box .breadcrumb-item,
+.page-title-box .breadcrumb-item a,
+.page-title-box .breadcrumb-item::before {
+  color: #2b313e !important;
+  text-shadow: none !important;
+}
+
+.page-title-box .breadcrumb-item a:hover {
+  color: rgba(43, 49, 62, 0.7) !important;
+}
+
+/* Enlaces del menú superior con borde oscuro */
+#page-topbar .dropdown-menu,
+#page-topbar .notification-list {
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+}
+
+/* ====================================================
+   ESTILOS INSTITUCIONALES COLEGIO - AZUL Y DORADO
+   ================================================== */
+
+/* Colores institucionales del colegio */
+:root {
+  --colegio-azul: #1e3a8a;      /* Azul profundo del escudo */
+  --colegio-dorado: #D4AF37;    /* Dorado del escudo */
+  --colegio-azul-claro: #3b82f6; /* Azul más claro para hover */
+}
+
+/* Aplicación directa de colores institucionales */
+.colegio-azul {
+  color: #1e3a8a !important;
+}
+
+.colegio-dorado {
+  color: #D4AF37 !important;
+}
+
+.colegio-bg-azul {
+  background-color: #1e3a8a !important;
+}
+
+.colegio-bg-dorado {
+  background-color: #D4AF37 !important;
+}
+
+/* Banner superior con fondo azul institucional */
+#page-topbar {
+  background: linear-gradient(135deg, var(--colegio-azul) 0%, #1e40af 100%) !important;
+  border-bottom: 3px solid var(--colegio-dorado) !important;
+  box-shadow: 0 4px 12px rgba(30, 58, 138, 0.3) !important;
+}
+
+/* Texto dorado en el banner */
+#page-topbar .navbar-header,
+#page-topbar .navbar-header .btn-topbar,
+#page-topbar .navbar-header .topbar-profile,
+#page-topbar .navbar-nav .nav-link,
+#page-topbar .navbar-nav .nav-item > a,
+#page-topbar .dropdown-toggle,
+#page-topbar .navbar-brand,
+#page-topbar .navbar-header .d-flex a,
+#page-topbar .navbar-header .d-flex span,
+#page-topbar .btn-icon,
+#page-topbar .btn-topbar,
+#page-topbar .header-item button,
+#page-topbar .header-item .btn {
+  color: var(--colegio-dorado) !important;
+  text-shadow: none !important;
+}
+
+/* Hover dorado más brillante */
+#page-topbar .navbar-header .btn-topbar:hover,
+#page-topbar .navbar-nav .nav-link:hover,
+#page-topbar .btn-icon:hover,
+#page-topbar .btn-topbar:hover,
+#page-topbar .header-item button:hover {
+  background-color: rgba(212, 175, 55, 0.15) !important;
+  color: #f4d03f !important;
+  border-radius: 6px !important;
+  transform: translateY(-1px);
+  transition: all 0.2s ease;
+}
+
+/* Iconos dorados */
+#page-topbar i,
+#page-topbar .bi,
+#page-topbar .ph,
+#page-topbar .ri,
+#page-topbar .bx {
+  color: var(--colegio-dorado) !important;
+}
+
+/* Eliminar cualquier efecto de sombra o blur en el texto del banner */
+#page-topbar * {
+  text-shadow: none !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+}
+
+/* Dropdowns con fondo azul sólido y texto dorado - SIN TRANSPARENCIA */
+#page-topbar .dropdown-menu {
+  background-color: var(--colegio-azul) !important;
+  background: var(--colegio-azul) !important;
+  border: 1px solid var(--colegio-dorado) !important;
+  box-shadow: 0 8px 25px rgba(30, 58, 138, 0.4) !important;
+  opacity: 1 !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Asegurar que los dropdowns no tengan transparencia */
+#page-topbar .dropdown-menu,
+#page-topbar .navbar-nav .dropdown-menu,
+#page-topbar .menu-dropdown,
+#page-topbar .navbar-nav .nav-item .dropdown-menu,
+#page-topbar .dropdown-menu.show,
+#page-topbar .dropdown-menu[data-bs-popper] {
+  background-color: var(--colegio-azul) !important;
+  background: var(--colegio-azul) !important;
+  opacity: 1 !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  -moz-backdrop-filter: none !important;
+}
+
+/* Forzar opacidad en todos los elementos del dropdown */
+#page-topbar .dropdown-menu * {
+  opacity: 1 !important;
+}
+
+#page-topbar .dropdown-item {
+  color: var(--colegio-dorado) !important;
+}
+
+#page-topbar .dropdown-item:hover {
+  background-color: rgba(212, 175, 55, 0.15) !important;
+  color: #f4d03f !important;
+}
+
+/* Notificaciones con estilo institucional */
+#page-topbar .notification-list {
+  background-color: var(--colegio-azul) !important;
+  border: 1px solid var(--colegio-dorado) !important;
+}
+
+/* Badge de notificaciones dorado */
+#page-topbar .badge {
+  background-color: var(--colegio-dorado) !important;
+  color: var(--colegio-azul) !important;
+  font-weight: bold !important;
+}
+
+/* Logo en el banner */
+#page-topbar .navbar-brand img {
+  filter: brightness(1.2) contrast(1.1);
+}
+
+/* Separador dorado */
+#page-topbar::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--colegio-dorado) 0%, #f4d03f 50%, var(--colegio-dorado) 100%);
+}
+
+/* Animación sutil para elementos del banner */
+#page-topbar .btn-topbar,
+#page-topbar .btn-icon,
+#page-topbar .header-item button {
+  transition: all 0.3s ease;
+}
+
+#page-topbar .btn-topbar:hover,
+#page-topbar .btn-icon:hover,
+#page-topbar .header-item button:hover {
+  box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
+}
+
+/* ====================================================
+   ESTILOS PARA PÁGINA DE LOGIN INSTITUCIONAL
+   ================================================== */
+
+/* Botón de login con colores institucionales */
+.auth-page-wrapper .btn-primary {
+  background: linear-gradient(135deg, var(--colegio-azul) 0%, #1e40af 100%) !important;
+  border: 2px solid var(--colegio-dorado) !important;
+  color: var(--colegio-dorado) !important;
+  font-weight: bold !important;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3) !important;
+  transition: all 0.3s ease !important;
+}
+
+.auth-page-wrapper .btn-primary:hover {
+  background: linear-gradient(135deg, #1e40af 0%, var(--colegio-azul) 100%) !important;
+  border-color: #f4d03f !important;
+  color: #f4d03f !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4) !important;
+}
+
+/* Títulos en la página de login */
+.auth-page-wrapper h5 {
+  color: var(--colegio-azul) !important;
+  font-weight: bold !important;
+}
+
+.auth-page-wrapper .text-primary {
+  color: var(--colegio-azul) !important;
+}
+
+/* Campos de formulario con estilo institucional */
+.auth-page-wrapper .form-control {
+  border: 2px solid #e5e7eb !important;
+  border-radius: 8px !important;
+  transition: all 0.3s ease !important;
+}
+
+.auth-page-wrapper .form-control:focus {
+  border-color: var(--colegio-dorado) !important;
+  box-shadow: 0 0 0 0.2rem rgba(212, 175, 55, 0.25) !important;
+}
+
+/* Enlaces en la página de login */
+.auth-page-wrapper a {
+  color: var(--colegio-azul) !important;
+  text-decoration: none !important;
+}
+
+.auth-page-wrapper a:hover {
+  color: var(--colegio-dorado) !important;
+  text-decoration: underline !important;
+}
+
+/* Card de login con borde dorado */
+.auth-page-wrapper .card {
+  border: 2px solid var(--colegio-dorado) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 25px rgba(30, 58, 138, 0.2) !important;
+}
+
+/* Patrón SVG en la página de login con colores institucionales */
+.auth-page-wrapper svg path[stroke] {
+  stroke: rgba(212, 175, 55, 0.4) !important;
+}
+
+.auth-page-wrapper svg path[fill] {
+  fill: rgba(30, 58, 138, 0.3) !important;
+}
+
+/* Línea superior con colores institucionales */
+.auth-page-wrapper .card-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--colegio-azul) 0%, var(--colegio-dorado) 50%, var(--colegio-azul) 100%);
+  border-radius: 2px 2px 0 0;
+}
+
+/* Panel izquierdo con mejor contraste */
+.auth-page-wrapper .auth-card {
+  background: linear-gradient(135deg, var(--colegio-azul) 0%, #1e40af 100%) !important;
+  border: 2px solid var(--colegio-dorado) !important;
+  box-shadow: 0 8px 25px rgba(30, 58, 138, 0.4) !important;
+}
+
+/* Texto del panel izquierdo con mejor legibilidad */
+.auth-page-wrapper .auth-card h2 {
+  color: white !important;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5) !important;
+}
+
+.auth-page-wrapper .auth-card h2 span {
+  color: var(--colegio-dorado) !important;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3) !important;
+}
+
+.auth-page-wrapper .auth-card p {
+  color: rgba(255, 255, 255, 0.9) !important;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Logo en el panel izquierdo */
+.auth-page-wrapper .auth-card img {
+  filter: brightness(1.1) contrast(1.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* ====================================================
+   REDUCCIÓN DE ESPACIO ENTRE BANNER Y TÍTULOS
+   ================================================== */
+/* Reduce el padding superior del contenido de la página */
+.page-content {
+  padding-top: calc(70px + var(--tb-grid-gutter-width) * 0.15) !important; /* Aumentado más para que no lo tape el banner */
+}
+
+/* Reducir padding superior solo para módulos (no home) - más agresivo */
+.page-content > .container-fluid {
+  padding-top: 0 !important;
+  margin-top: -1.5rem !important;
+}
+
+/* Reducir también el padding del primer row en módulos */
+.page-content > .container-fluid > .row:first-child {
+  margin-top: -0.75rem !important;
+}
+
+/* Reduce el padding del título de página sin ocultarlo */
+/* Solo para módulos (cuando está dentro de page-content > container-fluid) */
+.page-content > .container-fluid > .row > .col-12 > .page-title-box {
+  padding-top: 0 !important;
+  padding-bottom: calc(var(--tb-grid-gutter-width) * 0.02) !important;
+  margin-top: 0 !important;
+  margin-bottom: 1rem !important;
+}
+
+/* Asegurar visibilidad de botones en page-title-box */
+.page-title-box > div:last-child {
+  display: flex !important;
+  align-items: center !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.page-title-box .btn {
+  display: inline-flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  white-space: nowrap !important;
+}
+
+/* Asegurar que el h4 del título sea visible */
+.page-title-box h4 {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  margin-bottom: 0.25rem !important;
+}
+
+/* ====================================================
+   TÍTULOS MODERNOS Y NEGRITOS
+   ================================================== */
+
+/* Títulos minimalistas estilo Microsoft */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600 !important;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+  color: #323130 !important;
+}
+
+.page-title-box h4 {
+  font-weight: 600 !important;
+  font-size: 1.375rem !important;
+  letter-spacing: -0.01em;
+  color: #323130 !important;
+}
+
+.card-title,
+h4.card-title,
+h5.card-title {
+  font-weight: 600 !important;
+  font-size: 1.125rem !important;
+  letter-spacing: -0.01em;
+  color: #323130 !important;
+}
+
+/* Títulos de cards más limpios */
+.card-header h4,
+.card-header h5,
+.card-header .card-title {
+  font-weight: 600 !important;
+  font-size: 1rem !important;
+  letter-spacing: -0.01em;
+  color: #323130 !important;
+}
+
+/* Títulos dentro de cards */
+.card-body h5.card-title {
+  font-weight: 600 !important;
+  font-size: 1.0625rem !important;
+  color: #323130 !important;
+  margin-bottom: 0.5rem !important;
+}
+
+/* Títulos de secciones */
+h5.text-primary,
+h5.text-muted {
+  font-weight: 600 !important;
+  font-size: 0.9375rem !important;
+  letter-spacing: 0;
+}
+
+/* Espaciado elegante y profesional para cards */
+.card-body {
+  padding: 2rem !important;
+}
+
+.card-body p.text-muted {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: #605e5c !important;
+  font-weight: 400;
+}
+
+/* Mejorar espaciado entre elementos en cards */
+.card-body .text-center {
+  margin-bottom: 1.5rem;
+}
+
+.card-body .d-grid {
+  gap: 0.875rem;
+}
+
+.card-body .mt-3 {
+  margin-top: 1.5rem !important;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+/* ====================================================
+   AGRANDAR LOGO DEL COLEGIO EN EL BANNER
+   ================================================== */
+.navbar-brand-box .logo img {
+  height: 42px !important;
+  width: auto !important;
+  max-height: 42px !important;
+}
+
+.navbar-brand-box.horizontal-logo .logo img {
+  height: 42px !important;
+}
+
+.navbar-brand-box.vertical-logo .logo img {
+  height: 42px !important;
+}
+
+/* ====================================================
+   ESTILOS MEJORADOS PARA FORMULARIOS
+   ================================================== */
+
+/* Cards de formularios con mejor contraste y fondo sutil */
+form .card {
+  background-color: #ffffff !important;
+  border: 1px solid #e1e5e9 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06) !important;
+  margin-bottom: 1.5rem !important;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease !important;
+}
+
+form .card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.08) !important;
+  border-color: #d1d5db !important;
+}
+
+/* Headers de cards con fondo sutil y mejor contraste */
+form .card-header {
+  background: linear-gradient(to bottom, #f8f9fa 0%, #ffffff 100%) !important;
+  border-bottom: 2px solid #e1e5e9 !important;
+  padding: 1rem 1.5rem !important;
+  border-radius: 8px 8px 0 0 !important;
+}
+
+form .card-header h5,
+form .card-header .card-title {
+  color: #1e3a8a !important;
+  font-weight: 600 !important;
+  font-size: 1rem !important;
+  letter-spacing: 0.3px !important;
+  margin: 0 !important;
+}
+
+/* Body de cards con mejor espaciado y fondo sutil */
+form .card-body {
+  background-color: #ffffff !important;
+  padding: 1.75rem !important;
+  border-radius: 0 0 8px 8px !important;
+}
+
+/* Labels de formularios con mejor contraste */
+form .form-label {
+  color: #323130 !important;
+  font-weight: 500 !important;
+  font-size: 0.875rem !important;
+  margin-bottom: 0.5rem !important;
+  letter-spacing: 0.1px !important;
+}
+
+/* Inputs con mejor contraste y bordes más definidos */
+form .form-control,
+form select.form-control,
+form textarea.form-control {
+  background-color: #ffffff !important;
+  border: 1.5px solid #d1d5db !important;
+  border-radius: 6px !important;
+  color: #323130 !important;
+  padding: 0.625rem 0.875rem !important;
+  font-size: 0.875rem !important;
+  transition: all 0.2s ease !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04) !important;
+}
+
+form .form-control:focus,
+form select.form-control:focus,
+form textarea.form-control:focus {
+  background-color: #ffffff !important;
+  border-color: #1e3a8a !important;
+  box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06) !important;
+  outline: none !important;
+}
+
+form .form-control:hover:not(:focus) {
+  border-color: #9ca3af !important;
+}
+
+/* Selects con mejor apariencia */
+form select.form-control {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 0.75rem center !important;
+  background-size: 16px 12px !important;
+  padding-right: 2.5rem !important;
+}
+
+/* Textareas con mejor altura mínima */
+form textarea.form-control {
+  min-height: 100px !important;
+  resize: vertical !important;
+}
+
+/* Help text con mejor contraste */
+form .text-muted,
+form small.text-muted {
+  color: #6b7280 !important;
+  font-size: 0.8125rem !important;
+  margin-top: 0.375rem !important;
+  display: block !important;
+}
+
+/* Mensajes de error con mejor visibilidad */
+form .invalid-feedback {
+  color: #dc2626 !important;
+  font-size: 0.8125rem !important;
+  font-weight: 500 !important;
+  margin-top: 0.375rem !important;
+  display: block !important;
+}
+
+/* Mejor espaciado entre campos */
+form .row.g-3 > * {
+  margin-bottom: 1rem !important;
+}
+
+form .mb-3 {
+  margin-bottom: 1.25rem !important;
+}
+
+/* Botones de formulario con mejor contraste */
+form .btn-primary {
+  background-color: #1e3a8a !important;
+  border-color: #1e3a8a !important;
+  color: #ffffff !important;
+  font-weight: 500 !important;
+  padding: 0.625rem 1.5rem !important;
+  border-radius: 6px !important;
+  box-shadow: 0 2px 4px rgba(30, 58, 138, 0.2) !important;
+  transition: all 0.2s ease !important;
+}
+
+form .btn-primary:hover {
+  background-color: #1e40af !important;
+  border-color: #1e40af !important;
+  box-shadow: 0 4px 8px rgba(30, 58, 138, 0.3) !important;
+  transform: translateY(-1px) !important;
+}
+
+form .btn-light,
+form .btn-secondary {
+  background-color: #f3f4f6 !important;
+  border-color: #e5e7eb !important;
+  color: #374151 !important;
+  font-weight: 500 !important;
+  padding: 0.625rem 1.5rem !important;
+  border-radius: 6px !important;
+  transition: all 0.2s ease !important;
+}
+
+form .btn-light:hover,
+form .btn-secondary:hover {
+  background-color: #e5e7eb !important;
+  border-color: #d1d5db !important;
+  color: #1f2937 !important;
+}
+
+/* Form switches con mejor contraste */
+form .form-check.form-switch .form-check-input {
+  width: 2.5rem !important;
+  height: 1.25rem !important;
+  border: 2px solid #d1d5db !important;
+  background-color: #e5e7eb !important;
+}
+
+form .form-check.form-switch .form-check-input:checked {
+  background-color: #1e3a8a !important;
+  border-color: #1e3a8a !important;
+}
+
+form .form-check-label {
+  color: #323130 !important;
+  font-weight: 500 !important;
+  font-size: 0.875rem !important;
+  margin-left: 0.5rem !important;
+}
+
+/* Alerts dentro de formularios */
+form .alert {
+  border-radius: 6px !important;
+  border: 1px solid !important;
+  padding: 1rem 1.25rem !important;
+  margin-bottom: 1.25rem !important;
+}
+
+form .alert-info {
+  background-color: #eff6ff !important;
+  border-color: #bfdbfe !important;
+  color: #1e40af !important;
+}
+
+/* Separación entre secciones de formulario */
+form .row + .row {
+  margin-top: 0.5rem !important;
+}
+
+/* Área de botones de acción con mejor contraste */
+form .text-end {
+  background-color: #f9fafb !important;
+  padding: 1.25rem 1.5rem !important;
+  border-radius: 8px !important;
+  border: 1px solid #e5e7eb !important;
+  margin-top: 1.5rem !important;
+}
+
+/* Mejorar contraste de placeholders */
+form .form-control::placeholder {
+  color: #9ca3af !important;
+  opacity: 1 !important;
+}
+
+/* Inputs deshabilitados */
+form .form-control:disabled,
+form .form-control[readonly] {
+  background-color: #f3f4f6 !important;
+  border-color: #e5e7eb !important;
+  color: #6b7280 !important;
+  cursor: not-allowed !important;
+}

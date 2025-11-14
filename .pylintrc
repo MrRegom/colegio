@@ -1,0 +1,67 @@
+[MASTER]
+# Usar múltiples procesos para acelerar Pylint
+jobs=4
+
+# Archivos o directorios a ignorar
+ignore=migrations,.git,__pycache__,staticfiles,media,.venv,venv,env,.pytest_cache
+
+# Extensiones de archivos a verificar
+extension-pkg-whitelist=
+
+[MESSAGES CONTROL]
+# Deshabilitar algunos mensajes específicos de Django
+disable=
+    C0111,  # missing-docstring (lo manejamos selectivamente)
+    C0103,  # invalid-name (Django usa nombres como 'pk')
+    R0903,  # too-few-public-methods (común en Django models)
+    R0913,  # too-many-arguments (común en Django views)
+    W0212,  # protected-access (común en Django internals)
+    C0330,  # bad-continuation (conflicto con black)
+    R0801,  # duplicate-code (común en tests)
+    E1101,  # no-member (falsos positivos con Django QuerySets)
+    W0223,  # abstract-method (falsos positivos con CBVs)
+    C0415,  # import-outside-toplevel (a veces necesario)
+
+[FORMAT]
+# Longitud máxima de línea
+max-line-length=120
+
+# Número máximo de líneas en un módulo
+max-module-lines=1000
+
+# String de indentación
+indent-string='    '
+
+[BASIC]
+# Nombres buenos por defecto
+good-names=i,j,k,ex,pk,id,qs,_
+
+# Expresión regular para nombres de variables
+variable-rgx=[a-z_][a-z0-9_]{0,30}$
+
+# Expresión regular para nombres de constantes
+const-rgx=(([A-Z_][A-Z0-9_]*)|(__.*__))$
+
+[DESIGN]
+# Número máximo de argumentos para función/método
+max-args=7
+
+# Número máximo de atributos para una clase
+max-attributes=10
+
+# Complejidad ciclomática máxima
+max-complexity=10
+
+# Número máximo de métodos públicos
+max-public-methods=25
+
+[IMPORTS]
+# Permitir importaciones circulares controladas (común en Django)
+allow-wildcard-with-all=no
+
+[DJANGO]
+# Plugin de Django
+load-plugins=pylint_django
+
+# Settings module
+django-settings-module=core.settings

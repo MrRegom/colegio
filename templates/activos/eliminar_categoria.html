@@ -1,0 +1,60 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block title %}{{ titulo }}{% endblock %}
+
+{% block content %}
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0">{{ titulo }}</h4>
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="{% url 'dashboard_analytics' %}">Dashboard</a></li>
+                            <li class="breadcrumb-item"><a href="{% url 'activos:lista_categorias' %}">Categorías</a></li>
+                            <li class="breadcrumb-item active">Eliminar</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <div class="text-danger mb-4">
+                            <i class="ri-delete-bin-line" style="font-size: 72px;"></i>
+                        </div>
+                        <h4 class="mb-3">¿Está seguro de eliminar esta categoría?</h4>
+                        <p class="text-muted">Esta acción no se puede deshacer.</p>
+
+                        <div class="alert alert-warning text-start mt-4">
+                            <h6 class="mb-2">Información de la Categoría:</h6>
+                            <ul class="mb-0">
+                                <li><strong>Código:</strong> {{ categoria.codigo }}</li>
+                                <li><strong>Nombre:</strong> {{ categoria.nombre }}</li>
+                            </ul>
+                        </div>
+
+                        <form method="post" class="mt-4">
+                            {% csrf_token %}
+                            <div class="d-flex gap-2 justify-content-center">
+                                <a href="{% url 'activos:lista_categorias' %}" class="btn btn-light">
+                                    <i class="ri-close-line"></i> Cancelar
+                                </a>
+                                <button type="submit" class="btn btn-danger">
+                                    <i class="ri-delete-bin-line"></i> Sí, Eliminar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,122 @@
+# Pre-commit hooks para colegio-app
+# Instalación: pip install pre-commit
+# Activar: pre-commit install
+# Ejecutar manualmente: pre-commit run --all-files
+
+repos:
+  # Hooks generales
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace
+        name: Eliminar espacios al final de líneas
+      - id: end-of-file-fixer
+        name: Asegurar nueva línea al final de archivos
+      - id: check-yaml
+        name: Validar archivos YAML
+      - id: check-json
+        name: Validar archivos JSON
+      - id: check-added-large-files
+        name: Prevenir archivos grandes (>500KB)
+        args: ['--maxkb=500']
+      - id: check-merge-conflict
+        name: Detectar marcadores de merge conflict
+      - id: check-case-conflict
+        name: Detectar conflictos de mayúsculas/minúsculas
+      - id: detect-private-key
+        name: Detectar claves privadas
+      - id: mixed-line-ending
+        name: Detectar finales de línea mixtos
+
+  # Black - Formateo de código Python
+  - repo: https://github.com/psf/black
+    rev: 25.1.0
+    hooks:
+      - id: black
+        name: Formatear código con Black
+        language_version: python3.13
+        args: ['--line-length=120']
+
+  # isort - Ordenar imports
+  - repo: https://github.com/pycqa/isort
+    rev: 5.13.2
+    hooks:
+      - id: isort
+        name: Ordenar imports con isort
+        args: ['--profile=black', '--line-length=120']
+
+  # Flake8 - Linting
+  - repo: https://github.com/pycqa/flake8
+    rev: 7.1.1
+    hooks:
+      - id: flake8
+        name: Lint con Flake8
+        args: ['--max-line-length=120', '--extend-ignore=E203,W503']
+        additional_dependencies: [flake8-docstrings, flake8-django, flake8-bugbear]
+
+  # Django-specific checks
+  - repo: local
+    hooks:
+      - id: django-check
+        name: Django check
+        entry: python manage.py check
+        language: system
+        pass_filenames: false
+        always_run: true
+
+      - id: django-makemigrations-check
+        name: Check for missing migrations
+        entry: python manage.py makemigrations --check --dry-run
+        language: system
+        pass_filenames: false
+        files: models\.py$
+
+  # Pytest - Ejecutar tests
+  - repo: local
+    hooks:
+      - id: pytest-check
+        name: pytest - módulo compras
+        entry: pytest apps/compras/tests/ -v --tb=short
+        language: system
+        pass_filenames: false
+        always_run: true
+        stages: [commit]
+
+      - id: pytest-cov
+        name: pytest con cobertura
+        entry: pytest apps/compras/tests/ --cov=apps.compras --cov-fail-under=80 --cov-report=term-missing
+        language: system
+        pass_filenames: false
+        stages: [push]
+
+  # Security checks
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.7.10
+    hooks:
+      - id: bandit
+        name: Bandit security check
+        args: ['-c', 'pyproject.toml']
+        additional_dependencies: ['bandit[toml]']
+
+  # Documentación
+  - repo: https://github.com/pycqa/pydocstyle
+    rev: 6.3.0
+    hooks:
+      - id: pydocstyle
+        name: Verificar docstrings
+        args: ['--convention=google']
+        exclude: 'migrations/|tests/|__pycache__'
+
+# Configuración de exclusiones globales
+exclude: |
+  (?x)^(
+      migrations/.*|
+      __pycache__/.*|
+      \.git/.*|
+      \.venv/.*|
+      venv/.*|
+      staticfiles/.*|
+      media/.*|
+      \.pytest_cache/.*|
+      htmlcov/.*
+  )$

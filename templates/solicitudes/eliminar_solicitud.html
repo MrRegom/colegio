@@ -1,0 +1,64 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block title %}{{ titulo }}{% endblock %}
+
+{% block content %}
+<div class="page-content">
+    <div class="container-fluid">
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0">{{ titulo }}</h4>
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="{% url 'dashboard_analytics' %}">Dashboard</a></li>
+                            <li class="breadcrumb-item"><a href="{% url 'solicitudes:lista_solicitudes' %}">Solicitudes</a></li>
+                            <li class="breadcrumb-item active">Eliminar</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <div class="text-danger mb-4">
+                            <i class="ri-delete-bin-line" style="font-size: 72px;"></i>
+                        </div>
+                        <h4 class="mb-3">¿Está seguro de eliminar esta solicitud?</h4>
+                        <p class="text-muted">Esta acción no se puede deshacer. Se eliminará la solicitud y todos sus detalles asociados.</p>
+
+                        <div class="alert alert-warning text-start mt-4">
+                            <h6 class="mb-2">Información de la Solicitud:</h6>
+                            <ul class="mb-0">
+                                <li><strong>Número:</strong> {{ solicitud.numero }}</li>
+                                <li><strong>Tipo:</strong> {{ solicitud.tipo_solicitud.nombre }}</li>
+                                <li><strong>Estado:</strong> {{ solicitud.estado.nombre }}</li>
+                                <li><strong>Fecha:</strong> {{ solicitud.fecha_solicitud|date:"d/m/Y H:i" }}</li>
+                            </ul>
+                        </div>
+
+                        <form method="post" class="mt-4">
+                            {% csrf_token %}
+                            <div class="d-flex gap-2 justify-content-center">
+                                <a href="{% url 'solicitudes:detalle_solicitud' solicitud.pk %}" class="btn btn-light">
+                                    <i class="ri-close-line"></i> Cancelar
+                                </a>
+                                <button type="submit" class="btn btn-danger">
+                                    <i class="ri-delete-bin-line"></i> Sí, Eliminar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

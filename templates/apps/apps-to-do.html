@@ -1,0 +1,448 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block title %} To Do {% endblock title %} 
+
+{% block extra_css %}
+    <!-- Dragula css -->
+    <link rel="stylesheet" href="{% static 'libs/dragula/dragula.min.css' %}" />
+{% endblock extra_css %}
+
+{% block main_title %}
+
+<div class="page-title-box">
+    <div class="row align-items-center">
+        <div class="col">
+
+            {% block pagetitle %}
+                {% include "partials/page-title.html" with pagetitle="Apps" title="To Do" %}
+            {% endblock pagetitle %}
+
+        </div><!--end col-->
+        <div class="col-auto ms-auto">
+            <div class="d-flex flex-wrap gap-2">
+                <a href="{% url 'pages:pricing' %}" class="btn btn-secondary">Upgrade</a>
+                <div class="dropdown">
+                    <a href="#!" class="d-inline-block" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="https://img.themesbrand.com/judia/users/avatar-7.jpg" alt="" height="39.19" width="39.19" class="rounded-circle">
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end p-1">
+                        <li><a class="dropdown-item" href="{% url 'pages:pricing' %}">Profile</a></li>
+                        <li><a class="dropdown-item" href="{% url 'pages:pricing' %}">My Settings</a></li>
+                        <li><a class="dropdown-item" href="{% url 'pages:privacy_policy' %}">Privacy Policy</a></li>
+                        <li><a class="dropdown-item" href="{% url 'pages:authentication.logout' %}">Log Out</a></li>
+                    </ul>
+                </div>
+                {% block customizer %}
+                    {% include "partials/customizer.html" %}
+                {% endblock customizer %}
+            </div>
+        </div><!--end col-->
+    </div><!--end row-->
+</div>
+{% endblock main_title %}
+
+{% block content %}
+
+                    <div class="row">
+                        <div class="col-xxl-3 todo-sidebar">
+                            <div class="card">
+                                <div class="card-body border-bottom">
+                                    <ul class="list-unstyled todo-menu vstack gap-1 mb-0">
+                                        <li>
+                                            <a href="#!" class="active"><i class="bi bi-house-door align-baseline me-1"></i> Home</a>
+                                        </li>
+                                        <li>
+                                            <a href="#!"><i class="bi bi-list-check align-baseline me-1"></i> My Task</a>
+                                        </li>
+                                        <li>
+                                            <a href="#!"><i class="bi bi-bell align-baseline me-1"></i> Inbox <span class="badge bg-danger rounded-circle align-baseline">5</span></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center gap-2 mb-2">
+                                        <h6 class="flex-grow-1 mb-0">Insights</h6>
+                                        <div class="flex-shrink-0">
+                                            <button class="btn btn-subtle-primary btn-icon btn-sm" data-bs-target="#createInsightstModal" data-bs-toggle="modal"><i class="bi bi-plus-circle"></i></button>
+                                        </div>
+                                    </div>
+                                    <ul class="list-unstyled vstack gap-1 todo-menu" id="Insightslist-data">
+                                        <li>
+                                            <a href="#!"><i class="bi bi-bezier align-baseline me-1"></i> Reporting</a>
+                                        </li>
+                                        <li>
+                                            <a href="#!"><i class="bi bi-boxes align-baseline me-1"></i> General</a>
+                                        </li>
+                                        <li>
+                                            <a href="#!"><i class="bi bi-gem align-baseline me-1"></i> Upcoming Project</a>
+                                        </li>
+                                        <li>
+                                            <a href="#!"><i class="bi bi-puzzle align-baseline me-1"></i> Random</a>
+                                        </li>
+                                    </ul>
+                                    <div class="d-flex align-items-center gap-2 mb-2">
+                                        <h6 class="flex-grow-1 mb-0">Projects</h6>
+                                        <div class="flex-shrink-0">
+                                            <button class="btn btn-subtle-primary btn-icon btn-sm" data-bs-target="#createProjectModal" data-bs-toggle="modal"><i class="bi bi-plus-circle"></i></button>
+                                        </div>
+                                    </div>
+                                    <ul class="list-unstyled vstack gap-1 todo-menu" id="projectlist-data">
+                                        <li>
+                                            <a href="#!"><i class="bi bi-bezier align-baseline me-1"></i> Steex</a>
+                                        </li>
+                                        <li>
+                                            <a href="#!"><i class="bi bi-boxes align-baseline me-1"></i> Judia</a>
+                                        </li>
+                                        <li>
+                                            <a href="#!"><i class="bi bi-gem align-baseline me-1"></i> Velzon</a>
+                                        </li>
+                                        <li>
+                                            <a href="#!"><i class="bi bi-puzzle align-baseline me-1"></i> Hybrix</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div><!--end col-->
+                        <div class="col-xxl">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="d-flex gap-2 align-items-center">
+                                        <div class="avatar-sm flex-shrink-0">
+                                            <div class="avatar-title bg-secondary-subtle text-secondary rounded fs-3">
+                                                <i class="bi bi-android"></i>
+                                            </div>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <h5 class="fs-lg">Judia HTML</h5>
+                                            <p class="text-muted mb-0">05 June, 2023</p>
+                                        </div>
+                                        <div class="avatar-group flex-nowrap flex-shrink-0">
+                                            <a href="javascript: void(0);" class="avatar-group-item" data-img="https://img.themesbrand.com/judia/users/avatar-6.jpg" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Marian Angel">
+                                                <img src="https://img.themesbrand.com/judia/users/avatar-6.jpg" alt="" class="rounded-circle avatar-xxs">
+                                            </a>
+                                            <a href="javascript: void(0);" class="avatar-group-item" data-img="https://img.themesbrand.com/judia/users/avatar-7.jpg" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Johnnie Walton">
+                                                <img src="https://img.themesbrand.com/judia/users/avatar-7.jpg" alt="" class="rounded-circle avatar-xxs">
+                                            </a>
+                                            <a href="javascript: void(0);" class="avatar-group-item" data-img="https://img.themesbrand.com/judia/users/avatar-8.jpg" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Donna Weston">
+                                                <img src="https://img.themesbrand.com/judia/users/avatar-8.jpg" alt="" class="rounded-circle avatar-xxs">
+                                            </a>
+                                        </div>
+                                        <div class="flex-shrink-0">
+                                            <button class="btn btn-subtle-primary">Share <i class="bi bi-share align-baseline ms-1"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="p-3 bg-light rounded mb-4">
+                                        <div class="row g-2">
+                                            <div class="col-lg-auto">
+                                                <select class="form-control" data-choices data-choices-search-false name="choices-select-sortList" id="choices-select-sortlist">
+                                                    <option value="">Sort</option>
+                                                    <option value="By ID">By ID</option>
+                                                    <option value="By Name">By Name</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-auto">
+                                                <select class="form-control" data-choices data-choices-search-false name="choices-select-status" id="choices-select-status">
+                                                    <option value="">All Tasks</option>
+                                                    <option value="Completed">Completed</option>
+                                                    <option value="Inprogress">Inprogress</option>
+                                                    <option value="Pending">Pending</option>
+                                                    <option value="New">New</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-lg">
+                                                <div class="search-box">
+                                                    <input type="text" id="searchTaskList" class="form-control search" placeholder="Search task name">
+                                                    <i class="ri-search-line search-icon"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-auto">
+                                                <button class="btn btn-primary createTask" type="button" data-bs-toggle="modal" data-bs-target="#createTask">
+                                                    <i class="ri-add-fill align-bottom"></i> Add Tasks
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="todo-content position-relative px-4 mx-n4" id="todo-content">
+                                        <div class="todo-task" id="todo-task">
+                                            <div class="table-responsive">
+                                                <table class="table align-middle position-relative table-nowrap">
+                                                    <thead class="table-active">
+                                                        <tr>
+                                                            <th scope="col">Task Name</th>
+                                                            <th scope="col">Assigned</th>
+                                                            <th scope="col">Due Date</th>
+                                                            <th scope="col">Status</th>
+                                                            <th scope="col">Priority</th>
+                                                            <th scope="col">Action</th>
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody id="task-list"></tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div id="elmLoader" class="text-center">
+                                            <div class="spinner-border text-primary avatar-sm" role="status">
+                                                <span class="visually-hidden">Loading...</span>
+                                            </div>
+                                        </div>
+                                        <div class="py-4 mt-4 text-center" id="noresult" style="display: none;">
+                                            <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="loop" colors="primary:#405189,secondary:#0ab39c" style="width:72px;height:72px"></lord-icon>
+                                            <h5 class="mt-4">Sorry! No Result Found</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!--end row-->
+{% endblock content %}
+    
+{% block extra_content %}
+
+    <!-- Start createInsightstModal Modal -->
+    <div class="modal fade zoomIn" id="createInsightstModal" tabindex="-1" aria-labelledby="createInsightstModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0">
+                <div class="modal-header p-3 bg-success-subtle">
+                    <h5 class="modal-title" id="createInsightstModalLabel">Create Project</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" id="addInsightstBtn-close" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form autocomplete="off" class="needs-validation createInsights-form" novalidate>
+                        <div class="mb-4">
+                            <label for="insightsname-input" class="form-label">Project Name</label>
+                            <input type="text" class="form-control" id="insightsname-input" autocomplete="off" placeholder="Enter project name" required>
+                            <div class="invalid-feedback">Please enter a project name</div>
+                            <input type="hidden" class="form-control" id="insightsid-input" value="" placeholder="Enter project name">
+                        </div>
+                        <div class="hstack gap-2 justify-content-end">
+                            <button type="button" class="btn btn-ghost-danger" data-bs-dismiss="modal"><i class="ri-close-line align-bottom"></i> Close</button>
+                            <button type="submit" class="btn btn-primary" id="addNewProject">Add Project</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- end modal-dialog -->
+    </div>
+
+        <!-- Start Create Project Modal -->
+        <div class="modal fade zoomIn" id="createProjectModal" tabindex="-1" aria-labelledby="createProjectModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content border-0">
+                    <div class="modal-header p-3 bg-success-subtle">
+                        <h5 class="modal-title" id="createProjectModalLabel">Create Project</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" id="addProjectBtn-close" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form autocomplete="off" class="needs-validation createProject-form" novalidate>
+                            <div class="mb-4">
+                                <label for="projectname-input" class="form-label">Project Name</label>
+                                <input type="text" class="form-control" id="projectname-input" autocomplete="off" placeholder="Enter project name" required>
+                                <div class="invalid-feedback">Please enter a project name</div>
+                                <input type="hidden" class="form-control" id="projectid-input" value="" placeholder="Enter project name">
+                            </div>
+                            <div class="hstack gap-2 justify-content-end">
+                                <button type="button" class="btn btn-ghost-danger" data-bs-dismiss="modal"><i class="ri-close-line align-bottom"></i> Close</button>
+                                <button type="submit" class="btn btn-primary" id="addNewProject">Add Project</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- end modal-dialog -->
+        </div>
+        <!-- End Create Project Modal -->
+
+        <!-- Modal -->
+        <div class="modal fade" id="createTask" tabindex="-1" aria-labelledby="createTaskLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content border-0">
+                    <div class="modal-header p-3 bg-success-subtle">
+                        <h5 class="modal-title" id="createTaskLabel">Create Task</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" id="createTaskBtn-close" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="task-error-msg" class="alert alert-danger py-2" style="display: none;"></div>
+                        <form autocomplete="off" action="" id="creattask-form">
+                            <input type="hidden" id="taskid-input" class="form-control">
+                            <div class="mb-3">
+                                <label for="task-title-input" class="form-label">Task Title</label>
+                                <input type="text" id="task-title-input" class="form-control" placeholder="Enter task title">
+                            </div>
+                            <div class="mb-3 position-relative">
+                                <label for="task-assign-input" class="form-label">Assigned To</label>
+
+                                <div class="avatar-group justify-content-center" id="assignee-member"></div>
+                                <div class="select-element">
+                                    <button class="btn btn-light w-100 d-flex justify-content-between" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                                        <span>Assigned To<b id="total-assignee" class="mx-1">0</b>Members</span> <i class="bi bi-chevron-down"></i>
+                                    </button>
+                                    <div class="dropdown-menu w-100">
+                                        <div data-simplebar style="max-height: 141px">
+                                            <ul class="list-unstyled mb-0">
+                                                <li>
+                                                    <a class="dropdown-item d-flex align-items-center" href="#">
+                                                        <div class="avatar-xxs flex-shrink-0 me-2">
+                                                            <img src="https://img.themesbrand.com/judia/users/avatar-2.jpg" alt="" class="img-fluid rounded-circle" />
+                                                        </div>
+                                                        <div class="flex-grow-1">James Forbes</div>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item d-flex align-items-center" href="#">
+                                                        <div class="avatar-xxs flex-shrink-0 me-2">
+                                                            <img src="https://img.themesbrand.com/judia/users/avatar-3.jpg" alt="" class="img-fluid rounded-circle" />
+                                                        </div>
+                                                        <div class="flex-grow-1">John Robles</div>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item d-flex align-items-center" href="#">
+                                                        <div class="avatar-xxs flex-shrink-0 me-2">
+                                                            <img src="https://img.themesbrand.com/judia/users/avatar-4.jpg" alt="" class="img-fluid rounded-circle" />
+                                                        </div>
+                                                        <div class="flex-grow-1">Mary Gant</div>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item d-flex align-items-center" href="#">
+                                                        <div class="avatar-xxs flex-shrink-0 me-2">
+                                                            <img src="https://img.themesbrand.com/judia/users/avatar-1.jpg" alt="" class="img-fluid rounded-circle" />
+                                                        </div>
+                                                        <div class="flex-grow-1">Curtis Saenz</div>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item d-flex align-items-center" href="#">
+                                                        <div class="avatar-xxs flex-shrink-0 me-2">
+                                                            <img src="https://img.themesbrand.com/judia/users/avatar-5.jpg" alt="" class="img-fluid rounded-circle" />
+                                                        </div>
+                                                        <div class="flex-grow-1">Virgie Price</div>
+                                                    </a>
+                                                </li>
+
+                                                <li>
+                                                    <a class="dropdown-item d-flex align-items-center" href="#">
+                                                        <div class="avatar-xxs flex-shrink-0 me-2">
+                                                            <img src="https://img.themesbrand.com/judia/users/avatar-10.jpg" alt="" class="img-fluid rounded-circle" />
+                                                        </div>
+                                                        <div class="flex-grow-1">Anthony Mills</div>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item d-flex align-items-center" href="#">
+                                                        <div class="avatar-xxs flex-shrink-0 me-2">
+                                                            <img src="https://img.themesbrand.com/judia/users/avatar-6.jpg" alt="" class="img-fluid rounded-circle" />
+                                                        </div>
+                                                        <div class="flex-grow-1">Marian Angel</div>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item d-flex align-items-center" href="#">
+                                                        <div class="avatar-xxs flex-shrink-0 me-2">
+                                                            <img src="https://img.themesbrand.com/judia/users/avatar-7.jpg" alt="" class="img-fluid rounded-circle" />
+                                                        </div>
+                                                        <div class="flex-grow-1">Johnnie Walton</div>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item d-flex align-items-center" href="#">
+                                                        <div class="avatar-xxs flex-shrink-0 me-2">
+                                                            <img src="https://img.themesbrand.com/judia/users/avatar-8.jpg" alt="" class="img-fluid rounded-circle" />
+                                                        </div>
+                                                        <div class="flex-grow-1">Donna Weston</div>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item d-flex align-items-center" href="#">
+                                                        <div class="avatar-xxs flex-shrink-0 me-2">
+                                                            <img src="https://img.themesbrand.com/judia/users/avatar-9.jpg" alt="" class="img-fluid rounded-circle" />
+                                                        </div>
+                                                        <div class="flex-grow-1">Diego Norris</div>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row g-4 mb-3">
+                                <div class="col-lg-6">
+                                    <label for="task-status" class="form-label">Status</label>
+                                    <select class="form-control" data-choices data-choices-search-false id="task-status-input">
+                                        <option value="">Status</option>
+                                        <option value="New" selected>New</option>
+                                        <option value="Inprogress">Inprogress</option>
+                                        <option value="Pending">Pending</option>
+                                        <option value="Completed">Completed</option>
+                                    </select>
+                                </div>
+                                <!--end col-->
+                                <div class="col-lg-6">
+                                    <label for="priority-field" class="form-label">Priority</label>
+                                    <select class="form-control" data-choices data-choices-search-false id="priority-field">
+                                        <option value="">Priority</option>
+                                        <option value="High">High</option>
+                                        <option value="Medium">Medium</option>
+                                        <option value="Low">Low</option>
+                                    </select>
+                                </div>
+                                <!--end col-->
+                            </div><!--end row-->
+                            <div class="mb-4">
+                                <label for="task-duedate-input" class="form-label">Due Date:</label>
+                                <input type="date" id="task-duedate-input" class="form-control" placeholder="Due date">
+                            </div>
+
+                            <div class="hstack gap-2 justify-content-end">
+                                <button type="button" class="btn btn-ghost-danger" data-bs-dismiss="modal"><i class="ri-close-fill align-bottom"></i> Close</button>
+                                <button type="submit" class="btn btn-primary" id="addNewTodo">Add Task</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end create task-->
+
+        <!-- removeFileItemModal -->
+        <div id="removeTaskItemModal" class="modal fade zoomIn" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-removetodomodal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mt-2 text-center">
+                            <i class="bi bi-trash fs-1 text-danger"></i>
+                            <div class="mt-4 pt-2 mx-4 mx-sm-5">
+                                <h4>Are you sure ?</h4>
+                                <p class="text-muted mx-4 mb-0">Are you sure you want to remove this task ?</p>
+                            </div>
+                        </div>
+                        <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
+                            <button type="button" class="btn w-sm btn-light" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn w-sm btn-danger" id="remove-todoitem">Yes, Delete It!</button>
+                        </div>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        <!--end delete modal -->
+
+{% endblock extra_content %}
+
+{% block extra_js %}
+
+    <!-- Dragula init js -->
+    <script src="{% static 'libs/dragula/dragula.min.js' %}"></script>
+    <script src="{% static 'libs/dom-autoscroller/dom-autoscroller.min.js' %}"></script>
+
+    <!-- Todo init js -->
+    <script src="{% static 'js/pages/todo.init.js' %}"></script>
+
+{% endblock extra_js %}
+ 

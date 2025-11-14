@@ -1,0 +1,81 @@
+//
+// _authentication.scss
+//
+
+.auth-card {
+    background-color: #302385;
+}
+
+.signin-other-title {
+    &::after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 1px;
+        left: 0;
+        right: 0;
+        border-top: 1px dashed var(--#{$prefix}border-color);
+        top: 10px;
+    }
+
+    .title {
+        display: inline-block;
+        position: relative;
+        z-index: 2;
+        background-color: var(--#{$prefix}secondary-bg);
+        padding: 2px 16px;
+    }
+}
+
+.auth-img {
+    .avatar-xs {
+        position: absolute;
+
+        &:first-child {
+            top: 35%;
+            left: 20px;
+        }
+    }
+}
+
+// auth-pass-inputgroup
+.auth-pass-inputgroup {
+    input[type="text"]+.btn .ri-eye-fill {
+        &:before {
+            content: "\ecb6";
+        }
+    }
+}
+
+//passowrd validations 
+#password-contain {
+    display: none;
+
+    p {
+        padding-left: 13px;
+
+        &.valid {
+            color: $success;
+
+            &::before {
+                position: relative;
+                left: -8px;
+                content: "✔";
+            }
+        }
+
+        &.invalid {
+            color: $danger;
+
+            &::before {
+                position: relative;
+                left: -8px;
+                content: "✖";
+            }
+        }
+    }
+}
+
+.password-addon {
+    z-index: 5;
+}

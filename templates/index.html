@@ -1,0 +1,791 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block title %} Dashboard {% endblock title %} 
+
+{% block extra_css %}
+
+    <!--popper y jquery -->
+    
+    <script src="{% static 'lib/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'lib/popper/popper.min.js' %}"></script>
+
+    <!-- jsvectormap css -->
+    <link href="{% static 'libs/jsvectormap/jsvectormap.min.css' %}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="@gobdigital-cl/dist/css/gob.cl.css" type="text/css"/>
+    <script src="@gobdigital-cl/dist/js/gob.cl.js"></script>
+
+    <style>
+        /* Cards del dashboard impresionantes - más compactos verticalmente */
+        .dashboard-stat-card {
+            border-radius: 16px;
+            border: 2px solid #e1e5e9;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.06);
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            animation: cardFadeInUp 0.6s ease-out forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .dashboard-stat-card .card-body {
+            padding: 1rem 1.25rem !important;
+        }
+        
+        .dashboard-stat-card:nth-child(1) { animation-delay: 0.1s; }
+        .dashboard-stat-card:nth-child(2) { animation-delay: 0.2s; }
+        .dashboard-stat-card:nth-child(3) { animation-delay: 0.3s; }
+        .dashboard-stat-card:nth-child(4) { animation-delay: 0.4s; }
+        
+        @keyframes cardFadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .dashboard-stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, transparent 0%, currentColor 50%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .dashboard-stat-card:hover::before {
+            opacity: 0.6;
+        }
+        
+        .dashboard-stat-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.15), 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-color: currentColor;
+        }
+        
+        .dashboard-stat-primary {
+            color: #405189;
+        }
+        
+        .dashboard-stat-success {
+            color: #0ab39c;
+        }
+        
+        .dashboard-stat-info {
+            color: #299cdb;
+        }
+        
+        .dashboard-stat-warning {
+            color: #f7b84b;
+        }
+        
+        .dashboard-stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            opacity: 0.9;
+            transition: all 0.3s ease;
+        }
+        
+        /* Colores institucionales para los iconos */
+        .dashboard-stat-primary .dashboard-stat-icon {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: #ffffff;
+        }
+        
+        .dashboard-stat-success .dashboard-stat-icon {
+            background: linear-gradient(135deg, #0ab39c 0%, #10d9c4 100%);
+            color: #ffffff;
+        }
+        
+        .dashboard-stat-info .dashboard-stat-icon {
+            background: linear-gradient(135deg, #299cdb 0%, #4db8f0 100%);
+            color: #ffffff;
+        }
+        
+        .dashboard-stat-warning .dashboard-stat-icon {
+            background: linear-gradient(135deg, #D4AF37 0%, #f4d03f 100%);
+            color: #1e3a8a;
+        }
+        
+        .dashboard-stat-card:hover .dashboard-stat-icon {
+            transform: scale(1.1) rotate(5deg);
+            opacity: 1;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .dashboard-stat-trend {
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.25rem 0.5rem;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .dashboard-stat-value {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, currentColor 0%, rgba(0, 0, 0, 0.3) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+            margin-bottom: 0.5rem !important;
+        }
+        
+        .dashboard-stat-card:hover .dashboard-stat-value {
+            background: linear-gradient(135deg, currentColor 0%, rgba(0, 0, 0, 0.5) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Efecto de brillo al hover */
+        .dashboard-stat-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s ease;
+            opacity: 0;
+            z-index: 1;
+        }
+        
+        .dashboard-stat-card:hover::after {
+            opacity: 1;
+            animation: shine 0.8s ease;
+        }
+        
+        @keyframes shine {
+            0% {
+                transform: translateX(-100%) translateY(-100%) rotate(45deg);
+            }
+            100% {
+                transform: translateX(100%) translateY(100%) rotate(45deg);
+            }
+        }
+        
+        /* Mejorar gráficos sparkline - más compactos */
+        .dashboard-stat-card .apex-charts {
+            margin-top: 0.5rem;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+            height: 50px !important;
+        }
+        
+        .dashboard-stat-card:hover .apex-charts {
+            opacity: 1;
+        }
+        
+        /* Reducir espacio entre elementos */
+        .dashboard-stat-card .d-flex.justify-content-between {
+            margin-bottom: 0.75rem !important;
+        }
+    </style>
+
+{% endblock extra_css %}
+
+{% block main_title %}
+
+                <div class="page-title-box">
+                    <div class="row align-items-center gy-3">
+                        <div class="col-md">
+                            <h3 class="page-title text-capitalize fw-medium fs-3xl"><span style="color: #D4AF37;">Bienvenido</span> <b style="color: #D4AF37;">{{ user.get_full_name|default:user.username }}</b> 👋</h3>
+                            <p class="mb-0 page-sub-title">Sistema de gestión de inventario del colegio.</p>
+                        </div>
+                        <div class="col-md-auto ms-auto">
+                        {% block customizer %}
+                            {% include "partials/customizer.html" %}
+                        {% endblock customizer %}
+                        </div>
+                    </div>
+                </div>
+{% endblock main_title %}
+
+{% block content %}     
+
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <div class="card dashboard-stat-card dashboard-stat-primary">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-start mb-3">
+                                        <div class="dashboard-stat-icon">
+                                            <i class="ri-archive-2-line"></i>
+                                        </div>
+                                        <div class="dashboard-stat-trend text-success">
+                                            <i class="ph ph-trend-up fs-sm align-middle me-1"></i> {% if articulos_change >= 0 %}+{% endif %}{{ articulos_change|floatformat:1 }} %
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <p class="text-uppercase fw-bold text-muted text-truncate fs-xs mb-1" style="letter-spacing: 0.5px; font-size: 0.7rem;">Total Artículos</p>
+                                        <h2 class="fw-bold mb-2 dashboard-stat-value">
+                                            <span class="counter-value" data-target="{{ total_articulos }}">0</span>
+                                        </h2>
+                                    </div>
+                                    <div id="total_articulos" data-colors='["--tb-primary"]' class="apex-charts" dir="ltr"></div>
+                                </div>
+                            </div>
+                        </div><!--end col-->
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <div class="card dashboard-stat-card dashboard-stat-warning">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-start mb-3">
+                                        <div class="dashboard-stat-icon">
+                                            <i class="ri-file-text-line"></i>
+                                        </div>
+                                        <div class="dashboard-stat-trend {% if solicitudes_change >= 0 %}text-success{% else %}text-danger{% endif %}">
+                                            <i class="ph ph-trend-{% if solicitudes_change >= 0 %}up{% else %}down{% endif %} fs-sm align-middle me-1"></i> {% if solicitudes_change >= 0 %}+{% endif %}{{ solicitudes_change|floatformat:1 }} %
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <p class="text-uppercase fw-bold text-muted text-truncate fs-xs mb-1" style="letter-spacing: 0.5px; font-size: 0.7rem;">Solicitudes Pendientes</p>
+                                        <h2 class="fw-bold mb-2 dashboard-stat-value">
+                                            <span class="counter-value" data-target="{{ solicitudes_pendientes }}">0</span>
+                                        </h2>
+                                    </div>
+                                    <div id="solicitudes_pendientes" data-colors='["--tb-warning"]' class="apex-charts" dir="ltr"></div>
+                                </div>
+                            </div>
+                        </div><!--end col-->
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <div class="card dashboard-stat-card dashboard-stat-success">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-start mb-3">
+                                        <div class="dashboard-stat-icon">
+                                            <i class="ri-archive-line"></i>
+                                        </div>
+                                        <div class="dashboard-stat-trend text-success">
+                                            <i class="ph ph-trend-up fs-sm align-middle me-1"></i> {% if stock_change >= 0 %}+{% endif %}{{ stock_change|floatformat:1 }} %
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <p class="text-uppercase fw-bold text-muted text-truncate fs-xs mb-1" style="letter-spacing: 0.5px; font-size: 0.7rem;">Stock Total</p>
+                                        <h2 class="fw-bold mb-2 dashboard-stat-value">
+                                            <span class="counter-value" data-target="{{ stock_total }}">0</span>
+                                        </h2>
+                                    </div>
+                                    <div id="stock_total" data-colors='["--tb-success"]' class="apex-charts" dir="ltr"></div>
+                                </div>
+                            </div>
+                        </div><!--end col-->
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <div class="card dashboard-stat-card dashboard-stat-info">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-start mb-3">
+                                        <div class="dashboard-stat-icon">
+                                            <i class="ri-building-line"></i>
+                                        </div>
+                                        <div class="dashboard-stat-trend text-success">
+                                            <i class="ph ph-trend-up fs-sm align-middle me-1"></i> {% if activos_change >= 0 %}+{% endif %}{{ activos_change|floatformat:1 }} %
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <p class="text-uppercase fw-bold text-muted text-truncate fs-xs mb-1" style="letter-spacing: 0.5px; font-size: 0.7rem;">Activos Registrados</p>
+                                        <h2 class="fw-bold mb-2 dashboard-stat-value">
+                                            <span class="counter-value" data-target="{{ total_activos }}">0</span>
+                                        </h2>
+                                    </div>
+                                    <div id="total_activos" data-colors='["--tb-info"]' class="apex-charts" dir="ltr"></div>
+                                </div>
+                            </div>
+                        </div><!--end col-->
+                    </div><!--end row-->
+
+                    <div class="row">
+                        <div class="col-xl-8">
+                            <div class="card" id="chart">
+                                <div class="card-header border-0 align-items-center d-flex">
+                                    <h4 class="card-title mb-0 flex-grow-1">Artículos Más Utilizados</h4>
+                                </div><!-- end card header -->
+                                <div class="card-body ps-1">
+                                    <div>
+                                        <div id="articulos_mas_usados" data-colors='["--tb-primary", "--tb-info"]' class="apex-charts" dir="ltr"></div>
+                                    </div>
+                                </div><!-- end card body -->
+                            </div><!-- end card -->
+                        </div><!-- end col -->
+                        <div class="col-xl-4">
+                                    <div class="card">
+                                <div class="card-header align-items-center d-flex">
+                                    <h4 class="card-title mb-0 flex-grow-1">Artículos Stock Bajo</h4>
+                                            <div class="flex-shrink-0">
+                                        <a href="{% url 'bodega:articulo_lista' %}" class="btn btn-sm btn-subtle-primary">Ver Todos</a>
+                                                    </div>
+                                </div><!-- end card header -->
+                                        <div class="card-body">
+                                    <div class="table-responsive table-card">
+                                        <table class="table table-hover table-centered align-middle table-nowrap mb-0">
+                                            <tbody>
+                                                {% for articulo in articulos_stock_bajo %}
+                                                <tr>
+                                                    <td>
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="avatar-sm me-2">
+                                                            <div class="avatar-title bg-light rounded">
+                                                                    <i class="ri-box-3-line text-primary"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                                <h6 class="mb-1"><a href="{% url 'bodega:articulo_detalle' articulo.pk %}" class="text-reset">{{ articulo.nombre|truncatewords:3 }}</a></h6>
+                                                                <span class="text-muted">{{ articulo.codigo }}</span>
+                                                                </div>
+                                                            </div>
+                                                    </td>
+                                                    <td>
+                                                        <h6 class="mb-1">
+                                                            <span class="badge {% if articulo.stock_actual <= 0 %}bg-danger-subtle text-danger{% elif articulo.stock_actual < articulo.stock_minimo %}bg-warning-subtle text-warning{% else %}bg-success-subtle text-success{% endif %}">
+                                                                {{ articulo.stock_actual|floatformat:0 }}
+                                                            </span>
+                                                        </h6>
+                                                        <span class="text-muted">Stock</span>
+                                                    </td>
+                                                    <td>
+                                                        <h6 class="mb-1 text-danger">
+                                                            <span class="badge bg-danger-subtle text-danger">
+                                                                Mín: {{ articulo.stock_minimo|floatformat:0 }}
+                                                            </span>
+                                                        </h6>
+                                                        <span class="text-muted">Mínimo</span>
+                                                    </td>
+                                                </tr>
+                                                {% empty %}
+                                                <tr>
+                                                    <td colspan="3" class="text-center text-muted py-4">
+                                                        <i class="ri-checkbox-circle-line fs-2 text-success"></i>
+                                                        <p class="mb-0 mt-2">No hay artículos con stock bajo</p>
+                                                    </td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                                            </div>
+                                </div>
+                            </div>
+                        </div><!--end col-->
+                    </div><!--end row-->
+
+                    <!-- Últimos Productos y Top Stock -->
+                    <div class="row">
+                        <div class="col-xl-6">
+                                    <div class="card">
+                                <div class="card-header align-items-center d-flex">
+                                    <h4 class="card-title mb-0 flex-grow-1">Últimos 10 Productos</h4>
+                                    <div class="flex-shrink-0">
+                                        <a href="{% url 'bodega:articulo_lista' %}" class="btn btn-sm btn-subtle-primary">Ver Todos</a>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover table-nowrap align-middle mb-0">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th>Código</th>
+                                                    <th>Nombre</th>
+                                                    <th>Categoría</th>
+                                                    <th>Stock</th>
+                                                    <th>Fecha</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for producto in ultimos_productos %}
+                                                <tr>
+                                                    <td><span class="fw-medium">{{ producto.codigo }}</span></td>
+                                                    <td>{{ producto.nombre|truncatewords:5 }}</td>
+                                                    <td>{{ producto.categoria.nombre|default:"-" }}</td>
+                                                    <td>
+                                                        <span class="badge {% if producto.stock_actual > 0 %}bg-success-subtle text-success{% else %}bg-danger-subtle text-danger{% endif %}">
+                                                            {{ producto.stock_actual }} {% if producto.unidades_medida.all %}{{ producto.unidades_medida.first.simbolo }}{% endif %}
+                                                        </span>
+                                                    </td>
+                                                    <td>{{ producto.fecha_creacion|date:"d/m/Y" }}</td>
+                                                </tr>
+                                                {% empty %}
+                                                <tr>
+                                                    <td colspan="5" class="text-center text-muted">No hay productos registrados</td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        <div class="col-xl-6">
+                            <div class="card">
+                                <div class="card-header align-items-center d-flex">
+                                    <h4 class="card-title mb-0 flex-grow-1">Top 10 Productos por Stock</h4>
+                                    <div class="flex-shrink-0">
+                                        <a href="{% url 'bodega:articulo_lista' %}" class="btn btn-sm btn-subtle-primary">Ver Todos</a>
+                                    </div>
+                                                    </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover table-nowrap align-middle mb-0">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th>Código</th>
+                                                    <th>Nombre</th>
+                                                    <th>Categoría</th>
+                                                    <th>Stock</th>
+                                                    <th>Unidad</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for producto in productos_top_stock %}
+                                                <tr>
+                                                    <td><span class="fw-medium">{{ producto.codigo }}</span></td>
+                                                    <td>{{ producto.nombre|truncatewords:5 }}</td>
+                                                    <td>{{ producto.categoria.nombre|default:"-" }}</td>
+                                                    <td>
+                                                        <span class="badge bg-primary-subtle text-primary">
+                                                            {{ producto.stock_actual }}
+                                                        </span>
+                                                    </td>
+                                                    <td>{% if producto.unidades_medida.all %}{{ producto.unidades_medida.first.simbolo }}{% else %}-{% endif %}</td>
+                                                </tr>
+                                                {% empty %}
+                                                <tr>
+                                                    <td colspan="5" class="text-center text-muted">No hay productos registrados</td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                    <!-- Últimas Entregas y Movimientos -->
+                    <div class="row mt-3">
+                        <div class="col-xl-6">
+                            <div class="card">
+                                <div class="card-header align-items-center d-flex">
+                                    <h4 class="card-title mb-0 flex-grow-1">Últimas 10 Entregas de Inventario</h4>
+                                    <div class="flex-shrink-0">
+                                        <a href="{% url 'bodega:entrega_articulo_lista' %}" class="btn btn-sm btn-subtle-primary">Ver Todas</a>
+                                            </div>
+                                        </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover table-nowrap align-middle mb-0">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th>Número</th>
+                                                    <th>Tipo</th>
+                                                    <th>Estado</th>
+                                                    <th>Fecha</th>
+                                                    <th>Entregado Por</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for entrega in ultimas_entregas %}
+                                                <tr>
+                                                    <td><span class="fw-medium">{{ entrega.numero }}</span></td>
+                                                    <td>{{ entrega.tipo.nombre|default:"-" }}</td>
+                                                    <td>
+                                                        <span class="badge {% if entrega.estado.codigo == 'COMPLETADA' %}bg-success-subtle text-success{% elif entrega.estado.codigo == 'PENDIENTE' %}bg-warning-subtle text-warning{% else %}bg-secondary-subtle text-secondary{% endif %}">
+                                                            {{ entrega.estado.nombre|default:"-" }}
+                                                        </span>
+                                                    </td>
+                                                    <td>{{ entrega.fecha_entrega|date:"d/m/Y" }}</td>
+                                                    <td>{{ entrega.entregado_por.get_full_name|default:entrega.entregado_por.username }}</td>
+                                                </tr>
+                                                {% empty %}
+                                                <tr>
+                                                    <td colspan="5" class="text-center text-muted">No hay entregas registradas</td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </div>
+                        <div class="col-xl-6">
+                            <div class="card">
+                                <div class="card-header align-items-center d-flex">
+                                    <h4 class="card-title mb-0 flex-grow-1">Últimos 10 Movimientos</h4>
+                                    <div class="flex-shrink-0">
+                                        <a href="{% url 'bodega:movimiento_lista' %}" class="btn btn-sm btn-subtle-primary">Ver Todos</a>
+                                                                </div>
+                                                            </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover table-nowrap align-middle mb-0">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th>Artículo</th>
+                                                    <th>Tipo</th>
+                                                    <th>Operación</th>
+                                                    <th>Cantidad</th>
+                                                    <th>Usuario</th>
+                                                    <th>Fecha</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for movimiento in ultimos_movimientos %}
+                                                <tr>
+                                                    <td><span class="fw-medium">{{ movimiento.articulo.codigo }}</span></td>
+                                                    <td>{{ movimiento.tipo.nombre|default:"-" }}</td>
+                                                    <td>
+                                                        <span class="badge {% if movimiento.operacion == 'ENTRADA' %}bg-success-subtle text-success{% else %}bg-danger-subtle text-danger{% endif %}">
+                                                            {{ movimiento.operacion }}
+                                                        </span>
+                                                    </td>
+                                                    <td>{{ movimiento.cantidad }}</td>
+                                                    <td>{{ movimiento.usuario.get_full_name|default:movimiento.usuario.username }}</td>
+                                                    <td>{{ movimiento.fecha_creacion|date:"d/m/Y H:i" }}</td>
+                                                </tr>
+                                                {% empty %}
+                                                <tr>
+                                                    <td colspan="6" class="text-center text-muted">No hay movimientos registrados</td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+
+
+                    <div class="row">
+                        <div class="col-xl-4 col-lg-6">
+                            <div class="card card-height-100">
+                                <div class="card-header d-flex align-items-center">
+                                    <h5 class="card-title flex-grow-1 mb-0">Actividades Recientes</h5>
+                                    <div class="flex-shrink-0">
+                                        <a href="{% url 'reportes:dashboard' %}" class="btn btn-subtle-primary btn-sm">Ver Más <i class="ph-caret-right align-middle"></i></a>
+                                    </div>
+                                </div>
+                                <div class="card-body px-0">
+                                    <div data-simplebar class="px-3" style="max-height: 352px;">
+                                        <ul class="activity-timeline-2 list-unstyled mb-0 pt-1">
+                                            {% for actividad in actividades_recientes %}
+                                            <li>
+                                                <div class="d-flex align-items-start gap-2">
+                                                                <div class="flex-shrink-0">
+                                                        <div class="avatar-xs">
+                                                            <div class="avatar-title rounded-circle bg-{{ actividad.color }}-subtle text-{{ actividad.color }}">
+                                                                <i class="{{ actividad.icono }}"></i>
+                                                                </div>
+                                                                </div>
+                                                            </div>
+                                                    <div class="flex-grow-1">
+                                                        <h6 class="mb-1 lh-base">{{ actividad.titulo }}</h6>
+                                                        <p class="text-muted mb-1">{{ actividad.descripcion }}</p>
+                                                        <small class="text-muted">Por {{ actividad.usuario }} - {{ actividad.fecha|date:"d M Y H:i" }}</small>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            {% empty %}
+                                            <li>
+                                                <p class="text-muted text-center">No hay actividades recientes</p>
+                                            </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!--end col-->
+                    </div><!--end row-->
+
+{% endblock content %}
+
+{% block extra_js %}
+
+    <!-- apexcharts -->
+    <script src="{% static 'libs/apexcharts/apexcharts.min.js' %}"></script>
+
+    <!-- Vector map-->
+    <script src="{% static 'libs/jsvectormap/jsvectormap.min.js' %}"></script>
+    <script src="{% static 'libs/jsvectormap/maps/world-merc.js' %}"></script>
+
+    <script src="{% static 'libs/list.js/list.min.js' %}"></script>
+
+    <!-- Dashboard init -->
+    <script src="{% static 'js/pages/dashboard-ecommerce.init.js' %}"></script>
+    
+    <!-- Gráficos sparkline personalizados para el dashboard del colegio -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Función para crear gráficos sparkline
+            function createSparklineChart(elementId, data, colorVar) {
+                var colors = getChartColorsArray(elementId);
+                if (!colors || !document.getElementById(elementId)) return;
+                
+                var options = {
+                    series: [{data: data}],
+                    chart: {
+                        type: 'line',
+                        height: 70,
+                        sparkline: {enabled: true},
+                        toolbar: {show: false}
+                    },
+                    colors: colors,
+                    stroke: {
+                        curve: 'smooth',
+                        width: 2
+                    },
+                    tooltip: {
+                        fixed: {enabled: false},
+                        x: {show: false},
+                        y: {
+                            title: {
+                                formatter: function (val) {
+                                    return '';
+                                }
+                            }
+                        },
+                        marker: {show: false}
+                    }
+                };
+                
+                var chart = new ApexCharts(document.querySelector("#" + elementId), options);
+                chart.render();
+            }
+            
+            // Datos para los gráficos (simulados - se pueden mejorar con datos reales)
+            var articulosData = [24, 43, 51, 66, 49, 33, 48, 66];
+            var solicitudesData = [12, 8, 15, 20, 18, 14, 16, 22];
+            var stockData = [100, 120, 115, 130, 125, 140, 135, 150];
+            var activosData = [45, 50, 48, 55, 52, 58, 56, 60];
+            
+            // Crear gráficos
+            createSparklineChart('total_articulos', articulosData, '--tb-primary');
+            createSparklineChart('solicitudes_pendientes', solicitudesData, '--tb-warning');
+            createSparklineChart('stock_total', stockData, '--tb-success');
+            createSparklineChart('total_activos', activosData, '--tb-info');
+        });
+    </script>
+    
+    <!-- Animación de contadores -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Función para animar contadores
+            function animateCounter(element) {
+                const targetText = element.getAttribute('data-target');
+                let target;
+                
+                // Manejar números con decimales
+                if (targetText.includes('.')) {
+                    target = parseFloat(targetText);
+                } else {
+                    target = parseInt(targetText) || 0;
+                }
+                
+                const duration = 2000; // 2 segundos
+                const increment = target / (duration / 16); // 60 FPS
+                let current = 0;
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        if (targetText.includes('.')) {
+                            element.textContent = target.toFixed(2);
+                        } else {
+                            element.textContent = Math.floor(target);
+                        }
+                        clearInterval(timer);
+                    } else {
+                        if (targetText.includes('.')) {
+                            element.textContent = current.toFixed(2);
+                        } else {
+                            element.textContent = Math.floor(current);
+                        }
+                    }
+                }, 16);
+            }
+            
+            // Aplicar animación a todos los contadores con delay escalonado
+            document.querySelectorAll('.counter-value').forEach((counter, index) => {
+                setTimeout(() => {
+                    animateCounter(counter);
+                }, index * 200); // Delay de 200ms entre cada contador
+            });
+        });
+    </script>
+
+    <!-- Gráfico de Artículos Más Utilizados -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var colors = getChartColorsArray("articulos_mas_usados");
+            if (colors) {
+                var articulosNombres = {{ articulos_nombres|safe }};
+                var articulosCantidades = {{ articulos_cantidades|safe }};
+                
+                var options = {
+                    series: [{
+                        name: 'Movimientos',
+                        data: articulosCantidades
+                    }],
+                    chart: {
+                        type: 'bar',
+                        height: 300,
+                        toolbar: { show: false }
+                    },
+                    plotOptions: {
+                        bar: {
+                            horizontal: false,
+                            columnWidth: '55%',
+                            endingShape: 'rounded'
+                        }
+                    },
+                    dataLabels: {
+                        enabled: false
+                    },
+                    stroke: {
+                        show: true,
+                        width: 2,
+                        colors: ['transparent']
+                    },
+                    xaxis: {
+                        categories: articulosNombres,
+                        labels: {
+                            rotate: -45,
+                            rotateAlways: true
+                        }
+                    },
+                    yaxis: {
+                        title: {
+                            text: 'Cantidad de Movimientos'
+                        }
+                    },
+                    fill: {
+                        opacity: 1
+                    },
+                    colors: colors,
+                    tooltip: {
+                        y: {
+                            formatter: function (val) {
+                                return val + " movimientos"
+                            }
+                        }
+                    }
+                };
+                
+                var chart = new ApexCharts(document.querySelector("#articulos_mas_usados"), options);
+                chart.render();
+            }
+        });
+    </script>
+
+{% endblock extra_js %}

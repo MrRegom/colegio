@@ -1,0 +1,173 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0">{{ titulo }}</h4>
+                    <div class="page-title-right">
+                        <a href="{% url 'bodega:entrega_articulo_lista' %}" class="btn btn-secondary">
+                            <i class="ri-arrow-left-line"></i> Volver al Listado
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Información de la Entrega</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <table class="table table-borderless">
+                                    <tr>
+                                        <th width="40%">Número de Entrega:</th>
+                                        <td><strong>{{ entrega.numero }}</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Fecha de Entrega:</th>
+                                        <td>{{ entrega.fecha_entrega|date:"d/m/Y H:i" }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Tipo de Entrega:</th>
+                                        <td>{{ entrega.tipo.nombre }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Estado:</th>
+                                        <td>
+                                            <span class="badge" style="background-color: {{ entrega.estado.color }};">
+                                                {{ entrega.estado.nombre }}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Bodega de Origen:</th>
+                                        <td>{{ entrega.bodega_origen.nombre }}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-md-6">
+                                <table class="table table-borderless">
+                                    <tr>
+                                        <th width="40%">Entregado Por:</th>
+                                        <td>{{ entrega.entregado_por.get_full_name|default:entrega.entregado_por.username }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Recibido Por:</th>
+                                        <td>{{ entrega.recibido_por.get_full_name|default:entrega.recibido_por.username }}</td>
+                                    </tr>
+                                    {% if entrega.departamento_destino %}
+                                    <tr>
+                                        <th>Departamento Destino:</th>
+                                        <td>{{ entrega.departamento_destino.nombre }}</td>
+                                    </tr>
+                                    {% endif %}
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-12">
+                                <h6 class="mb-2"><strong>Motivo:</strong></h6>
+                                <p class="text-muted">{{ entrega.motivo }}</p>
+                            </div>
+                        </div>
+
+                        {% if entrega.observaciones %}
+                        <div class="row mt-2">
+                            <div class="col-12">
+                                <h6 class="mb-2"><strong>Observaciones:</strong></h6>
+                                <p class="text-muted">{{ entrega.observaciones }}</p>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="card mt-3">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Artículos Entregados</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Código</th>
+                                        <th>Artículo</th>
+                                        <th>Categoría</th>
+                                        <th>Cantidad</th>
+                                        <th>Lote</th>
+                                        <th>Observaciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for detalle in detalles %}
+                                    <tr>
+                                        <td><strong>{{ detalle.articulo.codigo }}</strong></td>
+                                        <td>{{ detalle.articulo.nombre }}</td>
+                                        <td>{{ detalle.articulo.categoria.nombre }}</td>
+                                        <td>{{ detalle.cantidad }} {% for u in detalle.articulo.unidades_medida.all %}{{ u.simbolo }}{% if not forloop.last %}, {% endif %}{% empty %}unidad{% endfor %}</td>
+                                        <td>{{ detalle.lote|default:"-" }}</td>
+                                        <td>{{ detalle.observaciones|default:"-" }}</td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="6" class="text-center text-muted">
+                                            No hay artículos en esta entrega
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mt-3">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Información de Auditoría</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <table class="table table-borderless table-sm">
+                                    <tr>
+                                        <th width="40%">Creado Por:</th>
+                                        <td>{{ entrega.usuario_creacion.get_full_name|default:entrega.usuario_creacion.username }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Fecha de Creación:</th>
+                                        <td>{{ entrega.fecha_creacion|date:"d/m/Y H:i:s" }}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-md-6">
+                                <table class="table table-borderless table-sm">
+                                    {% if entrega.usuario_actualizacion %}
+                                    <tr>
+                                        <th width="40%">Actualizado Por:</th>
+                                        <td>{{ entrega.usuario_actualizacion.get_full_name|default:entrega.usuario_actualizacion.username }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Fecha de Actualización:</th>
+                                        <td>{{ entrega.fecha_actualizacion|date:"d/m/Y H:i:s" }}</td>
+                                    </tr>
+                                    {% endif %}
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
